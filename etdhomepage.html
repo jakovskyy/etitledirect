@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>eTitleDirect — Modern Title &amp; Transaction Coordination</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ─────────────────────────────────────────────────────────
+   eTitleDirect — Modern transaction infrastructure
+   References: Stripe · Linear · Ramp · Notion
+   ───────────────────────────────────────────────────────── */
+:root{
+  --navy:        #0E1B36;
+  --navy-deep:   #081229;
+  --navy-soft:   #16264A;
+
+  --blue:        #2B6CF6;
+  --blue-deep:   #1F56D6;
+  --blue-soft:   #EAF1FF;
+  --blue-line:   #C2D6FB;
+  --blue-ink:    #1B4FD1;
+
+  --green:       #14B24C;
+  --green-bright:#2BD06A;
+  --green-soft:  #E6F9EE;
+  --green-line:  #B4ECC6;
+
+  --ink:         #0B1426;
+  --ink-2:       #2D3748;
+  --ink-3:       #5A6478;
+  --ink-mute:    #8A93A6;
+
+  --line:        #E6E9F0;
+  --line-soft:   #EEF0F5;
+  --bg:          #FFFFFF;
+  --bg-soft:     #F7F8FB;
+  --bg-warm:     #F3F5F9;
+
+  --radius-s: 8px;
+  --radius:   12px;
+  --radius-l: 18px;
+  --radius-xl: 24px;
+
+  --max:      1200px;
+  --pad:      28px;
+
+  --font:     'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono:     'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --shadow-sm: 0 1px 2px rgba(11,20,38,0.05);
+  --shadow:    0 8px 24px rgba(11,20,38,0.06), 0 1px 2px rgba(11,20,38,0.04);
+  --shadow-lg: 0 24px 60px rgba(11,20,38,0.10), 0 4px 12px rgba(11,20,38,0.04);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-size:16px;
+  line-height:1.55;
+  font-weight:400;
+  letter-spacing:-0.005em;
+  font-feature-settings:"cv11","ss01","ss03";
+}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--green-bright);color:var(--navy)}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad);width:100%}
+
+/* ── TYPE ── */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.78rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--blue);
+}
+.eyebrow .pip{width:6px;height:6px;border-radius:99px;background:var(--blue);display:inline-block}
+.eyebrow.green{color:var(--green)}
+.eyebrow.green .pip{background:var(--green)}
+.eyebrow.muted{color:var(--ink-3)}
+.eyebrow.muted .pip{background:var(--ink-mute)}
+
+h1,h2,h3,h4,h5{letter-spacing:-0.025em;line-height:1.08;font-weight:700;color:var(--ink)}
+.h1{font-size:clamp(2.8rem, 4.8vw, 4.2rem);letter-spacing:-0.035em;line-height:1.01;font-weight:700}
+.h2{font-size:clamp(2rem, 3.4vw, 2.8rem);letter-spacing:-0.03em;line-height:1.05;font-weight:700}
+.h3{font-size:clamp(1.3rem, 1.9vw, 1.55rem);font-weight:700}
+.lead{font-size:1.1rem;color:var(--ink-3);line-height:1.6;max-width:560px;font-weight:400}
+.mono{font-family:var(--mono);font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.78rem 1.2rem;border-radius:8px;
+  font-weight:600;font-size:.92rem;letter-spacing:-0.005em;
+  transition:transform .18s, box-shadow .18s, background .18s, color .18s, border-color .18s;
+  white-space:nowrap;border:1px solid transparent;
+}
+.btn .arrow{display:inline-block;width:13px;height:13px;transition:transform .18s}
+.btn:hover .arrow{transform:translateX(3px)}
+
+.btn-primary{
+  background:var(--blue);color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.22), 0 1px 2px rgba(43,108,246,0.22);
+}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.22), 0 8px 18px rgba(43,108,246,0.36)}
+
+.btn-secondary{
+  background:#fff;color:var(--blue);border-color:var(--blue-line);
+  box-shadow:var(--shadow-sm);
+}
+.btn-secondary:hover{border-color:var(--blue);background:var(--blue-soft)}
+
+.btn-sm{padding:.55rem .95rem;font-size:.85rem;border-radius:7px}
+
+.link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-weight:600;font-size:.9rem;color:var(--blue);transition:gap .18s;
+}
+.link:hover{gap:.6rem}
+
+/* ─────────────────────────────────────────────────────────
+   NAV
+   ───────────────────────────────────────────────────────── */
+nav.top{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .2s, background .2s;
+}
+nav.top.scrolled{
+  background:rgba(255,255,255,0.92);
+  border-bottom-color:var(--line);
+}
+.nav-inner{
+  max-width:var(--max);margin:0 auto;padding:14px var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  position:relative;
+}
+.logo{display:flex;align-items:center;gap:8px;z-index:2}
+.logo-mark{
+  font-family:var(--font);font-weight:700;font-size:1.18rem;
+  letter-spacing:-0.025em;color:var(--ink);line-height:1;
+}
+.logo-mark .e{color:var(--blue);font-weight:700}
+.nav-links{display:flex;align-items:center;gap:1.6rem}
+.nav-link{
+  font-size:.88rem;color:var(--ink-2);font-weight:500;
+  padding:6px 0;transition:color .18s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.nav-link:hover{color:var(--ink)}
+.nav-link.has-caret::after{
+  content:"";width:0;height:0;border:3.5px solid transparent;
+  border-top-color:currentColor;transform:translateY(2px);opacity:.6;
+}
+.nav-right{display:flex;align-items:center;gap:14px;z-index:2}
+.nav-link-quiet{font-size:.88rem;color:var(--ink-2);font-weight:500;padding:6px 0;transition:color .18s}
+.nav-link-quiet:hover{color:var(--ink)}
+.nav-burger{display:none;width:22px;height:16px;flex-direction:column;justify-content:space-between}
+.nav-burger span{height:1.5px;background:var(--ink);border-radius:2px;display:block;width:100%}
+
+/* ─────────────────────────────────────────────────────────
+   HERO
+   ───────────────────────────────────────────────────────── */
+.hero{
+  position:relative;background:var(--bg);
+  padding:140px 0 100px;overflow:hidden;isolation:isolate;
+}
+.hero-bg-img{
+  position:absolute;inset:0;z-index:0;
+  background:url('../hero-bg.jpg.jpg') center/cover no-repeat;
+  opacity:0.22;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background-image:radial-gradient(rgba(11,20,38,0.07) 1px, transparent 1px);
+  background-size:22px 22px;
+  mask-image:radial-gradient(ellipse 85% 65% at 60% 30%, #000 25%, transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 85% 65% at 60% 30%, #000 25%, transparent 80%);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(46,200,102,0.07), transparent 45%),
+    radial-gradient(circle at 6% 88%, rgba(27,95,232,0.06), transparent 50%);
+}
+.hero-inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+}
+.hero-copy .eyebrow{margin-bottom:24px}
+.hero-copy h1{margin-bottom:22px}
+.hero-copy h1 .accent{color:var(--blue);font-weight:700}
+.hero-copy .lead{margin-bottom:32px;font-size:1.18rem;max-width:520px}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:30px}
+.hero-meta{
+  display:flex;gap:32px;flex-wrap:wrap;
+  padding-top:24px;border-top:1px solid var(--line);margin-top:8px;
+}
+.hero-meta .mi{
+  font-size:.78rem;color:var(--ink-3);
+  display:flex;align-items:center;gap:8px;font-weight:500;letter-spacing:.005em;
+}
+.hero-meta .mi svg{color:var(--green);flex-shrink:0}
+
+/* Hero Visual — Linear-style operations panel */
+.hv{position:relative;height:540px}
+.hv-window{
+  position:absolute;inset:0;
+  background:#fff;border:1px solid var(--line);
+  border-radius:14px;box-shadow:var(--shadow-lg);
+  overflow:hidden;display:flex;flex-direction:column;
+}
+.hv-titlebar{
+  height:36px;flex-shrink:0;
+  border-bottom:1px solid var(--line);background:var(--bg-soft);
+  display:flex;align-items:center;gap:8px;padding:0 12px;
+}
+.hv-traffic{display:flex;gap:6px}
+.hv-traffic span{width:10px;height:10px;border-radius:99px;background:#dcdfe6}
+.hv-url{
+  flex:1;height:22px;border-radius:5px;
+  background:#fff;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;padding:0 10px;
+  font-size:.68rem;color:var(--ink-3);font-family:var(--mono);font-weight:500;
+  max-width:280px;margin:0 auto;
+}
+.hv-url .lock{margin-right:6px;color:var(--green);display:inline-flex}
+.hv-body{flex:1;display:grid;grid-template-columns:170px 1fr;min-height:0}
+
+.hv-rail{
+  border-right:1px solid var(--line);padding:14px 10px;
+  display:flex;flex-direction:column;gap:1px;
+}
+.hv-rail-label{
+  font-size:.6rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-mute);padding:4px 8px 8px;
+}
+.hv-rail-item{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 8px;border-radius:6px;
+  font-size:.76rem;color:var(--ink-2);font-weight:500;
+}
+.hv-rail-item.active{background:var(--bg-soft);color:var(--ink);font-weight:600}
+.hv-rail-item .pdot{width:7px;height:7px;border-radius:99px;flex-shrink:0;background:var(--ink-mute)}
+.hv-rail-item.active .pdot{background:var(--green)}
+.hv-rail-item .count{
+  margin-left:auto;font-size:.66rem;color:var(--ink-mute);
+  font-family:var(--mono);font-weight:500;
+}
+.hv-rail-item.active .count{color:var(--ink-2)}
+.hv-rail-divider{height:1px;background:var(--line);margin:8px 4px}
+
+.hv-main{
+  padding:0 0 18px;min-height:0;overflow:hidden;
+  display:flex;flex-direction:column;gap:14px;
+  background:linear-gradient(180deg,#fff 0%,#fafbfd 100%);
+}
+.hv-main > .hv-main-head,
+.hv-main > .hv-timeline,
+.hv-main > .hv-row2{margin-left:18px;margin-right:18px}
+
+.hv-bluehead{
+  background:linear-gradient(135deg, var(--blue) 0%, var(--blue-deep) 100%);
+  color:#fff;padding:18px 20px 22px;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:14px;
+  position:relative;overflow:hidden;
+}
+.hv-bluehead::after{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1px);
+  background-size:14px 14px;
+  mask-image:linear-gradient(90deg, transparent 40%, #000 100%);
+  -webkit-mask-image:linear-gradient(90deg, transparent 40%, #000 100%);
+  pointer-events:none;
+}
+.hv-bluehead > *{position:relative;z-index:1}
+.hv-bluehead-tag{
+  font-size:.62rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,0.78);font-family:var(--mono);
+}
+.hv-bluehead-amt{
+  font-size:1.35rem;font-weight:700;letter-spacing:-0.02em;color:#fff;margin-top:4px;
+}
+.hv-status.light{
+  background:rgba(255,255,255,0.18);color:#fff;
+  backdrop-filter:blur(4px);
+}
+.hv-status.light .dot{background:var(--green-bright);box-shadow:0 0 0 3px rgba(46,200,102,0.25)}
+.hv-main-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
+.hv-file{font-size:.66rem;color:var(--ink-mute);letter-spacing:.04em;font-weight:600;font-family:var(--mono)}
+.hv-status{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 9px;border-radius:99px;
+  font-size:.68rem;font-weight:600;letter-spacing:.01em;
+  background:var(--green-soft);color:var(--green);
+}
+.hv-status .dot{width:6px;height:6px;border-radius:99px;background:var(--green)}
+
+.hv-timeline{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}
+.hv-timeline-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.hv-timeline-h .title{font-size:.76rem;font-weight:600;color:var(--ink)}
+.hv-timeline-h .pct{font-size:.7rem;color:var(--ink-3);font-family:var(--mono);font-weight:500}
+.hv-bar{height:4px;background:var(--bg-warm);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.hv-bar .fill{height:100%;background:linear-gradient(90deg,var(--green-bright),var(--blue));border-radius:99px;width:62%}
+.hv-steps{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.hv-step{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:6px 4px;border-radius:6px}
+.hv-step .ring{
+  width:14px;height:14px;border-radius:99px;
+  border:1.5px solid var(--ink-mute);background:#fff;position:relative;
+}
+.hv-step.done .ring{background:var(--green);border-color:var(--green)}
+.hv-step.done .ring::after{
+  content:"";position:absolute;left:3px;top:1.5px;
+  width:4px;height:6px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg);
+}
+.hv-step.now .ring{border-color:var(--blue);background:rgba(27,95,232,0.12)}
+.hv-step .lbl{font-size:.6rem;color:var(--ink-3);font-weight:500;line-height:1.25}
+.hv-step.now .lbl{color:var(--ink);font-weight:600}
+.hv-step.done .lbl{color:var(--ink-2)}
+
+.hv-row2{display:grid;grid-template-columns:1.3fr 1fr;gap:12px}
+.hv-card{border:1px solid var(--line);border-radius:10px;background:#fff;padding:14px;display:flex;flex-direction:column;gap:10px}
+.hv-card .label{font-size:.66rem;color:var(--ink-mute);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.hv-card .value{font-size:1.4rem;font-weight:700;color:var(--ink);letter-spacing:-0.025em;line-height:1}
+.hv-card .delta{font-size:.7rem;color:var(--green);font-weight:600;display:inline-flex;align-items:center;gap:4px}
+.hv-spark{height:34px;margin-top:auto}
+.hv-activity{display:flex;flex-direction:column;gap:6px;padding:0;margin:0}
+.hv-activity li{
+  display:flex;align-items:center;gap:8px;
+  font-size:.7rem;color:var(--ink-2);font-weight:500;
+  padding:6px 0;border-bottom:1px solid var(--line-soft);
+}
+.hv-activity li:last-child{border-bottom:none}
+.hv-activity .pdot{width:6px;height:6px;border-radius:99px;background:var(--green);flex-shrink:0}
+.hv-activity .pdot.blue{background:var(--blue)}
+.hv-activity .pdot.mute{background:var(--ink-mute)}
+.hv-activity .when{margin-left:auto;color:var(--ink-mute);font-family:var(--mono);font-size:.65rem}
+
+/* Floating badges */
+.hv-badge{
+  position:absolute;background:#fff;border:1px solid var(--line);
+  border-radius:99px;padding:8px 14px 8px 10px;
+  box-shadow:0 12px 32px rgba(11,20,38,0.10);
+  display:flex;align-items:center;gap:8px;
+  font-size:.78rem;font-weight:600;color:var(--ink);
+}
+.hv-badge .pulse{
+  width:9px;height:9px;border-radius:99px;background:var(--green-bright);
+  box-shadow:0 0 0 0 rgba(46,200,102,0.6);animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(46,200,102,0.6)}
+  70%{box-shadow:0 0 0 8px rgba(46,200,102,0)}
+  100%{box-shadow:0 0 0 0 rgba(46,200,102,0)}
+}
+.hv-badge.tl{left:-22px;top:48px}
+.hv-badge.br{right:-22px;bottom:60px;padding:8px 12px}
+.hv-badge.br .num{font-family:var(--mono);font-weight:700;color:var(--green)}
+
+/* Trust strip */
+.trustbar{
+  background:var(--bg);padding:30px 0 70px;position:relative;
+}
+.trustbar-inner{
+  display:flex;align-items:center;gap:32px;flex-wrap:wrap;
+  padding-top:36px;border-top:1px solid var(--line);
+}
+.trustbar-label{
+  font-size:.74rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.trustbar-row{display:flex;align-items:center;gap:40px;flex-wrap:wrap;flex:1}
+.partner{
+  font-family:var(--font);font-weight:600;font-size:1rem;
+  color:var(--ink-3);letter-spacing:-0.01em;opacity:.7;
+  transition:opacity .2s;
+}
+.partner:hover{opacity:1}
+.partner.alta{font-weight:800;letter-spacing:.15em;font-size:.9rem}
+.partner.fnma{font-weight:700;letter-spacing:.05em}
+.partner.stewart{font-style:italic;font-weight:500}
+.partner.firstam{font-weight:700;font-size:.95rem;letter-spacing:-0.02em}
+.partner.oldrep{font-weight:800;font-size:.78rem;letter-spacing:.1em}
+
+/* ─────────────────────────────────────────────────────────
+   SECTION SHELL
+   ───────────────────────────────────────────────────────── */
+.section{padding:100px 0;position:relative}
+.section-soft{background:var(--bg-soft);border-top:1px solid var(--line)}
+.section-light{
+  background:var(--bg-soft);color:var(--ink);position:relative;overflow:hidden;
+  border-top:1px solid var(--line);
+}
+.section-light::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 88% 12%, rgba(43,108,246,0.06), transparent 45%),
+    radial-gradient(circle at 6% 88%, rgba(20,178,76,0.05), transparent 50%);
+  pointer-events:none;
+}
+
+.section-head{margin-bottom:60px;max-width:760px}
+.section-head .eyebrow{margin-bottom:18px}
+.section-head h2{margin-bottom:20px;text-wrap:balance}
+.section-head .lead{font-size:1.15rem}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.section-head.center .eyebrow{justify-content:center}
+
+/* ─────────────────────────────────────────────────────────
+   OPERATIONAL DIFFERENCE
+   ───────────────────────────────────────────────────────── */
+.op-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);
+  border-radius:var(--radius-l);overflow:hidden;
+}
+.op-cell{
+  background:#fff;padding:36px 32px;
+  display:flex;flex-direction:column;gap:14px;
+  position:relative;transition:background .18s;
+}
+.op-cell:hover{background:var(--bg-soft)}
+.op-num{
+  font-family:var(--mono);font-size:.72rem;font-weight:600;
+  color:var(--ink-mute);letter-spacing:.08em;
+}
+.op-cell h3{font-size:1.18rem;font-weight:700;letter-spacing:-0.02em;color:var(--ink)}
+.op-cell p{font-size:.96rem;color:var(--ink-3);line-height:1.6}
+.op-icon{
+  width:38px;height:38px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--green-soft);color:var(--green);
+  margin-bottom:6px;
+}
+.op-icon.blue{background:var(--blue-soft);color:var(--blue)}
+
+/* Full-row operational visual */
+.op-visual{
+  margin-top:60px;
+  border:1px solid var(--line);border-radius:var(--radius-l);
+  background:#fff;padding:36px 40px;
+  display:grid;grid-template-columns:1fr 1.3fr;gap:50px;align-items:center;
+}
+.op-visual-copy h3{font-size:1.5rem;font-weight:700;letter-spacing:-0.025em;margin-bottom:14px}
+.op-visual-copy p{color:var(--ink-3);font-size:1rem;line-height:1.65;margin-bottom:20px}
+.op-visual-points{display:flex;flex-direction:column;gap:10px}
+.op-visual-points li{
+  display:flex;align-items:flex-start;gap:10px;font-size:.94rem;
+  color:var(--ink-2);font-weight:500;list-style:none;
+}
+.op-visual-points .chk{
+  width:18px;height:18px;border-radius:99px;background:var(--green-soft);
+  color:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;
+}
+
+/* Pipeline kanban mockup */
+.pipeline{
+  border:1px solid var(--line);border-radius:12px;
+  background:var(--bg-soft);padding:14px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  min-height:360px;
+}
+.pipe-col{display:flex;flex-direction:column;gap:8px}
+.pipe-col-h{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:4px 6px;
+}
+.pipe-col-h .name{
+  font-size:.72rem;font-weight:600;color:var(--ink);
+  display:inline-flex;align-items:center;gap:6px;
+}
+.pipe-col-h .name .pip{width:7px;height:7px;border-radius:99px;background:var(--ink-mute)}
+.pipe-col[data-stage="under"] .pip{background:var(--blue)}
+.pipe-col[data-stage="close"] .pip{background:var(--green)}
+.pipe-col-h .cnt{font-size:.66rem;color:var(--ink-mute);font-family:var(--mono);font-weight:500}
+
+.pipe-card{
+  background:#fff;border:1px solid var(--line);
+  border-radius:8px;padding:10px 12px;
+  display:flex;flex-direction:column;gap:6px;
+  box-shadow:0 1px 1px rgba(11,20,38,0.04);
+  transition:transform .18s, box-shadow .18s;
+  cursor:default;
+}
+.pipe-card:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.pipe-card .file{font-size:.62rem;color:var(--ink-mute);font-family:var(--mono);font-weight:500}
+.pipe-card .addr{font-size:.82rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em}
+.pipe-card .meta{display:flex;justify-content:space-between;align-items:center;font-size:.66rem;color:var(--ink-3)}
+.pipe-card .meta .who{font-weight:500}
+.pipe-card .meta .when{font-family:var(--mono);font-weight:500}
+.pipe-card .tag{
+  align-self:flex-start;font-size:.6rem;font-weight:600;
+  padding:2px 7px;border-radius:99px;letter-spacing:.04em;
+}
+.pipe-card .tag.title{background:var(--green-soft);color:var(--green)}
+.pipe-card .tag.refi{background:var(--blue-soft);color:var(--blue)}
+.pipe-card .tag.comm{background:#FFF1DD;color:#B26A00}
+
+/* ─────────────────────────────────────────────────────────
+   ECOSYSTEM
+   ───────────────────────────────────────────────────────── */
+.eco-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:50px;
+}
+.eco-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, border-color .2s;
+}
+.eco-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
+.eco-visual{
+  height:180px;border-bottom:1px solid var(--line);
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,#fafbfd 0%,#f3f5f9 100%);
+}
+.eco-body{padding:28px;display:flex;flex-direction:column;flex:1}
+.eco-product{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.eco-product-logo{
+  width:30px;height:30px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.eco-product-name{font-size:1.18rem;font-weight:700;letter-spacing:-0.025em;color:var(--ink)}
+.eco-product-name .alt{font-weight:700}
+.eco-tag{
+  font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:12px;
+}
+.eco-card h3{font-size:1.18rem;font-weight:700;letter-spacing:-0.02em;line-height:1.25;margin-bottom:10px;text-wrap:balance}
+.eco-card p{font-size:.94rem;color:var(--ink-3);line-height:1.6;margin-bottom:20px}
+.eco-link{
+  margin-top:auto;display:inline-flex;align-items:center;gap:6px;
+  font-weight:600;font-size:.88rem;transition:gap .18s;
+}
+.eco-link:hover{gap:10px}
+
+.eco-card[data-product="closingmap"] .alt{color:var(--green)}
+.eco-card[data-product="closingmap"] .eco-link{color:var(--green)}
+.eco-card[data-product="closeprop"] .alt{color:var(--blue)}
+.eco-card[data-product="closeprop"] .eco-link{color:var(--blue)}
+.eco-card[data-product="tytllab"] .alt{color:var(--navy)}
+.eco-card[data-product="tytllab"] .eco-link{color:var(--navy)}
+
+/* ClosingMap — cost calculator */
+.ecv-calc{
+  position:absolute;inset:24px;
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:14px;display:flex;flex-direction:column;gap:8px;
+  box-shadow:0 8px 20px rgba(11,20,38,0.06);
+}
+.ecv-calc-h{display:flex;justify-content:space-between;align-items:center}
+.ecv-calc-h .ttl{font-size:.74rem;font-weight:700;color:var(--ink);letter-spacing:-0.01em}
+.ecv-calc-h .badge{font-size:.6rem;font-weight:600;color:var(--green);background:var(--green-soft);padding:2px 7px;border-radius:99px}
+.ecv-calc-row{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;padding:5px 0;border-bottom:1px dashed var(--line)}
+.ecv-calc-row:last-child{border-bottom:none;padding-top:8px;border-top:1px solid var(--ink);font-weight:700}
+.ecv-calc-row .k{color:var(--ink-3);font-weight:500}
+.ecv-calc-row .v{color:var(--ink);font-family:var(--mono);font-weight:600}
+.ecv-calc-row:last-child .k{color:var(--ink);font-weight:700;font-family:var(--font)}
+.ecv-calc-row:last-child .v{color:var(--green);font-weight:700;font-size:.84rem}
+
+/* CloseProp — workflow board */
+.ecv-board{
+  position:absolute;inset:20px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;
+}
+.ecv-board-col{
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:8px;display:flex;flex-direction:column;gap:6px;
+  box-shadow:0 4px 12px rgba(11,20,38,0.04);
+}
+.ecv-board-col .ch{
+  font-size:.58rem;font-weight:700;color:var(--ink);letter-spacing:.04em;
+  text-transform:uppercase;display:flex;align-items:center;gap:4px;padding-bottom:4px;
+  border-bottom:1px solid var(--line);
+}
+.ecv-board-col .ch .pip{width:5px;height:5px;border-radius:99px;background:var(--blue)}
+.ecv-board-col:nth-child(2) .ch .pip{background:#F2B544}
+.ecv-board-col:nth-child(3) .ch .pip{background:var(--green)}
+.ecv-board-row{
+  background:var(--bg-soft);border-radius:5px;padding:5px 6px;
+  font-size:.58rem;color:var(--ink-2);font-weight:600;line-height:1.3;
+}
+
+/* TytlLab — network visualization */
+.ecv-net{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.ecv-net svg{width:240px;height:170px}
+
+/* ─────────────────────────────────────────────────────────
+   INDUSTRIES SERVED
+   ───────────────────────────────────────────────────────── */
+.ind-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+}
+.ind-card{
+  background:#fff;border:1px solid var(--line);
+  border-radius:var(--radius);padding:24px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:border-color .2s, transform .2s, box-shadow .2s;
+}
+.ind-card:hover{transform:translateY(-2px);border-color:var(--blue-line);box-shadow:var(--shadow)}
+.ind-icon{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--bg-soft);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+}
+.ind-card h3{font-size:1.02rem;font-weight:700;letter-spacing:-0.015em}
+.ind-card p{font-size:.88rem;color:var(--ink-3);line-height:1.55}
+
+/* ─────────────────────────────────────────────────────────
+   WHY CHOOSE (split layout)
+   ───────────────────────────────────────────────────────── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.why-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.why-item{
+  background:#fff;padding:24px 28px;
+  display:grid;grid-template-columns:30px 1fr;gap:16px;align-items:flex-start;
+  transition:background .18s;
+}
+.why-item:hover{background:var(--bg-soft)}
+.why-item .n{
+  font-family:var(--mono);font-size:.72rem;font-weight:600;
+  color:var(--blue);letter-spacing:.04em;margin-top:4px;
+}
+.why-item h4{font-size:1.02rem;font-weight:700;letter-spacing:-0.015em;margin-bottom:4px}
+.why-item p{font-size:.9rem;color:var(--ink-3);line-height:1.55}
+
+/* ─────────────────────────────────────────────────────────
+   METRICS
+   ───────────────────────────────────────────────────────── */
+.metric-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:var(--radius-l);overflow:hidden;
+  position:relative;z-index:1;
+}
+.metric{
+  background:#fff;padding:32px 28px;
+  display:flex;flex-direction:column;gap:8px;
+  transition:background .2s;
+}
+.metric:hover{background:var(--bg-soft)}
+.metric-label{
+  font-size:.72rem;color:var(--ink-3);font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.metric-num{
+  font-size:clamp(2rem, 3vw, 2.6rem);
+  font-weight:700;letter-spacing:-0.03em;line-height:1;color:var(--ink);
+  display:flex;align-items:baseline;gap:2px;
+}
+.metric-num .suffix{color:var(--blue);font-weight:700}
+.metric-foot{font-size:.78rem;color:var(--ink-3);font-weight:500;margin-top:4px}
+.metric-trend{
+  font-size:.74rem;color:var(--green);font-weight:600;
+  display:inline-flex;align-items:center;gap:4px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CTA + FOOTER
+   ───────────────────────────────────────────────────────── */
+.cta{
+  background:var(--bg);padding:100px 0;border-top:1px solid var(--line);
+}
+.cta-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius-xl);
+  padding:64px;color:var(--ink);
+  display:grid;grid-template-columns:1.5fr 1fr;gap:60px;align-items:center;
+  position:relative;overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.cta-card::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 90% 20%, rgba(43,108,246,0.10), transparent 50%),
+    radial-gradient(circle at 10% 90%, rgba(20,178,76,0.08), transparent 55%);
+  pointer-events:none;
+}
+.cta-card::after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(11,20,38,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11,20,38,0.035) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 70% 80% at 50% 50%, #000, transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 80% at 50% 50%, #000, transparent 80%);
+  pointer-events:none;
+}
+.cta-copy, .cta-actions{position:relative;z-index:1}
+.cta-copy .eyebrow{margin-bottom:18px}
+.cta-copy h2{color:var(--ink);font-size:clamp(1.8rem, 3vw, 2.4rem);letter-spacing:-0.03em;margin-bottom:14px;text-wrap:balance}
+.cta-copy h2 .accent{color:var(--blue)}
+.cta-copy p{color:var(--ink-2);font-size:1.05rem;max-width:480px}
+.cta-actions{display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.cta-actions .btn{justify-content:center;width:100%}
+
+footer{
+  background:var(--bg-soft);color:var(--ink-2);
+  padding:80px 0 32px;border-top:1px solid var(--line);
+}
+.foot-grid{
+  display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:50px;
+  padding-bottom:50px;border-bottom:1px solid var(--line);
+}
+.foot-brand p{font-size:.88rem;line-height:1.65;color:var(--ink-3);margin-top:14px;max-width:280px}
+.foot-brand .logo-mark{color:var(--ink)}
+.foot-brand .logo-mark .e{color:var(--blue)}
+.foot-col h5{
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:16px;
+}
+.foot-col a{
+  display:block;font-size:.9rem;padding:6px 0;color:var(--ink-2);
+  transition:color .2s;
+}
+.foot-col a:hover{color:var(--blue)}
+.foot-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:24px;font-size:.8rem;color:var(--ink-3);
+  flex-wrap:wrap;gap:14px;
+}
+.foot-bottom .legal{display:flex;gap:24px;flex-wrap:wrap}
+.foot-bottom .legal a{color:var(--ink-3);transition:color .2s}
+.foot-bottom .legal a:hover{color:var(--blue)}
+
+/* ─────────────────────────────────────────────────────────
+   CHECK LIST (hero accents)
+   ───────────────────────────────────────────────────────── */
+.checks{
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  margin-bottom:30px;
+}
+.checks .ck{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:.95rem;font-weight:500;color:var(--ink-2);
+}
+.checks .ck .ring{
+  width:20px;height:20px;border-radius:99px;background:var(--green-soft);
+  color:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.checks .sep{width:1px;height:16px;background:var(--line)}
+
+/* ─────────────────────────────────────────────────────────
+   REVEAL ANIMATION
+   ───────────────────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.07s}
+.reveal.d2{transition-delay:.14s}
+.reveal.d3{transition-delay:.21s}
+.reveal.d4{transition-delay:.28s}
+
+/* ─────────────────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 980px){
+  .hero{padding:120px 0 80px}
+  .hero-inner{grid-template-columns:1fr;gap:60px}
+  .hv{height:480px}
+  .op-grid{grid-template-columns:1fr}
+  .op-visual{grid-template-columns:1fr;gap:30px;padding:28px}
+  .eco-grid{grid-template-columns:1fr;gap:16px}
+  .ind-grid{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:1fr;gap:40px}
+  .metric-grid{grid-template-columns:1fr 1fr}
+  .cta-card{grid-template-columns:1fr;padding:40px;gap:30px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:30px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+}
+@media (max-width: 640px){
+  :root{--pad:20px}
+  .h1{font-size:2.4rem}
+  .ind-grid{grid-template-columns:1fr}
+  .metric-grid{grid-template-columns:1fr}
+  .pipeline{grid-template-columns:1fr;min-height:auto}
+  .ecv-board{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .hv-badge.tl{left:8px;top:8px}
+  .hv-badge.br{right:8px;bottom:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top" id="topnav">
+  <div class="nav-inner">
+    <a href="#" class="logo" aria-label="eTitleDirect home">
+      <span class="logo-mark"><span class="e">e</span>TitleDirect</span>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link has-caret" href="#difference">Product</a>
+      <a class="nav-link has-caret" href="#ecosystem">Solutions</a>
+      <a class="nav-link" href="#industries">Industries</a>
+      <a class="nav-link has-caret" href="#">Resources</a>
+      <a class="nav-link" href="#">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-link-quiet">Sign in</a>
+      <a class="btn btn-primary btn-sm" href="#cta">
+        Order Title
+        <svg class="arrow" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-img" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <div class="eyebrow reveal"><span class="pip"></span>Title &amp; settlement, reimagined</div>
+      <h1 class="h1 reveal d1">The Modern <span class="accent">Standard</span> of Title.</h1>
+      <p class="lead reveal d2">Expert title operations backed by intelligent transaction systems. Every party sees the same transaction state, every milestone moves itself forward, and every file closes on time.</p>
+      <div class="checks reveal d2">
+        <span class="ck">
+          <span class="ring"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 7" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          ALTA certified
+        </span>
+        <span class="sep"></span>
+        <span class="ck">
+          <span class="ring"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 7" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          SOC 2 Type II
+        </span>
+        <span class="sep"></span>
+        <span class="ck">NY &amp; NJ Licensed</span>
+      </div>
+      <div class="hero-ctas reveal d3">
+        <a href="#cta" class="btn btn-primary">
+          Order Title
+          <svg class="arrow" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#difference" class="btn btn-secondary">See how it works</a>
+      </div>
+    </div>
+
+    <!-- Hero visual: Linear-style operations panel -->
+    <div class="hv reveal d2" aria-hidden="true">
+      <div class="hv-window">
+        <div class="hv-titlebar">
+          <div class="hv-traffic"><span></span><span></span><span></span></div>
+          <div class="hv-url">
+            <span class="lock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2.5"/></svg></span>
+            app.etitledirect.com/files/2487
+          </div>
+          <div style="width:54px"></div>
+        </div>
+        <div class="hv-body">
+          <aside class="hv-rail">
+            <div class="hv-rail-label">Workspace</div>
+            <div class="hv-rail-item active">
+              <span class="pdot"></span>Active files<span class="count">42</span>
+            </div>
+            <div class="hv-rail-item">
+              <span class="pdot"></span>Underwriting<span class="count">8</span>
+            </div>
+            <div class="hv-rail-item">
+              <span class="pdot"></span>Clear to close<span class="count">11</span>
+            </div>
+            <div class="hv-rail-item">
+              <span class="pdot"></span>Recorded<span class="count">214</span>
+            </div>
+            <div class="hv-rail-divider"></div>
+            <div class="hv-rail-label">Products</div>
+            <div class="hv-rail-item">
+              <span class="pdot" style="background:#14B24C"></span>ClosingMap
+            </div>
+            <div class="hv-rail-item">
+              <span class="pdot" style="background:#2B6CF6"></span>CloseProp
+            </div>
+            <div class="hv-rail-item">
+              <span class="pdot" style="background:#0E1B36"></span>TytlLab
+            </div>
+          </aside>
+
+          <div class="hv-main">
+            <div class="hv-bluehead">
+              <div>
+                <div class="hv-bluehead-tag">FILE · ACTIVE TRANSACTION</div>
+                <div class="hv-bluehead-amt">$612,000 purchase</div>
+              </div>
+              <span class="hv-status light"><span class="dot"></span>On schedule</span>
+            </div>
+            <div class="hv-main-head">
+              <div>
+                <div class="hv-file">FILE #ETD-2487 · 312 Lakeview Blvd, Charlotte NC</div>
+              </div>
+            </div>
+
+            <div class="hv-timeline">
+              <div class="hv-timeline-h">
+                <span class="title">Title Track</span>
+                <span class="pct">62% · funding Fri</span>
+              </div>
+              <div class="hv-bar"><div class="fill"></div></div>
+              <div class="hv-steps">
+                <div class="hv-step done"><span class="ring"></span><span class="lbl">Order</span></div>
+                <div class="hv-step done"><span class="ring"></span><span class="lbl">Search</span></div>
+                <div class="hv-step done"><span class="ring"></span><span class="lbl">Commit</span></div>
+                <div class="hv-step now"><span class="ring"></span><span class="lbl">Curative</span></div>
+                <div class="hv-step"><span class="ring"></span><span class="lbl">CTC</span></div>
+                <div class="hv-step"><span class="ring"></span><span class="lbl">Record</span></div>
+              </div>
+            </div>
+
+            <div class="hv-row2">
+              <div class="hv-card">
+                <div class="label">Average cycle time</div>
+                <div class="value">11.4 <span style="font-size:.7rem;color:var(--ink-3);font-weight:500;letter-spacing:0">days</span></div>
+                <span class="delta">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                  4.2 days vs. industry
+                </span>
+                <svg class="hv-spark" viewBox="0 0 240 36" preserveAspectRatio="none">
+                  <path d="M0 26 L20 22 L40 24 L60 18 L80 20 L100 14 L120 16 L140 10 L160 12 L180 8 L200 6 L220 4 L240 2" stroke="#14B24C" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M0 26 L20 22 L40 24 L60 18 L80 20 L100 14 L120 16 L140 10 L160 12 L180 8 L200 6 L220 4 L240 2 L240 36 L0 36 Z" fill="rgba(20,178,76,0.12)"/>
+                </svg>
+              </div>
+              <div class="hv-card">
+                <div class="label">Recent activity</div>
+                <ul class="hv-activity">
+                  <li><span class="pdot"></span>Commitment issued<span class="when">02:14</span></li>
+                  <li><span class="pdot blue"></span>Underwriter assigned<span class="when">02:31</span></li>
+                  <li><span class="pdot mute"></span>Survey requested<span class="when">03:04</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hv-badge tl"><span class="pulse"></span>Live transaction</div>
+      <div class="hv-badge br">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#14B24C" stroke-width="2"/><path d="m8 12 2.5 2.5L16 9" stroke="#14B24C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="num">98%</span> on-time close
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust strip -->
+<section class="trustbar">
+  <div class="wrap trustbar-inner">
+    <span class="trustbar-label">Trusted by leading institutions</span>
+    <div class="trustbar-row">
+      <span class="partner alta">ALTA</span>
+      <span class="partner firstam">First American</span>
+      <span class="partner stewart">Stewart Title</span>
+      <span class="partner oldrep">OLD REPUBLIC</span>
+      <span class="partner fnma">Fannie Mae</span>
+      <span class="partner stewart">Westcor</span>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATIONAL DIFFERENCE -->
+<section class="section section-soft" id="difference">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow reveal"><span class="pip"></span>The operational difference</div>
+      <h2 class="h2 reveal d1">Title work, run as infrastructure.</h2>
+      <p class="lead reveal d2">Most title companies bolt software onto legacy processes. We engineered the operating system first, and then reimagined the title company around it to serve all parties transparently.</p>
+    </div>
+
+    <div class="op-grid reveal">
+      <div class="op-cell">
+        <div class="op-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="op-num">01 / Visibility</div>
+        <h3>One live source of truth.</h3>
+        <p>Buyers, agents, lenders, attorneys, and underwriters see the same transaction state in real time. No chasing, no email threads.</p>
+      </div>
+      <div class="op-cell">
+        <div class="op-icon blue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="op-num">02 / Orchestration</div>
+        <h3>Workflows that move themselves.</h3>
+        <p>Every milestone triggers the next: searches dispatch, underwriters get notified, parties get the right document at the right moment.</p>
+      </div>
+      <div class="op-cell">
+        <div class="op-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 17V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 3v5h5" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <div class="op-num">03 / Execution</div>
+        <h3>Veteran title minds, modern tools.</h3>
+        <p>In‑house underwriters, escrow officers, and curative specialists paired with software that removes the work that shouldn't exist.</p>
+      </div>
+    </div>
+
+    <div class="op-visual reveal">
+      <div class="op-visual-copy">
+        <div class="eyebrow muted"><span class="pip"></span>Pipeline view</div>
+        <h3 style="margin-top:14px">Every file at every stage for every party, finally aligned.</h3>
+        <p>Our operations console shows the entire book of business in one place. Move a file, reassign a closer, escalate curative. Every change ripples to everyone who needs to know.</p>
+        <ul class="op-visual-points">
+          <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Drag‑and‑drop file management across stages</li>
+          <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Automatic SLA tracking and breach alerts</li>
+          <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Open API into your existing LOS or CRM</li>
+        </ul>
+      </div>
+      <div class="pipeline">
+        <div class="pipe-col" data-stage="search">
+          <div class="pipe-col-h"><span class="name"><span class="pip"></span>Search</span><span class="cnt">14</span></div>
+          <div class="pipe-card">
+            <span class="tag title">Title</span>
+            <span class="file">ETD‑2491</span>
+            <span class="addr">88 Oak Ridge Ln</span>
+            <span class="meta"><span class="who">K. Patel</span><span class="when">3h</span></span>
+          </div>
+          <div class="pipe-card">
+            <span class="tag refi">Refi</span>
+            <span class="file">ETD‑2489</span>
+            <span class="addr">410 Birchwood</span>
+            <span class="meta"><span class="who">M. Sosa</span><span class="when">5h</span></span>
+          </div>
+          <div class="pipe-card">
+            <span class="tag comm">Commercial</span>
+            <span class="file">ETD‑2486</span>
+            <span class="addr">2200 Industrial Pkwy</span>
+            <span class="meta"><span class="who">D. Greer</span><span class="when">1d</span></span>
+          </div>
+        </div>
+        <div class="pipe-col" data-stage="under">
+          <div class="pipe-col-h"><span class="name"><span class="pip"></span>Underwriting</span><span class="cnt">8</span></div>
+          <div class="pipe-card">
+            <span class="tag title">Title</span>
+            <span class="file">ETD‑2487</span>
+            <span class="addr">312 Lakeview Blvd</span>
+            <span class="meta"><span class="who">A. Romero</span><span class="when">2h</span></span>
+          </div>
+          <div class="pipe-card">
+            <span class="tag title">Title</span>
+            <span class="file">ETD‑2483</span>
+            <span class="addr">540 Pinegrove Rd</span>
+            <span class="meta"><span class="who">J. Kao</span><span class="when">6h</span></span>
+          </div>
+        </div>
+        <div class="pipe-col" data-stage="close">
+          <div class="pipe-col-h"><span class="name"><span class="pip"></span>Clear to close</span><span class="cnt">11</span></div>
+          <div class="pipe-card">
+            <span class="tag title">Title</span>
+            <span class="file">ETD‑2479</span>
+            <span class="addr">17 Harbor Way</span>
+            <span class="meta"><span class="who">S. Mitchell</span><span class="when">Fri</span></span>
+          </div>
+          <div class="pipe-card">
+            <span class="tag refi">Refi</span>
+            <span class="file">ETD‑2478</span>
+            <span class="addr">2104 Maple St</span>
+            <span class="meta"><span class="who">L. Chen</span><span class="when">Fri</span></span>
+          </div>
+          <div class="pipe-card">
+            <span class="tag title">Title</span>
+            <span class="file">ETD‑2474</span>
+            <span class="addr">95 Cedar Court</span>
+            <span class="meta"><span class="who">R. Vega</span><span class="when">Mon</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="section" id="ecosystem">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="eyebrow reveal"><span class="pip"></span>The ecosystem</div>
+      <h2 class="h2 reveal d1">Three products. One operating system.</h2>
+      <p class="lead reveal d2" style="margin:0 auto">A connected platform serving every party in the transaction, from the consumer at the kitchen table to the underwriter at their desk.</p>
+    </div>
+
+    <div class="eco-grid">
+      <!-- ClosingMap -->
+      <article class="eco-card reveal" data-product="closingmap">
+        <div class="eco-visual">
+          <div class="ecv-calc">
+            <div class="ecv-calc-h">
+              <span class="ttl">Closing cost estimate</span>
+              <span class="badge">Live</span>
+            </div>
+            <div class="ecv-calc-row"><span class="k">Purchase price</span><span class="v">$485,000</span></div>
+            <div class="ecv-calc-row"><span class="k">Title insurance</span><span class="v">$1,920</span></div>
+            <div class="ecv-calc-row"><span class="k">Settlement fee</span><span class="v">$725</span></div>
+            <div class="ecv-calc-row"><span class="k">Recording</span><span class="v">$182</span></div>
+            <div class="ecv-calc-row"><span class="k">Estimated total</span><span class="v">$11,840</span></div>
+          </div>
+        </div>
+        <div class="eco-body">
+          <div class="eco-product">
+            <span class="eco-product-logo" style="background:var(--green-soft);color:var(--green)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6 7-12a7 7 0 1 0-14 0c0 6 7 12 7 12Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/></svg>
+            </span>
+            <span class="eco-product-name">Closing<span class="alt">Map</span></span>
+          </div>
+          <div class="eco-tag">For Homebuyers &amp; Sellers</div>
+          <h3>Consumer education, calculators, and transaction preparation.</h3>
+          <p>Closing demystified. Step‑by‑step guidance, live closing cost calculators, and document prep, so buyers and sellers walk into every milestone informed.</p>
+          <a href="#" class="eco-link">
+            Explore ClosingMap
+            <svg class="arrow" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- CloseProp -->
+      <article class="eco-card reveal d1" data-product="closeprop">
+        <div class="eco-visual">
+          <div class="ecv-board">
+            <div class="ecv-board-col">
+              <div class="ch"><span class="pip"></span>To do</div>
+              <div class="ecv-board-row">Survey order · 410 Birchwood</div>
+              <div class="ecv-board-row">Tax cert · 88 Oak Ridge</div>
+            </div>
+            <div class="ecv-board-col">
+              <div class="ch"><span class="pip"></span>In progress</div>
+              <div class="ecv-board-row">CD review · 312 Lakeview</div>
+              <div class="ecv-board-row">Wire verify · 540 Pinegrove</div>
+              <div class="ecv-board-row">Title curative · 17 Harbor</div>
+            </div>
+            <div class="ecv-board-col">
+              <div class="ch"><span class="pip"></span>Done</div>
+              <div class="ecv-board-row">Commitment · 2104 Maple</div>
+              <div class="ecv-board-row">Funding · 95 Cedar</div>
+            </div>
+          </div>
+        </div>
+        <div class="eco-body">
+          <div class="eco-product">
+            <span class="eco-product-logo" style="background:var(--blue-soft);color:var(--blue)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="eco-product-name">Close<span class="alt">Prop</span></span>
+          </div>
+          <div class="eco-tag">For Real Estate Professionals</div>
+          <h3>Transaction coordination and workflow collaboration.</h3>
+          <p>The shared workspace for agents, lenders, and attorneys, with live pipeline visibility, automatic milestone alerts, and document orchestration built in.</p>
+          <a href="#" class="eco-link">
+            Explore CloseProp
+            <svg class="arrow" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- TytlLab -->
+      <article class="eco-card reveal d2" data-product="tytllab">
+        <div class="eco-visual">
+          <div class="ecv-net">
+            <svg viewBox="0 0 240 170" fill="none">
+              <g stroke="#0A1B3D" stroke-opacity="0.18" stroke-width="1">
+                <line x1="40" y1="30" x2="120" y2="50"/>
+                <line x1="40" y1="30" x2="90" y2="100"/>
+                <line x1="120" y1="50" x2="200" y2="40"/>
+                <line x1="120" y1="50" x2="170" y2="120"/>
+                <line x1="120" y1="50" x2="90" y2="100"/>
+                <line x1="90" y1="100" x2="170" y2="120"/>
+                <line x1="90" y1="100" x2="50" y2="140"/>
+                <line x1="170" y1="120" x2="210" y2="140"/>
+                <line x1="200" y1="40" x2="170" y2="120"/>
+                <line x1="50" y1="140" x2="170" y2="120"/>
+              </g>
+              <g fill="#fff" stroke="#0A1B3D" stroke-width="1.5">
+                <circle cx="40" cy="30" r="5"/>
+                <circle cx="200" cy="40" r="5"/>
+                <circle cx="50" cy="140" r="5"/>
+                <circle cx="210" cy="140" r="5"/>
+              </g>
+              <g fill="#0A1B3D">
+                <circle cx="120" cy="50" r="8"/>
+                <circle cx="90" cy="100" r="8"/>
+                <circle cx="170" cy="120" r="8"/>
+              </g>
+              <circle cx="120" cy="50" r="13" fill="none" stroke="#1FA651" stroke-opacity="0.5" stroke-width="1.2"/>
+              <circle cx="90" cy="100" r="13" fill="none" stroke="#1B5FE8" stroke-opacity="0.5" stroke-width="1.2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="eco-body">
+          <div class="eco-product">
+            <span class="eco-product-logo" style="background:#E7EAF2;color:var(--navy)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2 2 7l10 5 10-5-10-5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="eco-product-name">Tytl<span class="alt">Lab</span></span>
+          </div>
+          <div class="eco-tag">Operational Intelligence Engine</div>
+          <h3>Workflow orchestration and file intelligence infrastructure.</h3>
+          <p>The system underneath. TytlLab routes every file, flags exceptions, and surfaces curative work across the entire book of business, before a transaction can stall.</p>
+          <a href="#" class="eco-link">
+            Explore TytlLab
+            <svg class="arrow" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES SERVED -->
+<section class="section section-soft" id="industries">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow reveal"><span class="pip"></span>Industries served</div>
+      <h2 class="h2 reveal d1">Built for every shape a transaction takes.</h2>
+      <p class="lead reveal d2">From a first‑time homebuyer&rsquo;s townhouse to a 200‑unit development, eTitleDirect handles the full spectrum of residential and commercial closings.</p>
+    </div>
+
+    <div class="ind-grid">
+      <div class="ind-card reveal">
+        <div class="ind-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Residential</h3>
+        <p>Single‑family, condo, and townhouse closings. Purchase or sale, every state.</p>
+      </div>
+      <div class="ind-card reveal d1">
+        <div class="ind-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 21V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16M4 21h16M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Commercial</h3>
+        <p>Multi‑million dollar deals, mixed‑use, retail, and industrial, all handled with depth.</p>
+      </div>
+      <div class="ind-card reveal d2">
+        <div class="ind-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9c-2.5 0-4.5-1-6-2.5L3 21v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 7v5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Refinance</h3>
+        <p>Fast, tight, predictable. Refi cycles measured in hours, not weeks.</p>
+      </div>
+      <div class="ind-card reveal d3">
+        <div class="ind-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21v-9l7-5 7 5v9M9 21v-5h6v5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>
+        </div>
+        <h3>Builder &amp; Development</h3>
+        <p>Volume programs for builders and developers with bulk pricing and dedicated teams.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section class="section" id="why">
+  <div class="wrap why-grid">
+    <div>
+      <div class="eyebrow reveal"><span class="pip"></span>Why eTitleDirect</div>
+      <h2 class="h2 reveal d1" style="margin-top:18px;margin-bottom:18px">Clarity, confidence, and execution at every step.</h2>
+      <p class="lead reveal d2">Agents, lenders, attorneys, and home buyers choose eTitleDirect for the same reasons: we're responsive, we're structured, and we close.</p>
+      <a class="btn btn-primary reveal d3" href="#cta" style="margin-top:28px">
+        Talk to a specialist
+        <svg class="arrow" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="why-list reveal">
+      <div class="why-item">
+        <span class="n">01</span>
+        <div>
+          <h4>Operational responsiveness</h4>
+          <p>Files acknowledged in minutes, not days. Every party gets a name, a number, and a path to escalation.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="n">02</span>
+        <div>
+          <h4>Structured execution</h4>
+          <p>Standardized workflows for every transaction type, so that quality is consistent across files, closers, and states.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="n">03</span>
+        <div>
+          <h4>Real operational depth</h4>
+          <p>In‑house underwriters, escrow officers, and curative specialists backed by software we built ourselves.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="n">04</span>
+        <div>
+          <h4>Transparent communication</h4>
+          <p>Live status, automatic milestone alerts, and proactive outreach across every party in the deal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST METRICS -->
+<section class="section section-light" id="metrics">
+  <div class="wrap">
+    <div class="section-head" style="position:relative;z-index:1">
+      <div class="eyebrow reveal"><span class="pip"></span>Operational benchmarks</div>
+      <h2 class="h2 reveal d1">The numbers behind every closing.</h2>
+      <p class="lead reveal d2">Operating metrics from the last twelve months across all eTitleDirect transactions.</p>
+    </div>
+
+    <div class="metric-grid reveal">
+      <div class="metric">
+        <div class="metric-label">Files closed</div>
+        <div class="metric-num"><span class="count-target" data-target="10000">0</span><span class="suffix">+</span></div>
+        <div class="metric-trend">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          +22% YoY
+        </div>
+        <div class="metric-foot">Across 50 states</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Avg. cycle time</div>
+        <div class="metric-num"><span class="count-target" data-target="11" data-decimals="1">0</span><span class="suffix" style="color:var(--ink-3);opacity:.7;font-size:.6em;font-weight:500;margin-left:6px">days</span></div>
+        <div class="metric-trend">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="m6 10 6 6 6-6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          4.2 days faster
+        </div>
+        <div class="metric-foot">vs. industry benchmark</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">On‑time close rate</div>
+        <div class="metric-num"><span class="count-target" data-target="98">0</span><span class="suffix">%</span></div>
+        <div class="metric-trend">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          Industry avg. 87%
+        </div>
+        <div class="metric-foot">Trailing 12 months</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Client satisfaction</div>
+        <div class="metric-num"><span class="count-target" data-target="4" data-decimals="1" data-suffix-extra="/5">0</span></div>
+        <div class="metric-trend">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          12,400+ responses
+        </div>
+        <div class="metric-foot">Verified post‑close survey</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="wrap">
+    <div class="cta-card">
+      <div class="cta-copy">
+        <div class="eyebrow"><span class="pip"></span>Order title</div>
+        <h2 style="margin-top:18px">Your next closing,<br/>handled by <span class="accent">infrastructure.</span></h2>
+        <p>Order title in under two minutes. Onboard your team. Close with confidence for your buyer, your seller, and yourself.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary">
+          Order Title
+          <svg class="arrow" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="btn btn-secondary">Talk to a specialist</a>
+        <span style="font-size:.78rem;color:var(--ink-3);text-align:center;font-weight:500;margin-top:4px">
+          Already a client? <a href="#" style="color:var(--blue)">Sign in</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="logo">
+          <span class="logo-mark"><span class="e">e</span>TitleDirect</span>
+        </a>
+        <p>Modern title and settlement, powered by intelligent transaction infrastructure.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <a href="#">Operational difference</a>
+        <a href="#">Pipeline view</a>
+        <a href="#">Integrations</a>
+        <a href="#">Security</a>
+      </div>
+      <div class="foot-col">
+        <h5>Solutions</h5>
+        <a href="#">ClosingMap</a>
+        <a href="#">CloseProp</a>
+        <a href="#">TytlLab</a>
+        <a href="#">For Lenders</a>
+        <a href="#">For Builders</a>
+      </div>
+      <div class="foot-col">
+        <h5>Resources</h5>
+        <a href="#">Buyer &amp; seller guides</a>
+        <a href="#">Closing checklists</a>
+        <a href="#">Title insurance 101</a>
+        <a href="#">Market updates</a>
+        <a href="#">Help center</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+        <a href="#">Order title</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 eTitleDirect. All rights reserved.</span>
+      <div class="legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">ALTA Best Practices</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Nav scroll state */
+const navEl = document.getElementById('topnav');
+const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 20);
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* Reveal on scroll */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* Animated counters */
+const countObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseFloat(el.dataset.target);
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const suffixExtra = el.dataset.suffixExtra || '';
+    const duration = 1400;
+    const start = performance.now();
+    const fmt = (n) => {
+      const v = decimals ? n.toFixed(decimals) : Math.round(n).toString();
+      const parts = v.split('.');
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return parts.join('.') + suffixExtra;
+    };
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = fmt(target * eased);
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    countObs.unobserve(el);
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.count-target').forEach(el => countObs.observe(el));
+</script>
+</body>
+</html>
