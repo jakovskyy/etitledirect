@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About - eTitleDirect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --navy:#0B1D3C;
+  --blue:#2B6CF6;--blue-deep:#1F56D6;--blue-soft:#EAF1FF;--blue-line:#C2D6FB;--blue-ink:#1B4FD1;
+  --green:#14B24C;--green-soft:#E6F9EE;--green-line:#B4ECC6;
+  --ink:#0B1426;--ink-2:#2D3748;--ink-3:#5A6478;--ink-mute:#8A93A6;
+  --line:#E6E9F0;--bg:#FFFFFF;--bg-soft:#F7F8FB;--bg-warm:#F3F5F9;
+  --radius:10px;--radius-lg:20px;
+  --max:1200px;--pad:28px;
+  --font:'Inter',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --shadow-sm:0 1px 2px rgba(11,20,38,0.05);
+  --shadow:0 8px 24px rgba(11,20,38,0.07),0 1px 2px rgba(11,20,38,0.04);
+  --shadow-lg:0 24px 60px rgba(11,20,38,0.10),0 4px 12px rgba(11,20,38,0.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6;font-weight:400;letter-spacing:-0.005em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad);width:100%}
+
+/* NAV */
+nav.top{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line);transition:border-color .2s,background .2s}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:26px;height:26px;fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.logo-text{font-size:15px;font-weight:700;color:var(--navy);letter-spacing:-0.02em}
+.nav-links{display:flex;align-items:center;gap:1.3rem}
+.nav-link{font-size:.88rem;color:var(--ink-2);font-weight:500;padding:6px 0;transition:color .18s;display:inline-flex;align-items:center;gap:5px}
+.nav-link:hover{color:var(--ink)}
+.nav-link.has-caret::after{content:"";width:0;height:0;border:3.5px solid transparent;border-top-color:currentColor;transform:translateY(2px);opacity:.6}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-item{position:relative}
+.nav-item:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.nav-dropdown{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(6px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;min-width:200px;opacity:0;visibility:hidden;transition:opacity .18s ease,transform .18s ease,visibility .18s ease;z-index:200}
+.nav-dropdown::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:100%;height:12px;background:transparent}
+.nav-dd-item{display:flex;flex-direction:column;gap:2px;padding:9px 12px;border-radius:8px;font-size:.88rem;color:var(--ink-2);font-weight:500;transition:background .15s,color .15s}
+.nav-dd-item:hover{background:var(--bg-soft);color:var(--ink)}
+.nav-dd-item .dd-sub{font-size:.75rem;color:var(--ink-mute);font-weight:400;margin-top:1px}
+.nav-dd-divider{height:1px;background:var(--line);margin:4px 0}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.2rem;border-radius:var(--radius);font-weight:600;font-size:.92rem;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap;border:1px solid transparent}
+.btn .arrow{transition:transform .18s}
+.btn:hover .arrow{transform:translateX(3px)}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 1px 2px rgba(43,108,246,0.22)}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 8px 18px rgba(43,108,246,0.36)}
+.btn-sm{padding:.55rem .95rem;font-size:.85rem;border-radius:8px}
+.btn-green{background:var(--green);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 1px 2px rgba(20,178,76,0.22)}
+.btn-green:hover{background:#119e43;transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 8px 18px rgba(20,178,76,0.32)}
+
+/* HERO */
+.page-hero{padding:148px 0 72px;background:var(--bg);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.page-hero::before{content:"";position:absolute;inset:0;background-image:url('5office-hero.jpg');background-size:cover;background-position:center;opacity:0.12;pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:640px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:99px;padding:5px 14px;margin-bottom:24px}
+.hero-eyebrow span{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-ink)}
+.page-hero h1{font-size:clamp(36px,4.5vw,54px);font-weight:800;color:var(--navy);letter-spacing:-0.03em;line-height:1.08;margin-bottom:18px}
+.page-hero p{font-size:1.05rem;color:var(--ink-3);line-height:1.65;max-width:520px}
+
+/* FEATURED LEADER */
+.featured{padding:80px 0;border-bottom:1px solid var(--line)}
+.featured-inner{display:grid;grid-template-columns:380px 1fr;gap:72px;align-items:start}
+.featured-photo{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--bg-soft)}
+.featured-photo img{width:100%;height:460px;object-fit:cover;object-position:top;display:block}
+.featured-copy{}
+.leader-eyebrow{display:inline-flex;align-items:center;gap:7px;margin-bottom:20px}
+.leader-eyebrow .ldot{width:7px;height:7px;border-radius:99px;background:var(--blue)}
+.leader-eyebrow span{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.featured-copy h2{font-size:clamp(28px,3vw,38px);font-weight:800;color:var(--navy);letter-spacing:-0.03em;line-height:1.08;margin-bottom:6px}
+.featured-copy .leader-title{font-size:.9rem;font-weight:600;color:var(--ink-3);margin-bottom:28px}
+.featured-copy p{font-size:.98rem;color:var(--ink-2);line-height:1.75;margin-bottom:18px}
+.featured-copy p:last-child{margin-bottom:0}
+
+/* TEAM GRID */
+.team-section{padding:80px 0;background:var(--bg-soft);border-top:1px solid var(--line)}
+.team-head{margin-bottom:52px}
+.team-head h2{font-size:clamp(22px,2.4vw,30px);font-weight:800;color:var(--navy);letter-spacing:-0.03em;margin-bottom:10px}
+.team-head p{font-size:.96rem;color:var(--ink-3);max-width:480px;line-height:1.6}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.team-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .2s,transform .2s}
+.team-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.team-card-photo{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:top;display:block;background:var(--bg-soft)}
+.team-card-body{padding:18px 20px}
+.team-card-name{font-size:.96rem;font-weight:700;color:var(--navy);margin-bottom:4px;letter-spacing:-0.01em}
+.team-card-role{font-size:.8rem;font-weight:500;color:var(--ink-3);line-height:1.4}
+
+/* FOOTER */
+footer{background:var(--bg-soft);color:var(--ink-2);padding:72px 0 28px;border-top:1px solid var(--line)}
+.foot-grid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.foot-brand p{font-size:.86rem;line-height:1.65;color:var(--ink-3);margin-top:12px;max-width:260px}
+.foot-col h5{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.foot-col a{display:block;font-size:.88rem;padding:5px 0;color:var(--ink-2);transition:color .18s}
+.foot-col a:hover{color:var(--blue)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:.78rem;color:var(--ink-3);flex-wrap:wrap;gap:12px}
+.foot-legal{display:flex;gap:20px;flex-wrap:wrap}
+.foot-legal a{color:var(--ink-3);transition:color .18s}
+.foot-legal a:hover{color:var(--blue)}
+.foot-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.foot-badge{display:inline-flex;align-items:center;gap:6px;background:var(--bg-warm);border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:.7rem;color:var(--ink-3);font-weight:500}
+.foot-badge .bdot{width:5px;height:5px;border-radius:99px;background:var(--green);flex-shrink:0}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
+@media(max-width:960px){
+  .featured-inner{grid-template-columns:1fr;gap:40px}
+  .featured-photo img{height:360px}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .team-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+  .foot-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top" id="topnav">
+  <div class="nav-inner">
+    <a href="etdhomepage-v2.html" class="logo" aria-label="eTitleDirect home">
+      <div class="logo-mark">
+        <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+      </div>
+      <span class="logo-text">eTitleDirect</span>
+    </a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="etitledirect_services.html">Services</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="etitledirect_services.html#commercial">Commercial</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#residential">Residential</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#specialty">Specialty Searches</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="etitledirect_services.html#settlement">Settlement</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#erecording">Electronic Recordings</a>
+        </div>
+      </div>
+      <a class="nav-link" href="for-professionals.html">Professionals</a>
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="resources.html">Resources</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="resources.html#title-process">The Title Process</a>
+          <a class="nav-dd-item" href="resources.html#faq">FAQs</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="locations-contact.html">Get a Quote</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="#" style="color:var(--ink);font-weight:600">Company</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="our-team.html" style="font-weight:600;color:var(--ink)">About</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="locations-contact.html">Locations &amp; Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-primary btn-sm" href="#">
+        Order Title
+        <svg class="arrow" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-eyebrow reveal">
+        <span>About</span>
+      </div>
+      <h1 class="reveal d1">The people<br/>behind the work.</h1>
+      <p class="reveal d2">A small team with deep experience in real estate, title, and operations. Every file gets a closer who knows it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED: DAVID FERNANDEZ -->
+<section class="featured">
+  <div class="wrap">
+    <div class="featured-inner">
+
+      <div class="featured-photo reveal">
+        <img
+          src="https://static.wixstatic.com/media/4a2656_5c82b269229d4900a4f6c667444acf2a~mv2.jpg/v1/crop/x_35,y_0,w_587,h_664/fill/w_710,h_920,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/David_edited_edited.jpg"
+          alt="David Fernandez, Co-Founder of eTitleDirect"
+        />
+      </div>
+
+      <div class="featured-copy reveal d1">
+        <div class="leader-eyebrow">
+          <span class="ldot"></span>
+          <span>Co-Founder</span>
+        </div>
+        <h2>David Fernandez</h2>
+        <p class="leader-title">Co-Founder, eTitleDirect</p>
+
+        <p>With over twenty years in real estate, David originally began in construction before he ever worked in title. Starting as a foreman, he progressed to superintendent, then project manager, and eventually became the owner's representative for a major Brooklyn developer, where he handled land acquisitions, financing, development planning, and marketing across multiple projects throughout New York City.</p>
+
+        <p>From there he moved into residential sales, becoming the top producer at his firm within two years. David was able to quickly grow from a successful independent agent to a reputable team lead on multiple new developments throughout NYC. A firm believer in progressive expansion, he has always held that the quality of a team's brand and the level of service it can offer should be ever-improving. With his collective industry knowledge and customized approach, David and his team have continuously reinvented themselves to tailor their abilities to each client's unique needs.</p>
+
+        <p>That foundation is what led him to co-found eTitleDirect. He built it to fix the parts of the closing process that consistently failed everyone else at the table.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="team-section">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="locations-contact.html">
+        Talk with a specialist
+        <svg class="arrow" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="btn btn-green" href="etitledirect_services.html">
+        View services
+        <svg class="arrow" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+          </div>
+          <span class="logo-text">eTitleDirect</span>
+        </div>
+        <p>Full-service title insurance and settlement for residential and commercial real estate.</p>
+        <div class="foot-badges">
+          <span class="foot-badge"><span class="bdot"></span>ALTA Certified</span>
+          <span class="foot-badge"><span class="bdot"></span>SOC 2 Compliant</span>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="etitledirect_services.html#commercial">Commercial</a>
+        <a href="etitledirect_services.html#residential">Residential</a>
+        <a href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+        <a href="etitledirect_services.html#specialty">Specialty Searches</a>
+        <a href="etitledirect_services.html#settlement">Settlement</a>
+      </div>
+      <div class="foot-col">
+        <h5>Professionals</h5>
+        <a href="for-professionals.html#agents">For Agents</a>
+        <a href="for-professionals.html#lenders">For Lenders</a>
+        <a href="for-professionals.html#attorneys">For Attorneys</a>
+      </div>
+      <div class="foot-col">
+        <h5>Ecosystem</h5>
+        <a href="etitledirect_ecosystem.html">Overview</a>
+        <a href="etitledirect_ecosystem.html#closingmap">ClosingMap</a>
+        <a href="etitledirect_ecosystem.html#closeprop">CloseProp</a>
+        <a href="etitledirect_ecosystem.html#tytllab">TytlLab</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="our-team.html" style="font-weight:600;color:var(--ink)">About</a>
+        <a href="locations-contact.html">Locations &amp; Contact</a>
+        <a href="resources.html">The Title Process</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 eTitleDirect. All rights reserved.</span>
+      <div class="foot-legal">
+        <a href="#">Accessibility</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin:'0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+const nav = document.getElementById('topnav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+</script>
+</body>
+</html>

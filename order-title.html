@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Order Title - eTitleDirect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --navy:#0B1D3C;
+  --blue:#2B6CF6;--blue-deep:#1F56D6;--blue-soft:#EAF1FF;--blue-line:#C2D6FB;--blue-ink:#1B4FD1;
+  --green:#14B24C;--green-soft:#E6F9EE;--green-line:#B4ECC6;
+  --ink:#0B1426;--ink-2:#2D3748;--ink-3:#5A6478;--ink-mute:#8A93A6;
+  --line:#E6E9F0;--bg:#FFFFFF;--bg-soft:#F7F8FB;--bg-warm:#F3F5F9;
+  --radius:10px;--radius-lg:20px;
+  --max:1200px;--pad:28px;
+  --font:'Inter',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --shadow-sm:0 1px 2px rgba(11,20,38,0.05);
+  --shadow:0 8px 24px rgba(11,20,38,0.07),0 1px 2px rgba(11,20,38,0.04);
+  --shadow-lg:0 24px 60px rgba(11,20,38,0.10),0 4px 12px rgba(11,20,38,0.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6;font-weight:400;letter-spacing:-0.005em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad);width:100%}
+
+/* NAV */
+nav.top{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line);transition:border-color .2s,background .2s}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:26px;height:26px;fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.logo-text{font-size:15px;font-weight:700;color:var(--navy);letter-spacing:-0.02em}
+.nav-links{display:flex;align-items:center;gap:1.3rem}
+.nav-link{font-size:.88rem;color:var(--ink-2);font-weight:500;padding:6px 0;transition:color .18s;display:inline-flex;align-items:center;gap:5px}
+.nav-link:hover{color:var(--ink)}
+.nav-link.has-caret::after{content:"";width:0;height:0;border:3.5px solid transparent;border-top-color:currentColor;transform:translateY(2px);opacity:.6}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-item{position:relative}
+.nav-item:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.nav-dropdown{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(6px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;min-width:200px;opacity:0;visibility:hidden;transition:opacity .18s ease,transform .18s ease,visibility .18s ease;z-index:200}
+.nav-dropdown::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:100%;height:12px;background:transparent}
+.nav-dd-item{display:flex;flex-direction:column;gap:2px;padding:9px 12px;border-radius:8px;font-size:.88rem;color:var(--ink-2);font-weight:500;transition:background .15s,color .15s}
+.nav-dd-item:hover{background:var(--bg-soft);color:var(--ink)}
+.nav-dd-divider{height:1px;background:var(--line);margin:4px 0}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.2rem;border-radius:var(--radius);font-weight:600;font-size:.92rem;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap;border:1px solid transparent}
+.btn .arrow{transition:transform .18s}
+.btn:hover .arrow{transform:translateX(3px)}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 1px 2px rgba(43,108,246,0.22)}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 8px 18px rgba(43,108,246,0.36)}
+.btn-sm{padding:.55rem .95rem;font-size:.85rem;border-radius:8px}
+
+/* HERO */
+.page-hero{padding:148px 0 60px;background:var(--bg);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.page-hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(43,108,246,0.055) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+.hero-inner{position:relative;z-index:1;max-width:560px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:99px;padding:5px 14px;margin-bottom:24px}
+.hero-eyebrow span{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-ink)}
+.page-hero h1{font-size:clamp(36px,4.5vw,52px);font-weight:800;color:var(--navy);letter-spacing:-0.03em;line-height:1.08;margin-bottom:16px}
+.page-hero p{font-size:1.05rem;color:var(--ink-3);line-height:1.65;max-width:480px}
+
+/* ORDER LAYOUT */
+.order-section{padding:72px 0 96px;background:var(--bg-soft)}
+.order-inner{display:grid;grid-template-columns:1fr 1.6fr;gap:72px;align-items:start}
+
+/* LEFT PANEL */
+.order-left h2{font-size:clamp(22px,2.4vw,28px);font-weight:800;color:var(--navy);letter-spacing:-0.03em;line-height:1.12;margin-bottom:12px}
+.order-left p{font-size:.94rem;color:var(--ink-3);line-height:1.7;margin-bottom:28px}
+.trust-list{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.trust-item{display:flex;align-items:flex-start;gap:11px}
+.trust-check{width:20px;height:20px;border-radius:6px;background:var(--green-soft);border:1px solid var(--green-line);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.trust-check svg{width:10px;height:10px;stroke:var(--green);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.trust-item p{font-size:.88rem;color:var(--ink-2);line-height:1.55}
+.trust-item strong{color:var(--ink);font-weight:600}
+.phone-strip{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:18px 20px;display:flex;align-items:center;gap:13px}
+.phone-strip-icon{width:38px;height:38px;border-radius:10px;background:var(--blue-soft);border:1px solid var(--blue-line);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.phone-strip-icon svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.phone-strip-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:3px}
+.phone-strip-nums{font-size:.88rem;font-weight:700;color:var(--navy);line-height:1.5}
+.phone-strip-nums a{color:var(--navy);transition:color .18s}
+.phone-strip-nums a:hover{color:var(--blue)}
+
+/* FORM */
+.order-form-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow)}
+.form-section-head{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:20px;margin-top:28px}
+.form-section-head:first-child{margin-top:0}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.form-group.no-top{margin-top:0}
+.form-label{font-size:.78rem;font-weight:600;color:var(--ink-2);letter-spacing:.01em}
+.form-label .req{color:var(--blue);margin-left:2px}
+.form-input,.form-select,.form-textarea{width:100%;padding:10px 14px;border:1.5px solid var(--line);border-radius:var(--radius);font:inherit;font-size:.9rem;color:var(--ink);background:#fff;transition:border-color .18s,box-shadow .18s;outline:none;appearance:none;-webkit-appearance:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(43,108,246,0.10)}
+.form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A6478' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:38px}
+.form-hint{font-size:.72rem;color:var(--ink-mute);margin-top:4px;line-height:1.45}
+
+/* RADIO GROUP */
+.radio-group{display:flex;gap:10px;margin-top:2px}
+.radio-option{display:flex;align-items:center;gap:7px;padding:8px 14px;border:1.5px solid var(--line);border-radius:var(--radius);font-size:.88rem;font-weight:500;color:var(--ink-2);cursor:pointer;transition:border-color .18s,background .18s,color .18s;flex:1;justify-content:center}
+.radio-option input{display:none}
+.radio-option.selected,.radio-option:has(input:checked){border-color:var(--blue);background:var(--blue-soft);color:var(--blue-ink);font-weight:600}
+
+/* FILE UPLOAD */
+.file-upload{border:1.5px dashed var(--line);border-radius:var(--radius);padding:20px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .18s,background .18s;background:#fff;position:relative}
+.file-upload:hover{border-color:var(--blue-line);background:var(--blue-soft)}
+.file-upload input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.file-icon{width:36px;height:36px;border-radius:9px;background:var(--bg-soft);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.file-icon svg{width:16px;height:16px;stroke:var(--ink-3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.file-label{font-size:.85rem;font-weight:600;color:var(--ink-2)}
+.file-sub{font-size:.74rem;color:var(--ink-mute);margin-top:2px}
+.file-optional{font-size:.7rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--bg-warm);color:var(--ink-3);margin-left:7px;vertical-align:middle}
+#file-name-display{font-size:.78rem;color:var(--blue);margin-top:6px;display:none}
+
+/* SUBMIT */
+.form-submit-row{margin-top:24px}
+.btn-submit{width:100%;padding:.9rem 1.4rem;font-size:.96rem;font-weight:700;background:var(--blue);color:#fff;border-radius:var(--radius);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .18s,transform .18s,box-shadow .18s;box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 1px 2px rgba(43,108,246,0.22)}
+.btn-submit:hover{background:var(--blue-deep);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 8px 18px rgba(43,108,246,0.36)}
+.btn-submit svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .18s}
+.btn-submit:hover svg{transform:translateX(3px)}
+
+/* NOTICE */
+.notice-statement{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.notice-heading{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+.notice-statement p:last-child{font-size:.74rem;color:var(--ink-mute);line-height:1.65}
+
+/* CONDITIONAL FIELDS */
+.field-conditional{display:none}
+.field-conditional.visible{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+
+/* FOOTER */
+footer{background:var(--bg-soft);color:var(--ink-2);padding:72px 0 28px;border-top:1px solid var(--line)}
+.foot-grid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.foot-brand p{font-size:.86rem;line-height:1.65;color:var(--ink-3);margin-top:12px;max-width:260px}
+.foot-col h5{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.foot-col a{display:block;font-size:.88rem;padding:5px 0;color:var(--ink-2);transition:color .18s}
+.foot-col a:hover{color:var(--blue)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:.78rem;color:var(--ink-3);flex-wrap:wrap;gap:12px}
+.foot-legal{display:flex;gap:20px;flex-wrap:wrap}
+.foot-legal a{color:var(--ink-3);transition:color .18s}
+.foot-legal a:hover{color:var(--blue)}
+.foot-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.foot-badge{display:inline-flex;align-items:center;gap:6px;background:var(--bg-warm);border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:.7rem;color:var(--ink-3);font-weight:500}
+.foot-badge .bdot{width:5px;height:5px;border-radius:99px;background:var(--green);flex-shrink:0}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.08s}
+
+@media(max-width:960px){
+  .order-inner{grid-template-columns:1fr;gap:48px}
+  .form-row{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .order-form-card{padding:28px 20px}
+  .foot-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top" id="topnav">
+  <div class="nav-inner">
+    <a href="etdhomepage-v2.html" class="logo" aria-label="eTitleDirect home">
+      <div class="logo-mark">
+        <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+      </div>
+      <span class="logo-text">eTitleDirect</span>
+    </a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="etitledirect_services.html">Services</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="etitledirect_services.html#commercial">Commercial</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#residential">Residential</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#specialty">Specialty Searches</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="etitledirect_services.html#settlement">Settlement</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#erecording">Electronic Recordings</a>
+        </div>
+      </div>
+      <a class="nav-link" href="for-professionals.html">Professionals</a>
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="resources.html">Resources</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="resources.html#title-process">The Title Process</a>
+          <a class="nav-dd-item" href="resources.html#faq">FAQs</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="locations-contact.html">Get a Quote</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="#">Company</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="our-team.html">About</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="locations-contact.html">Locations &amp; Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-primary btn-sm" href="order-title.html" style="background:var(--navy)">
+        Order Title
+        <svg class="arrow" width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-eyebrow"><span>Order Title</span></div>
+      <h1>Start your file.</h1>
+      <p>Fill out the form and your file will be opened and in process. Your contract can be uploaded now or sent separately.</p>
+      <div class="trust-list" style="margin-top:28px">
+        <div class="trust-item">
+          <div class="trust-check"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5L10 3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <p><strong>Your file is opened upon receipt.</strong> A dedicated contact is assigned and your transaction enters the pipeline.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-check"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5L10 3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <p><strong>NJ and NY transactions.</strong> Residential and commercial, purchase and refinance, handled across both states.</p>
+        </div>
+        <div class="trust-item">
+          <div class="trust-check"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5L10 3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <p><strong>Contract not required to open.</strong> Upload it now if you have it. Our team will follow up for anything needed to process the file.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ORDER FORM -->
+<section class="order-section">
+  <div class="wrap">
+    <div class="order-inner">
+
+      <!-- LEFT -->
+      <div class="reveal">
+        <div class="phone-strip">
+          <div class="phone-strip-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 3.07 11.5 19.79 19.79 0 0 1 .14 2.9 2 2 0 0 1 2.11 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L6.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="phone-strip-label">Prefer the phone?</div>
+            <div class="phone-strip-nums">
+              <a href="tel:7326584440">NJ (732) 658-4440</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="tel:7186580886">NY (718) 658-0886</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="reveal d1">
+        <div class="order-form-card">
+          <form id="orderForm" action="https://software.etitledirect.com/order-now-blank.php" method="POST" enctype="multipart/form-data">
+
+            <!-- YOUR INFORMATION -->
+            <div class="form-section-head">Your information</div>
+            <div class="form-row">
+              <div class="form-group no-top">
+                <label class="form-label" for="fname">Full name<span class="req">*</span></label>
+                <input class="form-input" type="text" id="fname" name="full_name" placeholder="Jane Smith" required />
+              </div>
+              <div class="form-group no-top">
+                <label class="form-label" for="femail">Email<span class="req">*</span></label>
+                <input class="form-input" type="email" id="femail" name="email" placeholder="you@firm.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="fphone">Phone<span class="req">*</span></label>
+                <input class="form-input" type="tel" id="fphone" name="phone" placeholder="(555) 000-0000" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fcompany">Company name</label>
+                <input class="form-input" type="text" id="fcompany" name="company" placeholder="Firm or brokerage" />
+              </div>
+            </div>
+
+            <!-- PROPERTY -->
+            <div class="form-section-head">Property details</div>
+            <div class="form-group no-top">
+              <label class="form-label" for="faddress">Property address<span class="req">*</span></label>
+              <input class="form-input" type="text" id="faddress" name="property_address" placeholder="123 Main Street, City, State, ZIP" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="fstate">State<span class="req">*</span></label>
+                <select class="form-select" id="fstate" name="state" required onchange="updateCoop()">
+                  <option value="">Select state</option>
+                  <option value="NJ">New Jersey</option>
+                  <option value="NY">New York</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fproptype">Property type<span class="req">*</span></label>
+                <select class="form-select" id="fproptype" name="property_type" required onchange="updateCoop()">
+                  <option value="">Select type</option>
+                  <option value="Residential">Residential</option>
+                  <option value="Commercial">Commercial</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- CO-OP (NY + Residential only) -->
+            <div class="field-conditional" id="coop-field">
+              <label class="form-label">Is this a co-op?<span class="req">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option" onclick="selectRadio(this)">
+                  <input type="radio" name="coop" value="Yes" /> Yes
+                </label>
+                <label class="radio-option" onclick="selectRadio(this)">
+                  <input type="radio" name="coop" value="No" /> No
+                </label>
+              </div>
+            </div>
+
+            <!-- TRANSACTION -->
+            <div class="form-section-head">Transaction details</div>
+            <div class="form-row">
+              <div class="form-group no-top">
+                <label class="form-label" for="ftxtype">Transaction type<span class="req">*</span></label>
+                <select class="form-select" id="ftxtype" name="transaction_type" required onchange="updateTransactionFields()">
+                  <option value="">Select type</option>
+                  <option value="Purchase">Purchase</option>
+                  <option value="Refinance">Refinance</option>
+                </select>
+              </div>
+              <div class="form-group no-top">
+                <label class="form-label" for="fclosing">Estimated closing date<span class="req">*</span></label>
+                <input class="form-input" type="date" id="fclosing" name="closing_date" required />
+              </div>
+            </div>
+
+            <!-- PURCHASE fields -->
+            <div class="field-conditional" id="purchase-price-field">
+              <label class="form-label" for="fprice">Purchase price<span class="req">*</span></label>
+              <input class="form-input" type="text" id="fprice" name="purchase_price" placeholder="$" />
+            </div>
+
+            <div class="form-group" id="mortgage-field" style="display:none">
+              <label class="form-label" for="fmortgage">Mortgage amount<span class="req">*</span></label>
+              <input class="form-input" type="text" id="fmortgage" name="mortgage_amount" placeholder="$" />
+            </div>
+
+            <!-- REFINANCE fields -->
+            <div class="field-conditional" id="refi-type-field">
+              <label class="form-label" for="frefitype">Refinance type<span class="req">*</span></label>
+              <select class="form-select" id="frefitype" name="refinance_type">
+                <option value="">Select type</option>
+                <option value="Straight">Straight</option>
+                <option value="CEMA">CEMA</option>
+                <option value="Internal CEMA">Internal CEMA</option>
+                <option value="Subordination">Subordination</option>
+                <option value="HELOC">HELOC</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="field-conditional" id="refi-amount-field">
+              <label class="form-label" for="frefiamt">Refinance amount<span class="req">*</span></label>
+              <input class="form-input" type="text" id="frefiamt" name="refinance_amount" placeholder="$" />
+            </div>
+
+            <!-- CONTRACT UPLOAD -->
+            <div class="form-section-head">Contract of sale</div>
+            <label class="file-upload" for="fcontract">
+              <input type="file" id="fcontract" name="contract" accept=".pdf,.doc,.docx" onchange="showFileName(this)" />
+              <div class="file-icon">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+              </div>
+              <div>
+                <div class="file-label">Upload contract <span class="file-optional">Optional</span></div>
+                <div class="file-sub">PDF, DOC, or DOCX · Your closer will follow up if not provided</div>
+              </div>
+            </label>
+            <div id="file-name-display"></div>
+
+            <!-- SUBMIT -->
+            <div class="form-submit-row">
+              <button type="submit" class="btn-submit">
+                Submit order
+                <svg viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+              </button>
+            </div>
+
+            <!-- NOTICE -->
+            <div class="notice-statement">
+              <p class="notice-heading">Notice Statement</p>
+              <p>Rates and charges herein are subject to change based on the rates in effect at the time of closing. The lender or other party may require the performance of additional services which are not necessary services in connection with the issuance of the title policy. Please note that the issuance of the title policy is not dependent upon the performance of such additional services.</p>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+          </div>
+          <span class="logo-text">eTitleDirect</span>
+        </div>
+        <p>Full-service title insurance and settlement for residential and commercial real estate.</p>
+        <div class="foot-badges">
+          <span class="foot-badge"><span class="bdot"></span>ALTA Certified</span>
+          <span class="foot-badge"><span class="bdot"></span>SOC 2 Compliant</span>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="etitledirect_services.html#commercial">Commercial</a>
+        <a href="etitledirect_services.html#residential">Residential</a>
+        <a href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+        <a href="etitledirect_services.html#specialty">Specialty Searches</a>
+        <a href="etitledirect_services.html#settlement">Settlement</a>
+      </div>
+      <div class="foot-col">
+        <h5>Professionals</h5>
+        <a href="for-professionals.html#agents">For Agents</a>
+        <a href="for-professionals.html#lenders">For Lenders</a>
+        <a href="for-professionals.html#attorneys">For Attorneys</a>
+      </div>
+      <div class="foot-col">
+        <h5>Ecosystem</h5>
+        <a href="etitledirect_ecosystem.html">Overview</a>
+        <a href="etitledirect_ecosystem.html#closingmap">ClosingMap</a>
+        <a href="etitledirect_ecosystem.html#closeprop">CloseProp</a>
+        <a href="etitledirect_ecosystem.html#tytllab">TytlLab</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="our-team.html">About</a>
+        <a href="locations-contact.html">Locations &amp; Contact</a>
+        <a href="resources.html">The Title Process</a>
+        <a href="order-title.html" style="font-weight:600;color:var(--ink)">Order Title</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 eTitleDirect. All rights reserved.</span>
+      <div class="foot-legal">
+        <a href="#">Accessibility</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
+}, { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// Nav scroll
+const nav = document.getElementById('topnav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive:true });
+
+// Show/hide co-op field (NY + Residential only)
+function updateCoop() {
+  const state = document.getElementById('fstate').value;
+  const propType = document.getElementById('fproptype').value;
+  const coopField = document.getElementById('coop-field');
+  if (state === 'NY' && propType === 'Residential') {
+    coopField.classList.add('visible');
+  } else {
+    coopField.classList.remove('visible');
+    document.querySelectorAll('input[name="coop"]').forEach(r => r.checked = false);
+    document.querySelectorAll('#coop-field .radio-option').forEach(o => o.classList.remove('selected'));
+  }
+}
+
+// Show/hide transaction-specific fields
+function updateTransactionFields() {
+  const type = document.getElementById('ftxtype').value;
+  const purchasePrice = document.getElementById('purchase-price-field');
+  const mortgageField = document.getElementById('mortgage-field');
+  const refiType = document.getElementById('refi-type-field');
+  const refiAmt = document.getElementById('refi-amount-field');
+
+  if (type === 'Purchase') {
+    purchasePrice.classList.add('visible');
+    mortgageField.style.display = 'flex';
+    refiType.classList.remove('visible');
+    refiAmt.classList.remove('visible');
+    document.getElementById('fprice').required = true;
+    document.getElementById('fmortgage').required = true;
+    document.getElementById('frefitype').required = false;
+    document.getElementById('frefiamt').required = false;
+  } else if (type === 'Refinance') {
+    purchasePrice.classList.remove('visible');
+    mortgageField.style.display = 'none';
+    refiType.classList.add('visible');
+    refiAmt.classList.add('visible');
+    document.getElementById('fprice').required = false;
+    document.getElementById('fmortgage').required = false;
+    document.getElementById('frefitype').required = true;
+    document.getElementById('frefiamt').required = true;
+  } else {
+    purchasePrice.classList.remove('visible');
+    mortgageField.style.display = 'none';
+    refiType.classList.remove('visible');
+    refiAmt.classList.remove('visible');
+  }
+}
+
+// Radio button selection styling
+function selectRadio(label) {
+  const group = label.closest('.radio-group');
+  group.querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+  label.classList.add('selected');
+  label.querySelector('input').checked = true;
+}
+
+// File name display
+function showFileName(input) {
+  const display = document.getElementById('file-name-display');
+  if (input.files && input.files[0]) {
+    display.textContent = input.files[0].name;
+    display.style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>

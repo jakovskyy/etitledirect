@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Resources - eTitleDirect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --navy:#0B1D3C;
+  --blue:#2B6CF6;--blue-deep:#1F56D6;--blue-soft:#EAF1FF;--blue-line:#C2D6FB;--blue-ink:#1B4FD1;
+  --green:#14B24C;--green-soft:#E6F9EE;--green-line:#B4ECC6;
+  --ink:#0B1426;--ink-2:#2D3748;--ink-3:#5A6478;--ink-mute:#8A93A6;
+  --line:#E6E9F0;--bg:#FFFFFF;--bg-soft:#F7F8FB;--bg-warm:#F3F5F9;
+  --radius:10px;--radius-lg:20px;
+  --max:1200px;--pad:28px;
+  --font:'Inter',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --shadow-sm:0 1px 2px rgba(11,20,38,0.05);
+  --shadow:0 8px 24px rgba(11,20,38,0.07),0 1px 2px rgba(11,20,38,0.04);
+  --shadow-lg:0 24px 60px rgba(11,20,38,0.10),0 4px 12px rgba(11,20,38,0.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.6;font-weight:400;letter-spacing:-0.005em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad);width:100%}
+
+/* NAV */
+nav.top{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line);transition:border-color .2s,background .2s}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:26px;height:26px;fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.logo-text{font-size:15px;font-weight:700;color:var(--navy);letter-spacing:-0.02em}
+.nav-links{display:flex;align-items:center;gap:1.3rem}
+.nav-link{font-size:.88rem;color:var(--ink-2);font-weight:500;padding:6px 0;transition:color .18s;display:inline-flex;align-items:center;gap:5px}
+.nav-link:hover{color:var(--ink)}
+.nav-link.has-caret::after{content:"";width:0;height:0;border:3.5px solid transparent;border-top-color:currentColor;transform:translateY(2px);opacity:.6}
+.nav-right{display:flex;align-items:center;gap:14px}
+.nav-item{position:relative}
+.nav-item:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.nav-dropdown{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(6px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;min-width:200px;opacity:0;visibility:hidden;transition:opacity .18s ease,transform .18s ease,visibility .18s ease;z-index:200}
+.nav-dropdown::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:100%;height:12px;background:transparent}
+.nav-dd-item{display:flex;flex-direction:column;gap:2px;padding:9px 12px;border-radius:8px;font-size:.88rem;color:var(--ink-2);font-weight:500;transition:background .15s,color .15s}
+.nav-dd-item:hover{background:var(--bg-soft);color:var(--ink)}
+.nav-dd-divider{height:1px;background:var(--line);margin:4px 0}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.2rem;border-radius:var(--radius);font-weight:600;font-size:.92rem;transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap;border:1px solid transparent}
+.btn .arrow{transition:transform .18s}
+.btn:hover .arrow{transform:translateX(3px)}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 1px 2px rgba(43,108,246,0.22)}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.22),0 8px 18px rgba(43,108,246,0.36)}
+.btn-ghost{background:transparent;color:var(--ink-2);border-color:var(--line)}
+.btn-ghost:hover{background:var(--bg-soft);color:var(--ink);border-color:var(--ink-mute)}
+.btn-sm{padding:.55rem .95rem;font-size:.85rem;border-radius:8px}
+
+/* HERO */
+.page-hero{padding:148px 0 72px;background:var(--bg);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.page-hero::before{content:"";position:absolute;inset:0;background-image:url('office2.png');background-size:cover;background-position:center;opacity:0.12;pointer-events:none;z-index:0}
+.hero-inner{position:relative;z-index:1;max-width:600px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:99px;padding:5px 14px;margin-bottom:24px}
+.hero-eyebrow span{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-ink)}
+.page-hero h1{font-size:clamp(36px,4.5vw,52px);font-weight:800;color:var(--navy);letter-spacing:-0.03em;line-height:1.08;margin-bottom:18px}
+.page-hero p{font-size:1.05rem;color:var(--ink-3);line-height:1.65;max-width:480px}
+
+/* SECTION SHARED */
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.section-heading{font-size:clamp(26px,3vw,36px);font-weight:800;color:var(--navy);letter-spacing:-0.03em;line-height:1.1;margin-bottom:14px}
+.section-sub{font-size:1rem;color:var(--ink-3);line-height:1.7;max-width:540px}
+
+/* PAGE NAV */
+.page-nav{padding:40px 0;border-bottom:1px solid var(--line);background:var(--bg)}
+.page-nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.page-nav-card{display:flex;align-items:center;gap:16px;padding:20px 22px;background:var(--bg-soft);border:1.5px solid var(--line);border-radius:var(--radius-lg);transition:border-color .18s,box-shadow .18s;cursor:pointer;text-decoration:none}
+.page-nav-card:hover{border-color:var(--blue-line);box-shadow:var(--shadow)}
+.page-nav-icon{width:40px;height:40px;border-radius:10px;background:var(--blue-soft);border:1px solid var(--blue-line);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.page-nav-icon svg{width:17px;height:17px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.page-nav-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:2px}
+.page-nav-title{font-size:.95rem;font-weight:700;color:var(--navy)}
+.page-nav-arrow{margin-left:auto;color:var(--ink-mute);transition:transform .18s,color .18s;flex-shrink:0}
+.page-nav-card:hover .page-nav-arrow{transform:translateX(3px);color:var(--blue)}
+
+/* TITLE PROCESS */
+.process-section{padding:96px 0;border-bottom:1px solid var(--line)}
+.process-header{max-width:600px;margin-bottom:64px}
+.process-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+.process-steps::before{content:"";position:absolute;top:28px;left:calc(100% / 6);right:calc(100% / 6);height:1px;background:var(--line);z-index:0}
+.process-step{display:flex;flex-direction:column;align-items:flex-start;padding:0 24px;position:relative}
+.process-step:first-child{padding-left:0}
+.process-step:last-child{padding-right:0}
+.step-num{width:56px;height:56px;border-radius:99px;background:#fff;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:var(--blue);letter-spacing:.04em;margin-bottom:20px;position:relative;z-index:1;box-shadow:var(--shadow-sm);flex-shrink:0}
+.step-num.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 4px 14px rgba(43,108,246,0.32)}
+.step-title{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.2}
+.step-desc{font-size:.88rem;color:var(--ink-3);line-height:1.65}
+
+/* FAQ */
+.faq-section{padding:96px 0;background:var(--bg-soft);border-bottom:1px solid var(--line)}
+.faq-inner{display:grid;grid-template-columns:280px 1fr;gap:80px;align-items:start}
+.faq-nav{position:sticky;top:100px}
+.faq-nav-label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px}
+.faq-nav-link{display:block;font-size:.9rem;font-weight:500;color:var(--ink-3);padding:7px 0;border-left:2px solid transparent;padding-left:12px;transition:color .18s,border-color .18s;cursor:pointer}
+.faq-nav-link:hover,.faq-nav-link.active{color:var(--blue);border-color:var(--blue)}
+.faq-groups{display:flex;flex-direction:column;gap:56px}
+.faq-group-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-ink);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.faq-group-label::after{content:"";flex:1;height:1px;background:var(--blue-line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;cursor:pointer;font-size:.98rem;font-weight:600;color:var(--ink);transition:color .18s;user-select:none}
+.faq-q:hover{color:var(--blue)}
+.faq-icon{width:22px;height:22px;border-radius:99px;background:var(--bg-warm);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s,transform .22s}
+.faq-icon svg{width:10px;height:10px;stroke:var(--ink-3);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .18s}
+.faq-item.open .faq-icon{background:var(--blue-soft);border-color:var(--blue-line);transform:rotate(45deg)}
+.faq-item.open .faq-icon svg{stroke:var(--blue)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+.faq-a-inner{padding-bottom:18px;font-size:.93rem;color:var(--ink-3);line-height:1.75}
+.faq-a-inner a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.faq-item.open .faq-a{max-height:400px}
+
+/* ORDER CTA */
+.order-cta{padding:96px 0}
+.cta-card{background:var(--navy);border-radius:var(--radius-lg);padding:64px 72px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;position:relative;overflow:hidden}
+.cta-card::before{content:"";position:absolute;top:-60px;right:-60px;width:320px;height:320px;border-radius:99px;background:rgba(43,108,246,0.18);pointer-events:none}
+.cta-card-copy{position:relative;z-index:1}
+.cta-card-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:14px}
+.cta-card h2{font-size:clamp(26px,3vw,36px);font-weight:800;color:#fff;letter-spacing:-0.03em;line-height:1.1;margin-bottom:14px}
+.cta-card p{font-size:.98rem;color:rgba(255,255,255,0.65);line-height:1.7;max-width:480px}
+.cta-card-actions{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1;flex-shrink:0}
+.btn-white{background:#fff;color:var(--navy);border-color:#fff}
+.btn-white:hover{background:var(--bg-soft);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.18)}
+.btn-outline-white{background:transparent;color:#fff;border-color:rgba(255,255,255,0.3)}
+.btn-outline-white:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.5)}
+
+/* FOOTER */
+footer{background:var(--bg-soft);color:var(--ink-2);padding:72px 0 28px;border-top:1px solid var(--line)}
+.foot-grid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.foot-brand p{font-size:.86rem;line-height:1.65;color:var(--ink-3);margin-top:12px;max-width:260px}
+.foot-col h5{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.foot-col a{display:block;font-size:.88rem;padding:5px 0;color:var(--ink-2);transition:color .18s}
+.foot-col a:hover{color:var(--blue)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:.78rem;color:var(--ink-3);flex-wrap:wrap;gap:12px}
+.foot-legal{display:flex;gap:20px;flex-wrap:wrap}
+.foot-legal a{color:var(--ink-3);transition:color .18s}
+.foot-legal a:hover{color:var(--blue)}
+.foot-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.foot-badge{display:inline-flex;align-items:center;gap:6px;background:var(--bg-warm);border:1px solid var(--line);border-radius:6px;padding:4px 9px;font-size:.7rem;color:var(--ink-3);font-weight:500}
+.foot-badge .bdot{width:5px;height:5px;border-radius:99px;background:var(--green);flex-shrink:0}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+.reveal.d4{transition-delay:.32s}.reveal.d5{transition-delay:.40s}
+
+@media(max-width:960px){
+  .page-nav-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr 1fr;gap:40px}
+  .process-steps::before{display:none}
+  .faq-inner{grid-template-columns:1fr;gap:40px}
+  .faq-nav{position:static;display:flex;gap:6px;flex-wrap:wrap}
+  .faq-nav-label{display:none}
+  .faq-nav-link{border-left:none;padding-left:0;padding:6px 12px;border:1px solid var(--line);border-radius:6px;font-size:.82rem}
+  .faq-nav-link.active{background:var(--blue-soft);border-color:var(--blue-line);color:var(--blue)}
+  .cta-card{grid-template-columns:1fr;padding:48px 40px;gap:32px}
+  .cta-card-actions{flex-direction:row}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .process-steps{grid-template-columns:1fr}
+  .cta-card{padding:36px 24px}
+  .cta-card-actions{flex-direction:column}
+  .foot-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top" id="topnav">
+  <div class="nav-inner">
+    <a href="etdhomepage-v2.html" class="logo" aria-label="eTitleDirect home">
+      <div class="logo-mark">
+        <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+      </div>
+      <span class="logo-text">eTitleDirect</span>
+    </a>
+    <div class="nav-links">
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="etitledirect_services.html">Services</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="etitledirect_services.html#commercial">Commercial</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#residential">Residential</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#specialty">Specialty Searches</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="etitledirect_services.html#settlement">Settlement</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#erecording">Electronic Recordings</a>
+        </div>
+      </div>
+      <a class="nav-link" href="for-professionals.html">Professionals</a>
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="resources.html" style="color:var(--ink);font-weight:600">Resources</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="resources.html#title-process" style="font-weight:600;color:var(--ink)">The Title Process</a>
+          <a class="nav-dd-item" href="resources.html#faq" style="font-weight:600;color:var(--ink)">FAQs</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="locations-contact.html#quote">Get a Quote</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="#">Company</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="our-team.html">About</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="locations-contact.html">Locations &amp; Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-primary btn-sm" href="locations-contact.html">
+        Get a quote
+        <svg class="arrow" width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-eyebrow"><span>Resources</span></div>
+      <h1>Everything you need to understand title.</h1>
+      <p>How the process works, what your policy actually covers, and answers to the questions we hear most often.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- PAGE NAV -->
+<section class="page-nav">
+  <div class="wrap">
+    <div class="page-nav-grid">
+      <a class="page-nav-card" href="#title-process">
+        <div class="page-nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div>
+          <div class="page-nav-label">Step by step</div>
+          <div class="page-nav-title">The Title Process</div>
+        </div>
+        <svg class="page-nav-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="page-nav-card" href="#faq">
+        <div class="page-nav-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="page-nav-label">Common questions</div>
+          <div class="page-nav-title">FAQs</div>
+        </div>
+        <svg class="page-nav-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="page-nav-card" href="locations-contact.html">
+        <div class="page-nav-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="page-nav-label">Ready to start</div>
+          <div class="page-nav-title">Get a Quote</div>
+        </div>
+        <svg class="page-nav-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- THE TITLE PROCESS -->
+<section class="process-section" id="title-process">
+  <div class="wrap">
+    <div class="process-header reveal">
+      <div class="section-label">The Title Process</div>
+      <h2 class="section-heading">From contract to closing, here's what happens.</h2>
+      <p class="section-sub">Title work runs in the background of every real estate transaction. These are the six steps that move a property from contract to a clean, insured closing.</p>
+    </div>
+    <div class="process-steps">
+
+      <div class="process-step reveal">
+        <div class="step-num active">01</div>
+        <h3 class="step-title">Order placed</h3>
+        <p class="step-desc">Your agent, lender, or attorney submits the title order. We confirm receipt and assign a closer to the file, one point of contact from start to finish.</p>
+      </div>
+
+      <div class="process-step reveal d1">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Title search</h3>
+        <p class="step-desc">Our team searches public records going back 60 or more years, including deeds, mortgages, liens, judgments, easements, and tax records. Every encumbrance on the property gets identified.</p>
+      </div>
+
+      <div class="process-step reveal d2">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Title examination</h3>
+        <p class="step-desc">A licensed examiner reviews the search results for defects, gaps in the chain of title, and anything that could affect ownership. Issues are flagged before they become closing-table surprises.</p>
+      </div>
+
+      <div class="process-step reveal d3">
+        <div class="step-num">04</div>
+        <h3 class="step-title">Commitment issued</h3>
+        <p class="step-desc">We issue a title commitment, a formal promise to insure. It lists the coverage terms and any remaining exceptions that need to be resolved before closing can proceed.</p>
+      </div>
+
+      <div class="process-step reveal d4">
+        <div class="step-num">05</div>
+        <h3 class="step-title">Curative work</h3>
+        <p class="step-desc">Open liens, estate issues, judgment clearances, and gap problems are handled in-house by our curative team. We resolve them before you sit down at the table, not after.</p>
+      </div>
+
+      <div class="process-step reveal d5">
+        <div class="step-num">06</div>
+        <h3 class="step-title">Closing &amp; policy issued</h3>
+        <p class="step-desc">Documents are signed, funds disbursed, and instruments recorded with the county. Your owner's policy, and the lender's policy if applicable, is issued and on file.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQs -->
+<section class="faq-section" id="faq">
+  <div class="wrap">
+    <div class="faq-inner">
+
+      <div class="faq-nav reveal">
+        <div class="faq-nav-label">Jump to</div>
+        <a class="faq-nav-link active" onclick="scrollToGroup('faq-general')">General</a>
+        <a class="faq-nav-link" onclick="scrollToGroup('faq-coverage')">Coverage</a>
+        <a class="faq-nav-link" onclick="scrollToGroup('faq-cost')">Cost</a>
+        <a class="faq-nav-link" onclick="scrollToGroup('faq-process')">Process</a>
+      </div>
+
+      <div class="faq-groups reveal d1">
+
+        <!-- GENERAL -->
+        <div id="faq-general">
+          <div class="faq-group-label">General</div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              What is title insurance?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">Title insurance protects you against losses arising from defects in the title to your property. These defects can include unpaid liens from prior owners, errors in public records, undisclosed heirs with a claim to the property, forged documents, or problems with prior transfers. Unlike other insurance policies that protect against future events, title insurance protects against past events that were unknown at the time of purchase.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              How is title insurance different from homeowner's insurance?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">Homeowner's insurance protects your property against future events like fire, theft, and storm damage. Title insurance protects your ownership rights against past events, meaning claims and defects that already existed when you bought the property but weren't discovered until later. Both are important, but they cover entirely different risks.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              Do I need title insurance if I'm paying cash?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">Cash buyers are not required to purchase title insurance, but most attorneys and financial advisors strongly recommend it. Without a policy, there is nothing protecting your equity if a claim surfaces after closing, whether that's an undisclosed lien, a prior ownership dispute, or a forged document in the chain of title. A one-time premium for an owner's policy is modest relative to the protection it provides on what is likely your largest asset.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              What is a title search?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">A title search is a review of public records to trace the ownership history of a property and identify any encumbrances attached to it. We search deeds, mortgages, judgments, liens, tax records, and court filings, typically going back 60 or more years depending on the state. The search produces a report that forms the basis for the title commitment and, ultimately, your insurance policy.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COVERAGE -->
+        <div id="faq-coverage">
+          <div class="faq-group-label">Coverage</div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              What does an owner's policy cover?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">An owner's policy protects your right to own and use the property. It covers things like unpaid taxes or liens from prior owners, claims by heirs or other parties with an interest in the property, errors or omissions in deeds and legal descriptions, fraudulent documents in the chain of title, and boundary disputes that affect your title. Coverage is in effect for as long as you own the property, and in many cases extends to your heirs.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              What's the difference between an owner's policy and a lender's policy?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">A lender's policy (also called a loan policy) protects your mortgage lender's interest in the property, not yours. Most lenders require it as a condition of financing. An owner's policy protects you, the buyer. The two are separate policies covering separate interests. In most transactions, buyers purchase both. The lender's policy is required, and the owner's policy is strongly advisable.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              Does title insurance cover issues that come up after closing?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">Title insurance covers losses arising from defects that existed before or at the time of closing but were unknown, even if they don't surface until years later. It does not cover new liens or encumbrances you take on after you close (for example, a mortgage you take out yourself, or a contractor lien from work you had done). The protection is permanent for past title issues; it's not a forward-looking policy.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COST -->
+        <div id="faq-cost">
+          <div class="faq-group-label">Cost</div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              How much does title insurance cost in New Jersey and New York?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">Premiums are set by the state insurance department in both New Jersey and New York, so every title company charges the same rate for the base policy. The cost varies based on the purchase price or loan amount. For an accurate number on your specific transaction, <a href="locations-contact.html">request a quote</a> and we'll provide a full breakdown including all applicable fees.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              Who pays for title insurance?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">In New Jersey, it's customary for the buyer to pay for both the owner's policy and the lender's policy. In New York, the seller often pays for the owner's policy in residential transactions, while the buyer typically pays for the lender's policy. These customs can vary by transaction type and are subject to negotiation between the parties. Your attorney or agent can advise on what's standard for your specific deal.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              Is title insurance a one-time cost?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">Yes. You pay a one-time premium at closing, and coverage remains in force for as long as you own the property. There are no annual renewals, no recurring premiums. The lender's policy expires when the mortgage is paid off. The owner's policy stays active indefinitely, and in many cases passes to your heirs.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- PROCESS -->
+        <div id="faq-process">
+          <div class="faq-group-label">Process</div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              How long does the title process take?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">For a standard residential transaction, most title work is completed within five to ten business days of the order being placed. More complex files, including commercial deals, properties with a complicated ownership history, REOs, or properties requiring curative work, take longer depending on what surfaces in the search. We communicate actively throughout the process so you always know where the file stands.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              What happens at the closing table?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">At closing, all parties sign the transfer documents, loan documents (if applicable), and settlement statement. Funds are collected and disbursed, covering the purchase price, payoffs on any existing liens, taxes, and closing costs. Once everything is signed and funds are confirmed, documents are submitted to the county for recording. Your owner's policy is issued after the recording is confirmed, typically within a few weeks.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">
+              Do you handle closings in-house?
+              <div class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></div>
+            </div>
+            <div class="faq-a">
+              <div class="faq-a-inner">Yes. Our settlement department handles funds collected at closing directly, across both New Jersey and New York transactions. Having title and settlement under one roof eliminates the coordination delay that comes from working with multiple vendors, so the same team that knows your file is managing the table.</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ORDER TITLE CTA -->
+<section class="order-cta">
+  <div class="wrap">
+    <div class="cta-card reveal">
+      <div class="cta-card-copy">
+        <div class="cta-card-eyebrow">Ready to move forward?</div>
+        <h2>Get a quote on your next transaction.</h2>
+        <p>Tell us about the deal and we'll respond with pricing and availability, typically within the hour. Two offices in NJ and NY, one team on your file.</p>
+      </div>
+      <div class="cta-card-actions">
+        <a class="btn btn-white" href="locations-contact.html">
+          Get a quote
+          <svg class="arrow" width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn-outline-white" href="etitledirect_services.html">View services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+          </div>
+          <span class="logo-text">eTitleDirect</span>
+        </div>
+        <p>Full-service title insurance and settlement for residential and commercial real estate.</p>
+        <div class="foot-badges">
+          <span class="foot-badge"><span class="bdot"></span>ALTA Certified</span>
+          <span class="foot-badge"><span class="bdot"></span>SOC 2 Compliant</span>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="etitledirect_services.html#commercial">Commercial</a>
+        <a href="etitledirect_services.html#residential">Residential</a>
+        <a href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+        <a href="etitledirect_services.html#specialty">Specialty Searches</a>
+        <a href="etitledirect_services.html#settlement">Settlement</a>
+      </div>
+      <div class="foot-col">
+        <h5>Professionals</h5>
+        <a href="for-professionals.html#agents">For Agents</a>
+        <a href="for-professionals.html#lenders">For Lenders</a>
+        <a href="for-professionals.html#attorneys">For Attorneys</a>
+      </div>
+      <div class="foot-col">
+        <h5>Ecosystem</h5>
+        <a href="etitledirect_ecosystem.html">Overview</a>
+        <a href="etitledirect_ecosystem.html#closingmap">ClosingMap</a>
+        <a href="etitledirect_ecosystem.html#closeprop">CloseProp</a>
+        <a href="etitledirect_ecosystem.html#tytllab">TytlLab</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="our-team.html">About</a>
+        <a href="locations-contact.html">Locations &amp; Contact</a>
+        <a href="resources.html" style="font-weight:600;color:var(--ink)">The Title Process</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 eTitleDirect. All rights reserved.</span>
+      <div class="foot-legal">
+        <a href="#">Accessibility</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); } });
+}, { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// Nav scroll
+const nav = document.getElementById('topnav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive:true });
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+
+// FAQ nav active state on scroll
+function scrollToGroup(id) {
+  const el = document.getElementById(id);
+  if(el) { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior:'smooth' }); }
+}
+const faqGroups = ['faq-general','faq-coverage','faq-cost','faq-process'];
+const faqNavLinks = document.querySelectorAll('.faq-nav-link');
+window.addEventListener('scroll', () => {
+  let current = faqGroups[0];
+  faqGroups.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.getBoundingClientRect().top + window.scrollY - 160) current = id;
+  });
+  faqNavLinks.forEach((l, i) => l.classList.toggle('active', faqGroups[i] === current));
+}, { passive:true });
+</script>
+</body>
+</html>

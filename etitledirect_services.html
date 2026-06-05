@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services - eTitleDirect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0B1D3C;
+      --navy-mid:   #1A3260;
+      --blue:       #2B6CF6;
+      --blue-mid:   #1A56D4;
+      --blue-light: #EEF4FF;
+      --blue-100:   #DBEAFE;
+      --green:      #14B24C;
+      --green-light:#ECFDF5;
+      --gray-50:    #F8FAFC;
+      --gray-100:   #F1F5F9;
+      --gray-200:   #E2E8F0;
+      --gray-300:   #CBD5E1;
+      --gray-400:   #94A3B8;
+      --gray-500:   #64748B;
+      --gray-600:   #475569;
+      --gray-800:   #1E293B;
+      --white:      #FFFFFF;
+      --font:       'Inter', -apple-system, system-ui, sans-serif;
+      --radius:     10px;
+      --max-w:      1160px;
+      --t:          0.18s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--gray-800);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-200);
+      height: 64px;
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 24px; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-mark {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-mark svg { width: 26px; height: 26px; fill: none; stroke: var(--blue); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      font-size: 13.5px; font-weight: 500; color: var(--gray-600);
+      text-decoration: none; padding: 6px 11px; border-radius: 6px;
+      transition: color var(--t), background var(--t);
+    }
+    .nav-links a:hover { color: var(--navy); background: var(--gray-100); }
+    .nav-links a.active { color: var(--navy); font-weight: 600; }
+    .nav-cta { display: flex; align-items: center; gap: 8px; }
+    .btn-nav-ghost {
+      font-size: 13.5px; font-weight: 500; color: var(--gray-600);
+      text-decoration: none; padding: 7px 14px; border-radius: 7px;
+      transition: color var(--t), background var(--t);
+    }
+    .btn-nav-ghost:hover { color: var(--navy); background: var(--gray-100); }
+    .btn-nav {
+      font-size: 13.5px; font-weight: 600; color: white;
+      background: var(--blue); text-decoration: none;
+      padding: 8px 18px; border-radius: 7px;
+      display: flex; align-items: center; gap: 6px;
+      transition: background var(--t), transform var(--t);
+    }
+    .btn-nav:hover { background: var(--blue-mid); transform: translateY(-1px); }
+    .btn-nav svg { width: 14px; height: 14px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--white);
+      padding: 80px 24px 88px;
+      overflow: hidden;
+      position: relative;
+    }
+    .page-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('cityline.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .page-hero-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative; z-index: 1;
+    }
+    .page-hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 18px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+    }
+    .page-hero h1 {
+      font-size: clamp(36px, 4.5vw, 54px);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+    .page-hero h1 em { font-style: normal; color: var(--blue); }
+    .page-hero-sub {
+      font-size: 17px;
+      color: var(--gray-600);
+      line-height: 1.7;
+      max-width: 460px;
+    }
+
+    /* Hero differentiator cards */
+    .differentiator-cards { display: flex; flex-direction: column; gap: 12px; }
+    .diff-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+    .diff-card:hover { border-color: var(--gray-300); box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+    .diff-card-top { padding: 16px 18px 14px; display: flex; gap: 13px; align-items: flex-start; }
+    .diff-card-icon {
+      width: 34px; height: 34px; flex-shrink: 0;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .diff-card-icon.green  { background: var(--green-light); }
+    .diff-card-icon.blue   { background: var(--blue-light); }
+    .diff-card-icon.navy   { background: var(--gray-100); }
+    .diff-card-icon.green svg { width: 15px; height: 15px; fill: none; stroke: var(--green); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .diff-card-icon.blue  svg { width: 15px; height: 15px; fill: none; stroke: var(--blue); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .diff-card-icon.navy  svg { width: 15px; height: 15px; fill: none; stroke: var(--navy); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .diff-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .diff-card p  { font-size: 12px; color: var(--gray-500); line-height: 1.55; }
+
+    /* ── DIFF CARD ACCORDION ── */
+    .diff-card-top { cursor: pointer; user-select: none; }
+    .diff-card-top:hover h4 { color: var(--blue); }
+    .diff-caret { margin-left: auto; flex-shrink: 0; width: 18px; height: 18px; border-radius: 99px; background: var(--gray-100); display: flex; align-items: center; justify-content: center; transition: background var(--t), transform var(--t); }
+    .diff-caret svg { width: 9px; height: 9px; fill: none; stroke: var(--gray-500); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--t); }
+    .diff-card.open .diff-caret { background: var(--blue-light); }
+    .diff-card.open .diff-caret svg { stroke: var(--blue); transform: rotate(180deg); }
+
+    /* ── DIFF DASHBOARD PREVIEWS ── */
+    .dp { background: var(--gray-50); border-top: 1px solid var(--gray-200); padding: 11px 14px; display: none; }
+    .diff-card.open .dp { display: block; }
+    .dp-label { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+    .dp-file-ref { font-size: 9px; color: var(--gray-400); }
+    /* Timeline (card 1) */
+    .dp-timeline { display: flex; flex-direction: column; gap: 5px; }
+    .dp-tl-item { display: flex; align-items: center; gap: 8px; }
+    .dp-tl-dot { width: 6px; height: 6px; border-radius: 99px; flex-shrink: 0; }
+    .dp-tl-dot.done { background: var(--green); }
+    .dp-tl-dot.active { background: var(--blue); }
+    .dp-tl-text { font-size: 11px; color: var(--gray-600); flex: 1; }
+    .dp-tl-time { font-size: 10px; color: var(--gray-400); white-space: nowrap; }
+    /* Schedule B (card 2) */
+    .dp-exc-list { display: flex; flex-direction: column; gap: 5px; }
+    .dp-exc-row { display: flex; align-items: flex-start; gap: 7px; }
+    .dp-exc-num { font-size: 9px; font-weight: 700; color: var(--gray-400); padding-top: 1px; flex-shrink: 0; width: 12px; }
+    .dp-exc-text { font-size: 11px; color: var(--gray-600); flex: 1; line-height: 1.4; }
+    .dp-exc-tag { font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; background: var(--blue-light); color: var(--blue); white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+    .dp-exc-footer { margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--gray-200); font-size: 10px; color: var(--green); font-weight: 700; display: flex; align-items: center; gap: 5px; }
+    /* Closer card (card 3) */
+    .dp-closer { display: flex; flex-direction: column; gap: 6px; }
+    .dp-closer-row { display: flex; align-items: center; gap: 8px; }
+    .dp-closer-avatar { width: 28px; height: 28px; border-radius: 99px; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .dp-closer-name { font-size: 12px; font-weight: 700; color: var(--navy); }
+    .dp-closer-sub { font-size: 10px; color: var(--gray-500); }
+    .dp-closer-meta { display: flex; flex-direction: column; gap: 3px; padding-top: 6px; border-top: 1px solid var(--gray-200); }
+    .dp-closer-meta-row { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-600); }
+    .dp-closer-meta-row svg { width: 10px; height: 10px; fill: none; stroke: var(--gray-400); stroke-width: 2; stroke-linecap: round; flex-shrink: 0; }
+
+    /* ── ANCHOR BAR ── */
+    .anchor-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky; top: 64px; z-index: 90;
+      padding: 0 24px;
+    }
+    .anchor-bar-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: flex; align-items: center;
+      overflow-x: auto;
+    }
+    .anchor-bar-inner::-webkit-scrollbar { display: none; }
+    .anchor-link {
+      font-size: 13px; font-weight: 500; color: var(--gray-500);
+      text-decoration: none; padding: 14px 14px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color var(--t), border-color var(--t);
+    }
+    .anchor-link:hover { color: var(--navy); }
+    .anchor-link.active { color: var(--navy); font-weight: 600; border-bottom-color: var(--blue); }
+
+    /* ── SECTION BASE ── */
+    .service-section { padding: 88px 24px; }
+    .service-section.on-white  { background: var(--white); }
+    .service-section.on-gray   { background: var(--gray-50); }
+    .service-section.on-navy   { background: var(--navy); }
+    #commercial { position: relative; overflow: hidden; }
+    #commercial::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('skyscrapers.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+    }
+    #commercial > * { position: relative; z-index: 1; }
+    .section-inner { max-width: var(--max-w); margin: 0 auto; }
+
+    .overline {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 10px;
+    }
+    .on-navy .overline { color: rgba(255,255,255,0.45); }
+
+    .section-headline {
+      font-size: clamp(26px, 3.2vw, 38px);
+      font-weight: 800; color: var(--navy);
+      letter-spacing: -0.025em; line-height: 1.12;
+      margin-bottom: 14px;
+    }
+    .on-navy .section-headline { color: white; }
+
+    .section-sub {
+      font-size: 16.5px; color: var(--gray-600); line-height: 1.72;
+      max-width: 580px;
+    }
+    .on-navy .section-sub { color: rgba(255,255,255,0.58); }
+
+    /* ── TWO-COLUMN SERVICE LAYOUT ── */
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+      margin-top: 52px;
+    }
+
+    /* Sub-service checklist */
+    .sub-services { display: flex; flex-direction: column; gap: 9px; margin-top: 26px; }
+    .sub-service {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; font-weight: 500; color: var(--gray-700, #374151);
+    }
+    .sub-service svg { width: 15px; height: 15px; flex-shrink: 0; fill: none; stroke: var(--green); stroke-width: 2.5; stroke-linecap: round; }
+    .on-navy .sub-service { color: rgba(255,255,255,0.7); }
+    .on-navy .sub-service svg { stroke: rgba(255,255,255,0.5); }
+
+    .section-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 600; color: var(--blue);
+      text-decoration: none; margin-top: 28px;
+      transition: gap var(--t);
+    }
+    .section-cta:hover { gap: 9px; }
+    .section-cta svg { width: 13px; height: 13px; fill: none; stroke: var(--blue); stroke-width: 2.5; stroke-linecap: round; }
+    .on-navy .section-cta { color: white; }
+    .on-navy .section-cta svg { stroke: white; }
+
+    /* ── DETAIL CARD (right column) ── */
+    .detail-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    }
+    .on-gray .detail-card { background: var(--white); }
+    .on-navy .detail-card {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.12);
+      box-shadow: none;
+    }
+    .detail-card-head {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--gray-100);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .on-navy .detail-card-head { border-bottom-color: rgba(255,255,255,0.08); }
+    .detail-card-label { font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: -0.01em; }
+    .on-navy .detail-card-label { color: rgba(255,255,255,0.8); }
+    .detail-card-tag {
+      font-size: 10.5px; font-weight: 600;
+      padding: 3px 9px; border-radius: 100px;
+    }
+    .tag-blue  { background: var(--blue-light); color: var(--blue); }
+    .tag-green { background: var(--green-light); color: var(--green); }
+    .tag-gray  { background: var(--gray-100); color: var(--gray-600); }
+    .on-navy .tag-blue  { background: rgba(43,108,246,0.2); color: #93C5FD; }
+    .on-navy .tag-green { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); }
+
+    .detail-card-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 14px; }
+    .detail-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .on-navy .detail-row { border-bottom-color: rgba(255,255,255,0.07); }
+    .detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .detail-row-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .detail-row-icon svg { width: 14px; height: 14px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .detail-row-icon.blue  { background: var(--blue-light); }
+    .detail-row-icon.blue svg  { stroke: var(--blue); }
+    .detail-row-icon.green { background: var(--green-light); }
+    .detail-row-icon.green svg { stroke: var(--green); }
+    .on-navy .detail-row-icon.blue  { background: rgba(43,108,246,0.18); }
+    .on-navy .detail-row-icon.blue svg  { stroke: #93C5FD; }
+    .on-navy .detail-row-icon.green { background: rgba(20,178,76,0.18); }
+    .on-navy .detail-row-icon.green svg { stroke: rgba(255,255,255,0.6); }
+    .detail-row-text h5 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .detail-row-text p  { font-size: 12.5px; color: var(--gray-500); line-height: 1.6; }
+    .on-navy .detail-row-text h5 { color: rgba(255,255,255,0.88); }
+    .on-navy .detail-row-text p  { color: rgba(255,255,255,0.42); }
+
+    /* ── SPECIALTY SEARCHES GRID ── */
+    .searches-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 48px;
+    }
+    .search-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color var(--t), box-shadow var(--t), transform var(--t);
+    }
+    .search-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(43,108,246,0.08); transform: translateY(-2px); }
+    .search-icon {
+      width: 42px; height: 42px;
+      border-radius: 10px; background: var(--blue-light);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .search-icon svg { width: 18px; height: 18px; fill: none; stroke: var(--blue); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .search-card h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .search-card p  { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
+
+    /* ── SETTLEMENT ── */
+    .settlement-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .nj-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--blue); background: var(--blue-light);
+      padding: 4px 11px; border-radius: 100px;
+      margin-bottom: 14px;
+    }
+    .settlement-features { display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+    .settlement-feature { display: flex; gap: 13px; align-items: flex-start; }
+    .settlement-feature-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border-radius: 9px; background: var(--blue-light);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .settlement-feature-icon svg { width: 16px; height: 16px; fill: none; stroke: var(--blue); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .settlement-feature h5 { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .settlement-feature p  { font-size: 13px; color: var(--gray-600); line-height: 1.65; }
+    .settlement-note {
+      background: var(--blue-light);
+      border: 1px solid rgba(43,108,246,0.15);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      font-size: 13px; color: var(--navy); line-height: 1.65;
+      margin-top: 28px;
+    }
+    .settlement-note strong { font-weight: 700; }
+
+    /* ── RECORDINGS STRIP ── */
+    .recordings-strip {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 64px 24px;
+    }
+    .recordings-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .recordings-copy h2 {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 800; color: var(--navy);
+      letter-spacing: -0.025em; line-height: 1.15;
+      margin-bottom: 12px; margin-top: 10px;
+    }
+    .recordings-copy p { font-size: 15px; color: var(--gray-600); line-height: 1.7; }
+    .recordings-points {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .rec-point {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .rec-point svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; fill: none; stroke: var(--green); stroke-width: 2.5; stroke-linecap: round; }
+    .rec-point h5 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+    .rec-point p  { font-size: 12px; color: var(--gray-500); line-height: 1.6; }
+
+    /* ── FEATURE BAND (between services) ── */
+    .feature-band {
+      background: var(--navy);
+      padding: 68px 24px;
+    }
+    .feature-band-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .feature-band .overline { color: rgba(255,255,255,0.45); margin-bottom: 14px; }
+    .feature-band h2 {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 800; color: white;
+      letter-spacing: -0.025em; line-height: 1.15;
+    }
+    .feature-band-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .fbi {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+    .fbi-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px; background: rgba(43,108,246,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 10px;
+    }
+    .fbi-icon svg { width: 15px; height: 15px; fill: none; stroke: #93C5FD; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .fbi h4 { font-size: 13px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .fbi p  { font-size: 12.5px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+    /* ── TILO PANELS ── */
+    .tilo-chip{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);background:var(--blue-light);border:1px solid rgba(43,108,246,0.2);border-radius:4px;padding:2px 7px}
+    .tilo-chip::before{content:"";width:5px;height:5px;border-radius:99px;background:var(--blue);flex-shrink:0}
+    .tilo-scan-banner{background:var(--blue-light);border:1px solid rgba(43,108,246,0.15);border-radius:10px;padding:12px 15px;font-size:11.5px;color:var(--navy);line-height:1.5;margin-bottom:4px}
+    .tilo-scan-banner strong{font-weight:700;display:block;margin-bottom:1px}
+    .review-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray-100)}
+    .review-row:last-child{border-bottom:none}
+    .review-dot{width:7px;height:7px;border-radius:99px;flex-shrink:0;margin-top:4px}
+    .dot-green{background:var(--green)}
+    .dot-orange{background:#F59E0B}
+    .dot-blue{background:var(--blue)}
+    .review-content{display:flex;flex-direction:column;gap:1px}
+    .review-label{font-size:11px;font-weight:700;color:var(--navy)}
+    .review-value{font-size:11.5px;color:var(--gray-600);line-height:1.4}
+    .review-tag{margin-top:3px;display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px}
+    .rtag-green{background:var(--green-light);color:var(--green)}
+    .rtag-blue{background:var(--blue-light);color:var(--blue)}
+    .rtag-orange{background:#FEF3C7;color:#B45309}
+    /* Closing checklist */
+    .close-row{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--gray-100)}
+    .close-row:last-child{border-bottom:none}
+    .close-check{width:20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .check-done{background:var(--green-light)}
+    .check-done svg{stroke:var(--green)}
+    .check-pending{background:#FEF3C7}
+    .check-pending svg{stroke:#B45309}
+    .close-text{font-size:12px;color:var(--navy);font-weight:600;flex:1}
+    .close-sub{font-size:11px;color:var(--gray-500)}
+    .close-status{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+    .cstatus-done{background:var(--green-light);color:var(--green)}
+    .cstatus-pending{background:#FEF3C7;color:#B45309}
+
+    /* ── FINAL CTA ── */
+    .final-cta { background: var(--navy); padding: 88px 24px; }
+    .final-cta-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .final-cta .overline { color: rgba(255,255,255,0.45); margin-bottom: 14px; }
+    .final-cta h2 {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 900; color: white;
+      letter-spacing: -0.03em; line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .final-cta h2 em { font-style: normal; color: #fff; }
+    .final-cta p { font-size: 16px; color: rgba(255,255,255,0.52); line-height: 1.7; }
+    .cta-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .btn-primary {
+      background: var(--blue); color: white;
+      font-size: 14px; font-weight: 600;
+      padding: 11px 24px; border-radius: 8px;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 7px;
+      transition: background var(--t), transform var(--t);
+      box-shadow: 0 4px 16px rgba(43,108,246,0.35);
+    }
+    .btn-primary:hover { background: var(--blue-mid); transform: translateY(-1px); }
+    .btn-primary svg { width: 14px; height: 14px; fill: none; stroke: white; stroke-width: 2.5; stroke-linecap: round; }
+    .btn-ghost {
+      background: transparent; color: rgba(255,255,255,0.7);
+      font-size: 14px; font-weight: 500;
+      padding: 11px 20px; border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color var(--t), color var(--t);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.45); color: white; }
+    .cta-note { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 14px; }
+
+    .contact-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 26px;
+    }
+    .contact-card-label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28); margin-bottom: 16px;
+    }
+    .contact-options { display: flex; flex-direction: column; gap: 8px; }
+    .contact-option {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 15px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background var(--t), border-color var(--t);
+    }
+    .contact-option:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+    .contact-option-icon {
+      width: 34px; height: 34px; flex-shrink: 0;
+      border-radius: 8px; background: rgba(43,108,246,0.22);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-option-icon svg { width: 15px; height: 15px; fill: none; stroke: #93C5FD; stroke-width: 2; stroke-linecap: round; }
+    .contact-option-label { font-size: 13px; font-weight: 700; color: white; }
+    .contact-option-sub { font-size: 11.5px; color: rgba(255,255,255,0.35); margin-top: 1px; }
+    .contact-option-arrow { margin-left: auto; width: 15px; height: 15px; fill: none; stroke: rgba(255,255,255,0.22); stroke-width: 2; stroke-linecap: round; }
+
+    /* ── FOOTER ── */
+    .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px;width:100%}
+    .logo{display:flex;align-items:center;gap:8px}
+    footer{background:var(--gray-50);color:var(--gray-600);padding:80px 0 32px;border-top:1px solid var(--gray-200)}
+    .foot-grid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px;padding-bottom:48px;border-bottom:1px solid var(--gray-200)}
+    .foot-brand p{font-size:.86rem;line-height:1.65;color:var(--gray-400);margin-top:12px;max-width:260px}
+    .foot-col h5{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-400);margin-bottom:14px}
+    .foot-col a{display:block;font-size:.88rem;padding:5px 0;color:var(--gray-600);transition:color .18s;text-decoration:none}
+    .foot-col a:hover{color:var(--blue)}
+    .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:.78rem;color:var(--gray-400);flex-wrap:wrap;gap:12px}
+    .foot-legal{display:flex;gap:20px;flex-wrap:wrap}
+    .foot-legal a{color:var(--gray-400);transition:color .18s;text-decoration:none}
+    .foot-legal a:hover{color:var(--blue)}
+    .foot-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .foot-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gray-100);border:1px solid var(--gray-200);border-radius:6px;padding:4px 9px;font-size:.7rem;color:var(--gray-400);font-weight:500}
+    .foot-badge .bdot{width:5px;height:5px;border-radius:99px;background:var(--green);flex-shrink:0}
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .page-hero-inner, .service-grid, .settlement-split,
+      .recordings-inner, .final-cta-inner, .feature-band-inner { grid-template-columns: 1fr; gap: 40px; }
+      .searches-grid { grid-template-columns: 1fr 1fr; }
+      .recordings-points { grid-template-columns: 1fr; }
+      .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
+    }
+    @media (max-width: 600px) {
+      nav .nav-links { display: none; }
+      .service-section, .recordings-strip, .feature-band, .final-cta { padding: 64px 20px; }
+      .page-hero { padding: 64px 20px 72px; }
+      .searches-grid { grid-template-columns: 1fr; }
+      .feature-band-grid { grid-template-columns: 1fr; }
+      .foot-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="etdhomepage-v2.html" class="nav-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+      </div>
+      <span class="logo-text">eTitleDirect</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="etitledirect_services.html" class="active">Services</a></li>
+      <li><a href="for-professionals.html">Professionals</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="our-team.html">Company</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://software.etitledirect.com" class="btn-nav-ghost">Log In</a>
+      <a href="#" class="btn-nav">
+        Order Title
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="page-hero-eyebrow"><div class="eyebrow-dot"></div>Our Services</div>
+      <h1>Title done right.<br><em>Every time.</em></h1>
+      <p class="page-hero-sub">The difference between title companies is not what they do but how well they do it. We clear title precisely, communicate proactively, and insure what you expect to be insured. There is nothing padded, and nothing vague.</p>
+    </div>
+    <div class="differentiator-cards">
+
+      <!-- CARD 1: PROACTIVE COMMUNICATION -->
+      <div class="diff-card">
+        <div class="diff-card-top">
+          <div class="diff-card-icon green">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+          </div>
+          <div style="flex:1">
+            <h4>Proactive Communication</h4>
+            <p>You hear from us before you have to ask. Every file has one closer assigned to it, and every update reaches you as soon as it matters.</p>
+          </div>
+          <div class="diff-caret"><svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></div>
+        </div>
+        <div class="dp">
+          <div class="dp-label">File updates <span class="dp-file-ref">NY-2026-00841</span></div>
+          <div class="dp-timeline">
+            <div class="dp-tl-item">
+              <div class="dp-tl-dot done"></div>
+              <span class="dp-tl-text">Order received, closer assigned</span>
+              <span class="dp-tl-time">8:47 AM</span>
+            </div>
+            <div class="dp-tl-item">
+              <div class="dp-tl-dot done"></div>
+              <span class="dp-tl-text">Search complete, 2 items flagged</span>
+              <span class="dp-tl-time">9:14 AM</span>
+            </div>
+            <div class="dp-tl-item">
+              <div class="dp-tl-dot done"></div>
+              <span class="dp-tl-text">Flags resolved, commitment drafted</span>
+              <span class="dp-tl-time">10:51 AM</span>
+            </div>
+            <div class="dp-tl-item">
+              <div class="dp-tl-dot active"></div>
+              <span class="dp-tl-text" style="color:var(--blue);font-weight:600">Commitment ready — sent to lender</span>
+              <span class="dp-tl-time" style="color:var(--blue)">11:02 AM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: SPECIFIC EXCEPTIONS ONLY -->
+      <div class="diff-card">
+        <div class="diff-card-top">
+          <div class="diff-card-icon blue">
+            <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8l2.5 2.5L11 5"/></svg>
+          </div>
+          <div style="flex:1">
+            <h4>Specific Exceptions Only</h4>
+            <p>Every exception in your commitment has a valid, property-specific basis. We do not pad policies with generic language to protect ourselves at your expense.</p>
+          </div>
+          <div class="diff-caret"><svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></div>
+        </div>
+        <div class="dp">
+          <div class="dp-label">Schedule B — NY-2026-00841 <span class="dp-file-ref">Tilo reviewed</span></div>
+          <div class="dp-exc-list">
+            <div class="dp-exc-row">
+              <span class="dp-exc-num">1.</span>
+              <span class="dp-exc-text">Mortgage lien, First Republic Bank — to be satisfied at closing</span>
+              <span class="dp-exc-tag">Specific</span>
+            </div>
+            <div class="dp-exc-row">
+              <span class="dp-exc-num">2.</span>
+              <span class="dp-exc-text">Survey exception, ALTA on file — no encroachments confirmed</span>
+              <span class="dp-exc-tag">Specific</span>
+            </div>
+          </div>
+          <div class="dp-exc-footer">
+            <svg viewBox="0 0 12 12" width="10" height="10" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            0 boilerplate exceptions
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: EVERY FILE GETS FULL ATTENTION -->
+      <div class="diff-card">
+        <div class="diff-card-top">
+          <div class="diff-card-icon navy">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="6" r="3"/><path d="M2 14c0-2.761 2.686-5 6-5s6 2.239 6 5"/></svg>
+          </div>
+          <div style="flex:1">
+            <h4>Every File Gets Full Attention</h4>
+            <p>You are not a number in a queue. Every file has a dedicated contact and gets the same level of care, regardless of deal size or transaction type.</p>
+          </div>
+          <div class="diff-caret"><svg viewBox="0 0 10 6"><path d="M1 1l4 4 4-4"/></svg></div>
+        </div>
+        <div class="dp">
+          <div class="dp-label">Your closer <span class="dp-file-ref">NY-2026-00841</span></div>
+          <div class="dp-closer">
+            <div class="dp-closer-row">
+              <div class="dp-closer-avatar">SK</div>
+              <div>
+                <div class="dp-closer-name">Sandra K.</div>
+                <div class="dp-closer-sub">NJ Division · File contact</div>
+              </div>
+            </div>
+            <div class="dp-closer-meta">
+              <div class="dp-closer-meta-row">
+                <svg viewBox="0 0 12 12"><path d="M1 3h10M1 6h7M1 9h5"/></svg>
+                148 Maple St, Summit NJ
+              </div>
+              <div class="dp-closer-meta-row">
+                <svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/><path d="M6 3v3l2 2"/></svg>
+                Stage: Commitment ready — on your desk
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ANCHOR BAR -->
+<div class="anchor-bar">
+  <div class="anchor-bar-inner">
+    <a href="#commercial" class="anchor-link active">Commercial</a>
+    <a href="#residential" class="anchor-link">Residential</a>
+    <a href="#reo" class="anchor-link">REOs &amp; Distressed</a>
+    <a href="#specialty" class="anchor-link">Specialty Searches</a>
+    <a href="#settlement" class="anchor-link">Settlement</a>
+    <a href="#recordings" class="anchor-link">Electronic Recordings</a>
+  </div>
+</div>
+
+
+<!-- ── COMMERCIAL ── -->
+<section class="service-section on-white" id="commercial">
+  <div class="section-inner">
+    <div class="service-grid">
+      <div>
+        <div class="overline">Commercial</div>
+        <h2 class="section-headline">Where lenders' counsel relationships close deals.</h2>
+        <p class="section-sub">We have built our commercial practice around direct communication at every stage, thorough coordination on title clearance, and commitments that reflect the actual risk of the property.</p>
+        <p class="section-sub" style="margin-top:16px;">Our exceptions are specific to the transaction. Every line in the commitment means something. Lenders and their counsel know the difference between a title company that did the work and one that covered itself with boilerplate, and so do we.</p>
+        <div class="sub-services">
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Purchases &amp; Sales</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Commercial Refinances</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Multifamily &amp; Mixed-Use</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Builder &amp; Development Closings</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>1031 Exchange Coordination</div>
+        </div>
+        <a href="#" class="section-cta">Order a commercial file <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+      </div>
+      <div>
+        <div class="detail-card">
+          <div class="detail-card-head">
+            <div class="detail-card-label">What we concentrate on</div>
+            <div class="detail-card-tag tag-blue">Commercial</div>
+          </div>
+          <div class="detail-card-body">
+            <div class="detail-row">
+              <div class="detail-row-icon blue"><svg viewBox="0 0 14 14"><path d="M7 1L1 4v6l6 3 6-3V4L7 1z"/></svg></div>
+              <div class="detail-row-text">
+                <h5>Lenders' Counsel Communication</h5>
+                <p>Proactive, direct communication with lenders' counsel at every stage. We do not wait to be asked for updates.</p>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-row-icon green"><svg viewBox="0 0 14 14"><rect x="1" y="1" width="12" height="12" rx="2"/><path d="M4 7l2.5 2.5L10 5"/></svg></div>
+              <div class="detail-row-text">
+                <h5>Coordination &amp; Clearance of Title</h5>
+                <p>We identify encumbrances, like easements, restrictions, or liens, and address them directly. The commitment you receive is an accurate reflection of record title.</p>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-row-icon blue"><svg viewBox="0 0 14 14"><path d="M2 4h10M2 7h7M2 10h5"/></svg></div>
+              <div class="detail-row-text">
+                <h5>Property-Specific Exceptions</h5>
+                <p>No boilerplate. Every exception has a valid basis for that property specifically. We insure what the client expects to be insured without loopholes built in.</p>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-row-icon green"><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="6"/><path d="M7 4v3l2 2"/></svg></div>
+              <div class="detail-row-text">
+                <h5>Multi-Party Transaction Management</h5>
+                <p>We coordinate with buyer's counsel, seller's counsel, lender, and broker from order through final recording, so that every party is aligned.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── RESIDENTIAL ── -->
+<section class="service-section on-gray" id="residential">
+  <div class="section-inner">
+    <div class="service-grid">
+      <div>
+        <div class="overline">Residential</div>
+        <h2 class="section-headline">Personal service on every purchase, sale, and refinance.</h2>
+        <p class="section-sub">Residential closings move fast and involve people making the most significant financial decision of their lives. They deserve a title company that keeps them informed, keeps the file moving, and keeps the process transparent from order to policy.</p>
+        <p class="section-sub" style="margin-top:16px;">Every residential client gets a dedicated contact who answers the phone.</p>
+        <div class="sub-services">
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Purchases &amp; Sales</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Refinances</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>New Construction Closings</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Condo &amp; Co-op Transactions</div>
+        </div>
+        <a href="#" class="section-cta">Order a residential file <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+      </div>
+      <div>
+        <div class="detail-card">
+          <div class="detail-card-head">
+            <div class="detail-card-label">Tilo Abstract Review — NY-2026-00841</div>
+            <div class="tilo-chip">Tilo</div>
+          </div>
+          <div class="detail-card-body">
+            <div class="tilo-scan-banner">
+              <strong>24 Elm St, Montclair NJ — Residential Purchase</strong>
+              Chain of title read · 1952 to present · 6 conveyances examined · Analysis complete
+            </div>
+            <div class="review-row">
+              <div class="review-dot dot-green"></div>
+              <div class="review-content">
+                <span class="review-label">Chain of Title</span>
+                <span class="review-value">1952 to present — 6 conveyances reviewed. No gaps, no breaks, no missing instruments.</span>
+                <span class="review-tag rtag-green">Clear</span>
+              </div>
+            </div>
+            <div class="review-row">
+              <div class="review-dot dot-orange"></div>
+              <div class="review-content">
+                <span class="review-label">Open Mortgage</span>
+                <span class="review-value">First Republic Bank — Book 5012 Page 44, dated 04/11/2021. To be satisfied at closing.</span>
+                <span class="review-tag rtag-orange">Requires payoff</span>
+              </div>
+            </div>
+            <div class="review-row">
+              <div class="review-dot dot-green"></div>
+              <div class="review-content">
+                <span class="review-label">Municipal — Township of Montclair</span>
+                <span class="review-value">Taxes current as of 06/02/2026. No open violations. Water and sewer confirmed.</span>
+                <span class="review-tag rtag-green">Confirmed</span>
+              </div>
+            </div>
+            <div class="review-row">
+              <div class="review-dot dot-green"></div>
+              <div class="review-content">
+                <span class="review-label">Vesting</span>
+                <span class="review-value">John P. and Mary L. Doe, tenants by the entirety — confirmed per recorded deed.</span>
+                <span class="review-tag rtag-green">Confirmed</span>
+              </div>
+            </div>
+            <div class="review-row">
+              <div class="review-dot dot-blue"></div>
+              <div class="review-content">
+                <span class="review-label">Schedule B Exceptions</span>
+                <span class="review-value">2 property-specific exceptions identified. 0 boilerplate. Both have valid, recorded basis.</span>
+                <span class="review-tag rtag-blue">Commitment ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── REOs & DISTRESSED ── -->
+<section class="service-section on-navy" id="reo">
+  <div class="section-inner">
+    <div class="service-grid">
+      <div>
+        <div class="overline">REOs &amp; Distressed Properties</div>
+        <h2 class="section-headline">Complicated title requires a different kind of precision.</h2>
+        <p class="section-sub">REO transactions, where a lender conveys a foreclosed property to a third-party buyer, involve clearing the foreclosure process, resolving outstanding liens, and producing clean title on a property with a complicated history. Most title companies handle it. Few handle it well.</p>
+        <p class="section-sub" style="margin-top:16px;">We work with the attorneys who control REO inventory. The ability to move quickly, communicate clearly, and clear title accurately is why they keep bringing us deals.</p>
+        <div class="sub-services">
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>REO Closings (Lender-Conveyed)</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Short Sales</div>
+          <div class="sub-service"><svg viewBox="0 0 15 15"><path d="M2 7.5l3.5 3.5L13 3"/></svg>Distressed Property Sales</div>
+        </div>
+        <a href="#" class="section-cta">Talk to us about REOs <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+      </div>
+      <div>
+        <div class="detail-card">
+          <div class="detail-card-head">
+            <div class="detail-card-label">How we handle distressed title</div>
+            <div class="detail-card-tag tag-green">REO &amp; Distressed</div>
+          </div>
+          <div class="detail-card-body">
+            <div class="detail-row">
+              <div class="detail-row-icon blue"><svg viewBox="0 0 14 14"><path d="M2 4h10M2 7h7M2 10h5"/></svg></div>
+              <div class="detail-row-text">
+                <h5>Foreclosure Process Clearance</h5>
+                <p>We review the complete foreclosure record to verify the process was conducted properly and the conveyance to the new buyer is clean and insurable.</p>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-row-icon green"><svg viewBox="0 0 14 14"><rect x="1" y="1" width="12" height="12" rx="2"/><path d="M4 7l2.5 2.5L10 5"/></svg></div>
+              <div class="detail-row-text">
+                <h5>Lien Resolution</h5>
+                <p>Outstanding judgments, unpaid taxes, and subordinate liens are identified and addressed before closing, not discovered at the table.</p>
+              </div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-row-icon blue"><svg viewBox="0 0 14 14"><path d="M7 1L1 4v6l6 3 6-3V4L7 1z"/></svg></div>
+              <div class="detail-row-text">
+                <h5>Short Sale Coordination</h5>
+                <p>Short sales require precise coordination between seller, lender, and third-party buyer. We manage the documentation and timeline so the deal closes.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SPECIALTY SEARCHES ── -->
+<section class="service-section on-white" id="specialty">
+  <div class="section-inner">
+    <div class="overline">Specialty Searches</div>
+    <h2 class="section-headline">The record, when you need just one piece of it.</h2>
+    <p class="section-sub">Not every engagement requires a full title order. We conduct standalone searches for attorneys, lenders, and professionals who need a specific part of the record, accurate, fast, and without the overhead of a full file.</p>
+    <div class="searches-grid">
+      <div class="search-card">
+        <div class="search-icon"><svg viewBox="0 0 18 18"><circle cx="8" cy="8" r="6"/><path d="M13 13l3 3"/></svg></div>
+        <h4>Title Search</h4>
+        <p>Full chain-of-title review identifying ownership history, liens, encumbrances, and any defects in the record.</p>
+      </div>
+      <div class="search-card">
+        <div class="search-icon"><svg viewBox="0 0 18 18"><path d="M3 3h12v12H3z"/><path d="M3 7h12M7 3v12"/></svg></div>
+        <h4>Municipal Search</h4>
+        <p>Review of open permits, code violations, water and sewer balances, and other municipal obligations attached to the property.</p>
+      </div>
+      <div class="search-card">
+        <div class="search-icon"><svg viewBox="0 0 18 18"><rect x="2" y="4" width="14" height="11" rx="2"/><path d="M6 4V3a1 1 0 012 0v1M10 4V3a1 1 0 012 0v1"/></svg></div>
+        <h4>Departmental Search</h4>
+        <p>Searches across relevant city and county departments for outstanding violations, assessments, and unresolved matters.</p>
+      </div>
+      <div class="search-card">
+        <div class="search-icon"><svg viewBox="0 0 18 18"><path d="M9 2L2 7v9h14V7L9 2z"/><path d="M7 11h4M9 9v4"/></svg></div>
+        <h4>Tax Lien Search</h4>
+        <p>Identification of federal and state tax liens filed against the property or its owners that would affect clear title.</p>
+      </div>
+      <div class="search-card">
+        <div class="search-icon"><svg viewBox="0 0 18 18"><rect x="2" y="2" width="14" height="14" rx="3"/><path d="M6 9l2 2 4-4"/></svg></div>
+        <h4>Bankruptcy Search</h4>
+        <p>Review of federal bankruptcy filings to identify any automatic stays or proceedings that may affect the transaction.</p>
+      </div>
+      <div class="search-card">
+        <div class="search-icon"><svg viewBox="0 0 18 18"><path d="M9 2a7 7 0 100 14A7 7 0 009 2z"/><path d="M9 6v4M9 12v.5"/></svg></div>
+        <h4>Patriot Search</h4>
+        <p>OFAC and Patriot Act compliance screening of all parties in the transaction against federal watchlists.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SETTLEMENT ── -->
+<section class="service-section on-gray" id="settlement">
+  <div class="section-inner">
+    <div class="settlement-split">
+      <div>
+        <div class="overline">Settlement Services</div>
+        <h2 class="section-headline">In-house settlement, handled with care.</h2>
+        <p class="section-sub">Settlement requirements vary by state. In many markets, settlement runs through the title company rather than outside counsel, and not every title company does it in-house. We do.</p>
+        <p class="section-sub" style="margin-top: 16px;">Our settlement department gathers the necessary documents and figures to facilitate an expedient closing. We handle all funds collected at closing internally and work with clients case-by-case when issues arise. If taxes were represented as paid and they were not, we hold them back. We do not close blind.</p>
+        <div class="settlement-note">
+          <strong>In-house means accountable.</strong> When settlement is managed internally, there is no handoff between departments or third-party processors. The people handling your funds know your file.
+        </div>
+      </div>
+      <div>
+        <div class="detail-card">
+          <div class="detail-card-head">
+            <div class="detail-card-label">Closing Readiness — NY-2026-00794</div>
+            <div class="tilo-chip">Tilo</div>
+          </div>
+          <div class="detail-card-body">
+            <div class="tilo-scan-banner">
+              <strong>22 Orchard Rd, Montclair NJ — Residential Purchase</strong>
+              Tilo Closing Coordination Agent · Closing scheduled 06/12/2026 · 1 item pending
+            </div>
+            <div class="close-row">
+              <div class="close-check check-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="close-text">Wire instructions <span class="close-sub">— Verified against lender letterhead</span></div>
+              <span class="close-status cstatus-done">Confirmed</span>
+            </div>
+            <div class="close-row">
+              <div class="close-check check-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="close-text">Payoff figures <span class="close-sub">— Confirmed from First Republic Bank</span></div>
+              <span class="close-status cstatus-done">Confirmed</span>
+            </div>
+            <div class="close-row">
+              <div class="close-check check-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="close-text">Settlement statement <span class="close-sub">— Balanced and approved</span></div>
+              <span class="close-status cstatus-done">Confirmed</span>
+            </div>
+            <div class="close-row">
+              <div class="close-check check-done"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="close-text">Title insurance <span class="close-sub">— Owner's and lender's policies bound</span></div>
+              <span class="close-status cstatus-done">Confirmed</span>
+            </div>
+            <div class="close-row">
+              <div class="close-check check-pending"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M6 3v3l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="close-text">Seller final figure <span class="close-sub">— Tilo follow-up sent to seller's attorney · 2:14 PM</span></div>
+              <span class="close-status cstatus-pending">Awaiting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── ELECTRONIC RECORDINGS ── -->
+<div class="recordings-strip" id="recordings">
+  <div class="recordings-inner">
+    <div class="recordings-copy">
+      <div class="overline">Electronic Recordings</div>
+      <h2>Recorded fast.<br>Confirmed digitally.</h2>
+      <p>All documents are recorded electronically across every market we serve, faster turnaround, fewer post-close delays, and digital confirmation of recording status available through your file.</p>
+    </div>
+    <div class="recordings-points">
+      <div class="rec-point">
+        <svg viewBox="0 0 16 16"><path d="M2 8l3.5 3.5L14 3"/></svg>
+        <div><h5>Available Across All Markets We Serve</h5><p>Electronic recording is active across every county in our coverage area.</p></div>
+      </div>
+      <div class="rec-point">
+        <svg viewBox="0 0 16 16"><path d="M2 8l3.5 3.5L14 3"/></svg>
+        <div><h5>Faster Turnaround</h5><p>Documents submitted and confirmed electronically, no physical delivery, no lost instruments.</p></div>
+      </div>
+      <div class="rec-point">
+        <svg viewBox="0 0 16 16"><path d="M2 8l3.5 3.5L14 3"/></svg>
+        <div><h5>Digital Confirmation</h5><p>Stamped recording documents delivered and stored digitally, accessible at any time post-close.</p></div>
+      </div>
+      <div class="rec-point">
+        <svg viewBox="0 0 16 16"><path d="M2 8l3.5 3.5L14 3"/></svg>
+        <div><h5>Post-Close Visibility</h5><p>Recording status tracked through TytlLab alongside the rest of your file.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── FINAL CTA ── -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <div>
+      <div class="overline">Get Started</div>
+      <h2>Ready to open<br>a <em>file?</em></h2>
+      <p>Whether it is a straightforward residential purchase or a complex commercial close, we are ready to get to work. Order a title or reach us directly.</p>
+      <div class="cta-group">
+        <a href="#" class="btn-primary">Order Title <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a href="#" class="btn-ghost">Contact Us</a>
+      </div>
+      <div class="cta-note">ALTA Certified · SOC 2 Compliant</div>
+    </div>
+    <div>
+      <div class="contact-card">
+        <div class="contact-card-label">How to reach us</div>
+        <div class="contact-options">
+          <a href="#" class="contact-option">
+            <div class="contact-option-icon"><svg viewBox="0 0 18 18"><rect x="2" y="4" width="14" height="12" rx="2"/><path d="M2 8l7 5 7-5"/></svg></div>
+            <div><div class="contact-option-label">Order Title Online</div><div class="contact-option-sub">Start a file in minutes</div></div>
+            <svg class="contact-option-arrow" viewBox="0 0 18 18"><path d="M4 9h10M9 4l5 5-5 5"/></svg>
+          </a>
+          <a href="https://software.etitledirect.com" class="contact-option">
+            <div class="contact-option-icon"><svg viewBox="0 0 18 18"><rect x="2" y="3" width="14" height="12" rx="2"/><path d="M2 7h14"/></svg></div>
+            <div><div class="contact-option-label">Access TytlLab</div><div class="contact-option-sub">Log in to your portal</div></div>
+            <svg class="contact-option-arrow" viewBox="0 0 18 18"><path d="M4 9h10M9 4l5 5-5 5"/></svg>
+          </a>
+          <a href="#" class="contact-option">
+            <div class="contact-option-icon" style="background:rgba(255,255,255,0.08);"><svg viewBox="0 0 18 18" style="stroke:rgba(255,255,255,0.55)"><path d="M9 2L2 7v9h14V7L9 2z"/><path d="M7 11h4M9 9v4"/></svg></div>
+            <div><div class="contact-option-label">Get a Free Quote</div><div class="contact-option-sub">Instant fee estimate for your transaction</div></div>
+            <svg class="contact-option-arrow" viewBox="0 0 18 18"><path d="M4 9h10M9 4l5 5-5 5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+          </div>
+          <span class="logo-text">eTitleDirect</span>
+        </div>
+        <p>Full-service title insurance and settlement for residential and commercial real estate.</p>
+        <div class="foot-badges">
+          <span class="foot-badge"><span class="bdot"></span>ALTA Certified</span>
+          <span class="foot-badge"><span class="bdot"></span>SOC 2 Compliant</span>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="#commercial">Commercial</a>
+        <a href="#residential">Residential</a>
+        <a href="#reo">REOs &amp; Distressed</a>
+        <a href="#specialty">Specialty Searches</a>
+        <a href="#settlement">Settlement</a>
+      </div>
+      <div class="foot-col">
+        <h5>Professionals</h5>
+        <a href="for-professionals.html#agents">For Agents</a>
+        <a href="for-professionals.html#lenders">For Lenders</a>
+        <a href="for-professionals.html#attorneys">For Attorneys</a>
+      </div>
+      <div class="foot-col">
+        <h5>Ecosystem</h5>
+        <a href="etitledirect_ecosystem.html">Overview</a>
+        <a href="etitledirect_ecosystem.html#closingmap">ClosingMap</a>
+        <a href="etitledirect_ecosystem.html#closeprop">CloseProp</a>
+        <a href="etitledirect_ecosystem.html#tytllab">TytlLab</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="our-team.html">About</a>
+        <a href="locations-contact.html">Locations &amp; Contact</a>
+        <a href="resources.html">The Title Process</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 eTitleDirect. All rights reserved.</span>
+      <div class="foot-legal">
+        <a href="#">Accessibility</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Diff-card accordion
+  document.querySelectorAll('.diff-card-top').forEach(top => {
+    top.addEventListener('click', () => {
+      const card = top.closest('.diff-card');
+      const isOpen = card.classList.contains('open');
+      document.querySelectorAll('.diff-card').forEach(c => c.classList.remove('open'));
+      if (!isOpen) card.classList.add('open');
+    });
+  });
+
+  const anchors = document.querySelectorAll('.anchor-link');
+  const sections = ['commercial','residential','reo','specialty','settlement','recordings'];
+  window.addEventListener('scroll', () => {
+    let current = sections[0];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 140) current = id;
+    });
+    anchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  });
+</script>
+
+</body>
+</html>
