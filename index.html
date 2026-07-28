@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>eTitleDirect — Working Drafts</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --navy:#0E1B36; --blue:#2B6CF6; --blue-deep:#1F56D6; --blue-soft:#EAF1FF; --blue-line:#C2D6FB;
+  --green:#14B24C; --green-soft:#E6F9EE;
+  --ink:#0B1426; --ink-2:#2D3748; --ink-3:#5A6478; --ink-mute:#8A93A6;
+  --line:#E6E9F0; --bg:#FFFFFF; --bg-soft:#F7F8FB;
+  --font:'Inter',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --shadow:0 8px 24px rgba(11,20,38,0.06),0 1px 2px rgba(11,20,38,0.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--font);color:var(--ink);background:var(--bg);
+  -webkit-font-smoothing:antialiased;font-size:16px;line-height:1.55;
+  letter-spacing:-0.005em;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+header{
+  padding:72px 0 44px;border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(circle at 92% 10%, rgba(43,108,246,0.07), transparent 46%),
+    radial-gradient(circle at 4% 92%, rgba(20,178,76,0.06), transparent 50%);
+}
+.logo-mark{font-weight:700;font-size:1.15rem;letter-spacing:-0.025em;color:var(--ink);margin-bottom:26px}
+.logo-mark .e{color:var(--blue)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:16px;
+}
+.eyebrow .pip{width:6px;height:6px;border-radius:99px;background:var(--blue)}
+h1{font-size:clamp(2.1rem,4vw,2.9rem);font-weight:700;letter-spacing:-0.035em;line-height:1.04;margin-bottom:16px}
+.lead{font-size:1.06rem;color:var(--ink-3);max-width:560px}
+
+.section{padding:52px 0}
+.section + .section{padding-top:0}
+h2{
+  font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:18px;
+}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{
+  display:flex;align-items:flex-start;gap:14px;
+  border:1px solid var(--line);border-radius:12px;
+  padding:18px 20px;background:#fff;
+  transition:border-color .18s, transform .18s, box-shadow .18s;
+}
+.card:hover{border-color:var(--blue-line);transform:translateY(-1px);box-shadow:var(--shadow)}
+.card .n{
+  font-family:var(--mono);font-size:.7rem;font-weight:500;
+  color:var(--ink-mute);padding-top:3px;flex-shrink:0;
+}
+.card h3{font-size:.98rem;font-weight:600;letter-spacing:-0.015em;margin-bottom:3px}
+.card p{font-size:.83rem;color:var(--ink-3);line-height:1.5}
+.card .tag{
+  display:inline-block;margin-top:8px;
+  font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 8px;border-radius:99px;
+  background:var(--green-soft);color:var(--green);
+}
+.card .tag.blue{background:var(--blue-soft);color:var(--blue)}
+.card .tag.grey{background:#F0F2F6;color:var(--ink-mute)}
+
+.note{
+  margin-top:8px;border:1px solid var(--line);border-left:3px solid var(--blue);
+  border-radius:10px;padding:18px 22px;background:var(--bg-soft);
+}
+.note h4{font-size:.9rem;font-weight:700;margin-bottom:8px}
+.note ul{margin:0;padding-left:18px}
+.note li{font-size:.87rem;color:var(--ink-3);line-height:1.6;margin-bottom:4px}
+.note code{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);background:#fff;padding:1px 5px;border-radius:4px;border:1px solid var(--line)}
+
+footer{
+  margin-top:36px;padding:26px 0 60px;border-top:1px solid var(--line);
+  font-size:.8rem;color:var(--ink-mute);
+}
+@media (max-width:720px){
+  .grid{grid-template-columns:1fr}
+  header{padding:52px 0 36px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo-mark"><span class="e">e</span>TitleDirect</div>
+    <div class="eyebrow"><span class="pip"></span>Working Drafts</div>
+    <h1>Website mockups for review</h1>
+    <p class="lead">Coded HTML drafts of the eTitleDirect site. Click any page to view it live. These are working files for design handoff, not final production pages.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Programs</h2>
+    <div class="grid">
+
+      <a class="card" href="verified-seller.html">
+        <span class="n">01</span>
+        <span>
+          <h3>Verified Seller&trade; Program</h3>
+          <p>Hero with Tilo video, 4-step process band, benefits row, Closing Map bar.</p>
+          <span class="tag">Newest</span>
+        </span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Core pages</h2>
+    <div class="grid">
+
+      <a class="card" href="etdhomepage-v2.html">
+        <span class="n">02</span>
+        <span>
+          <h3>Homepage &mdash; v2</h3>
+          <p>The style reference. Nav, footer, and design tokens all originate here.</p>
+          <span class="tag blue">Style source</span>
+        </span>
+      </a>
+
+      <a class="card" href="etitledirect_services.html">
+        <span class="n">03</span>
+        <span>
+          <h3>Services</h3>
+          <p>Commercial, residential, REOs, specialty searches, settlement, e-recording.</p>
+        </span>
+      </a>
+
+      <a class="card" href="for-professionals.html">
+        <span class="n">04</span>
+        <span>
+          <h3>For Professionals</h3>
+          <p>Agents, lenders, and attorneys.</p>
+        </span>
+      </a>
+
+      <a class="card" href="resources.html">
+        <span class="n">05</span>
+        <span>
+          <h3>Resources</h3>
+          <p>The title process and FAQs.</p>
+        </span>
+      </a>
+
+      <a class="card" href="our-team.html">
+        <span class="n">06</span>
+        <span>
+          <h3>Our Team</h3>
+          <p>About the company and leadership.</p>
+        </span>
+      </a>
+
+      <a class="card" href="locations-contact.html">
+        <span class="n">07</span>
+        <span>
+          <h3>Locations &amp; Contact</h3>
+          <p>Offices, contact form, quote request.</p>
+        </span>
+      </a>
+
+      <a class="card" href="order-title.html">
+        <span class="n">08</span>
+        <span>
+          <h3>Order Title</h3>
+          <p>The order intake form.</p>
+        </span>
+      </a>
+
+      <a class="card" href="etitledirect_sitemap_v4.html">
+        <span class="n">09</span>
+        <span>
+          <h3>Sitemap</h3>
+          <p>Full site structure, v4.</p>
+          <span class="tag grey">Reference</span>
+        </span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Notes for the designer</h2>
+    <div class="note">
+      <h4>Known gaps</h4>
+      <ul>
+        <li>The <strong>Programs</strong> nav item is new. Two pages live under it: Verified Seller (built) and Title Protection Plus (not built yet, so <code>title-protection-plus.html</code> and <code>programs.html</code> will 404).</li>
+        <li>The <strong>Ecosystem</strong> page stays hidden for now. Footer links to <code>etitledirect_ecosystem.html</code> are placeholders.</li>
+        <li>Some images sit in separate folders and may not render on every page.</li>
+        <li>Display copy uses <strong>Closing Map</strong> as two words. The domain stays closingmap.com.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">&copy; 2026 eTitleDirect. Internal working drafts.</div>
+</footer>
+
+</body>
+</html>
