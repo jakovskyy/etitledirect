@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Verified Seller&trade; Program — eTitleDirect</title>
+<meta name="description" content="The Verified Seller program helps homeowners prepare their property for sale by completing key milestones that lead to a smoother closing and a stronger listing." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+/* ─────────────────────────────────────────────────────────
+   eTitleDirect — Verified Seller Program
+   Shell (nav, footer, tokens) inherited from etdhomepage-v2.html
+   ───────────────────────────────────────────────────────── */
+:root{
+  --navy:        #0E1B36;
+  --navy-deep:   #081229;
+  --navy-soft:   #16264A;
+
+  --blue:        #2B6CF6;
+  --blue-deep:   #1F56D6;
+  --blue-soft:   #EAF1FF;
+  --blue-line:   #C2D6FB;
+  --blue-ink:    #1B4FD1;
+
+  --green:       #14B24C;
+  --green-bright:#2BD06A;
+  --green-soft:  #E6F9EE;
+  --green-line:  #B4ECC6;
+
+  --ink:         #0B1426;
+  --ink-2:       #2D3748;
+  --ink-3:       #5A6478;
+  --ink-mute:    #8A93A6;
+
+  --line:        #E6E9F0;
+  --line-soft:   #EEF0F5;
+  --bg:          #FFFFFF;
+  --bg-soft:     #F7F8FB;
+  --bg-warm:     #F3F5F9;
+
+  --radius-s: 8px;
+  --radius:   12px;
+  --radius-l: 18px;
+  --radius-xl: 24px;
+
+  --max:      1200px;
+  --pad:      28px;
+
+  --font:     'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono:     'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --shadow-sm: 0 1px 2px rgba(11,20,38,0.05);
+  --shadow:    0 8px 24px rgba(11,20,38,0.06), 0 1px 2px rgba(11,20,38,0.04);
+  --shadow-lg: 0 24px 60px rgba(11,20,38,0.10), 0 4px 12px rgba(11,20,38,0.04);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-size:16px;
+  line-height:1.55;
+  font-weight:400;
+  letter-spacing:-0.005em;
+  font-feature-settings:"cv11","ss01","ss03";
+}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:var(--green-bright);color:var(--navy)}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad);width:100%}
+
+/* ── TYPE ── */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.78rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--blue);
+}
+.eyebrow .pip{width:6px;height:6px;border-radius:99px;background:var(--blue);display:inline-block}
+.eyebrow.green{color:var(--green)}
+.eyebrow.green .pip{background:var(--green)}
+
+h1,h2,h3,h4,h5{letter-spacing:-0.025em;line-height:1.08;font-weight:700;color:var(--ink)}
+.h1{font-size:clamp(2.8rem, 4.8vw, 4.2rem);letter-spacing:-0.035em;line-height:1.01;font-weight:700}
+.h2{font-size:clamp(2rem, 3.4vw, 2.8rem);letter-spacing:-0.03em;line-height:1.05;font-weight:700}
+.h3{font-size:clamp(1.3rem, 1.9vw, 1.55rem);font-weight:700}
+.lead{font-size:1.1rem;color:var(--ink-3);line-height:1.6;max-width:560px;font-weight:400}
+.mono{font-family:var(--mono);font-feature-settings:"tnum";font-variant-numeric:tabular-nums}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.78rem 1.2rem;border-radius:8px;
+  font-weight:600;font-size:.92rem;letter-spacing:-0.005em;
+  transition:transform .18s, box-shadow .18s, background .18s, color .18s, border-color .18s;
+  white-space:nowrap;border:1px solid transparent;
+}
+.btn .arrow{display:inline-block;width:13px;height:13px;transition:transform .18s}
+.btn:hover .arrow{transform:translateX(3px)}
+.btn-primary{
+  background:var(--blue);color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.22), 0 1px 2px rgba(43,108,246,0.22);
+}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.22), 0 8px 18px rgba(43,108,246,0.36)}
+.btn-secondary{
+  background:#fff;color:var(--blue);border-color:var(--blue-line);
+  box-shadow:var(--shadow-sm);
+}
+.btn-secondary:hover{border-color:var(--blue);background:var(--blue-soft)}
+.btn-lg{padding:.95rem 1.5rem;font-size:1rem;border-radius:9px}
+.btn-sm{padding:.55rem .95rem;font-size:.85rem;border-radius:7px}
+
+.link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-weight:600;font-size:.9rem;color:var(--blue);transition:gap .18s;
+}
+.link:hover{gap:.6rem}
+
+/* ─────────────────────────────────────────────────────────
+   NAV  (from etdhomepage-v2.html)
+   ───────────────────────────────────────────────────────── */
+nav.top{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:saturate(160%) blur(14px);
+  -webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .2s, background .2s;
+}
+nav.top.scrolled{
+  background:rgba(255,255,255,0.92);
+  border-bottom-color:var(--line);
+}
+.nav-inner{
+  max-width:var(--max);margin:0 auto;padding:14px var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  position:relative;
+}
+.logo{display:flex;align-items:center;gap:8px;z-index:2}
+.logo-mark{
+  font-family:var(--font);font-weight:700;font-size:1.18rem;
+  letter-spacing:-0.025em;color:var(--ink);line-height:1;
+}
+.logo-mark .e{color:var(--blue);font-weight:700}
+.nav-links{display:flex;align-items:center;gap:1.3rem}
+.nav-link{
+  font-size:.88rem;color:var(--ink-2);font-weight:500;
+  padding:6px 0;transition:color .18s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.nav-link:hover{color:var(--ink)}
+.nav-link.active{color:var(--ink);font-weight:600}
+.nav-link.has-caret::after{
+  content:"";width:0;height:0;border:3.5px solid transparent;
+  border-top-color:currentColor;transform:translateY(2px);opacity:.6;
+}
+.nav-right{display:flex;align-items:center;gap:14px;z-index:2}
+.nav-link-quiet{font-size:.88rem;color:var(--ink-2);font-weight:500;padding:6px 0;transition:color .18s}
+.nav-link-quiet:hover{color:var(--ink)}
+.nav-burger{display:none;width:22px;height:16px;flex-direction:column;justify-content:space-between}
+.nav-burger span{height:1.5px;background:var(--ink);border-radius:2px;display:block;width:100%}
+
+.nav-item{position:relative}
+.nav-item:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.nav-dropdown{
+  position:absolute;top:calc(100% + 12px);left:50%;
+  transform:translateX(-50%) translateY(6px);
+  background:#fff;border:1px solid var(--line);
+  border-radius:12px;box-shadow:var(--shadow-lg);
+  padding:6px;min-width:200px;
+  opacity:0;visibility:hidden;
+  transition:opacity .18s ease, transform .18s ease, visibility .18s ease;
+  z-index:200;
+}
+.nav-dropdown::before{
+  content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+  width:100%;height:12px;background:transparent;
+}
+.nav-dd-item{
+  display:flex;flex-direction:column;gap:2px;
+  padding:9px 12px;border-radius:8px;
+  font-size:.88rem;color:var(--ink-2);font-weight:500;
+  transition:background .15s, color .15s;cursor:pointer;
+}
+.nav-dd-item:hover{background:var(--bg-soft);color:var(--ink)}
+.nav-dd-item .dd-sub{
+  font-size:.75rem;color:var(--ink-mute);font-weight:400;margin-top:1px;
+}
+.nav-dd-divider{height:1px;background:var(--line);margin:4px 0}
+.nav-dropdown.wide{min-width:260px}
+
+/* ─────────────────────────────────────────────────────────
+   VS HERO
+   ───────────────────────────────────────────────────────── */
+.vs-hero{
+  position:relative;background:var(--bg);
+  padding:150px 0 0;overflow:visible;isolation:isolate;
+}
+.vs-hero::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background-image:radial-gradient(rgba(11,20,38,0.07) 1px, transparent 1px);
+  background-size:22px 22px;
+  mask-image:radial-gradient(ellipse 70% 70% at 18% 35%, #000 20%, transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 18% 35%, #000 20%, transparent 78%);
+}
+.vs-hero::after{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(circle at 4% 14%, rgba(43,108,246,0.07), transparent 46%),
+    radial-gradient(circle at 8% 92%, rgba(20,178,76,0.06), transparent 50%);
+}
+.vs-hero-inner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr .92fr;gap:48px;align-items:center;
+  max-width:var(--max);margin:0 auto;padding:0 var(--pad) 70px;
+}
+.vs-hero-copy .eyebrow{margin-bottom:20px}
+.vs-hero-copy .eyebrow svg{width:15px;height:15px}
+.vs-hero-copy h1{margin-bottom:14px}
+.vs-hero-copy h1 .tm{font-size:.42em;vertical-align:super;letter-spacing:0;font-weight:700}
+.vs-subhead{
+  font-size:clamp(1.15rem, 1.7vw, 1.42rem);
+  font-weight:700;color:var(--blue-ink);
+  letter-spacing:-0.02em;margin-bottom:20px;
+}
+.vs-hero-copy .lead{margin-bottom:28px;max-width:470px}
+.vs-hero-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+.vs-hero-ctas .btn-secondary svg{width:16px;height:16px}
+.vs-attrib{font-size:.86rem;color:var(--ink-3)}
+.vs-attrib a{color:var(--blue);font-weight:600}
+.vs-attrib a.cm{color:var(--green)}
+.vs-attrib a:hover{text-decoration:underline}
+
+/* ── Hero checks ── */
+.checks{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-bottom:30px}
+.checks .ck{display:inline-flex;align-items:center;gap:9px;font-size:.98rem;font-weight:600;color:var(--ink)}
+.checks .ck .ring{
+  width:21px;height:21px;border-radius:99px;background:var(--blue-soft);
+  color:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.checks .ck .ring svg{width:12px;height:12px}
+
+/* ─────────────────────────────────────────────────────────
+   HERO VIDEO — Tilo delivering the Verified Seller badge
+   ───────────────────────────────────────────────────────── */
+.vs-video{
+  position:relative;
+  border-radius:var(--radius-l);
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#DDE8F5;
+  box-shadow:var(--shadow-lg);
+  aspect-ratio:1168 / 784;
+}
+.vs-video video{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+}
+/* soft inner edge so the video sits in the page instead of on top of it */
+.vs-video::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(11,20,38,0.06);
+  border-radius:var(--radius-l);
+}
+
+/* Floating badge chip, bottom-left of the video */
+.vs-video-badge{
+  position:absolute;left:16px;bottom:16px;z-index:2;
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,0.94);
+  backdrop-filter:saturate(160%) blur(10px);
+  -webkit-backdrop-filter:saturate(160%) blur(10px);
+  border:1px solid rgba(255,255,255,0.85);
+  border-radius:11px;padding:9px 14px 9px 11px;
+  box-shadow:0 10px 28px rgba(11,20,38,0.18);
+}
+.vs-video-badge .vb-ico{
+  width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  background:var(--green-soft);color:var(--green);
+  display:flex;align-items:center;justify-content:center;
+}
+.vs-video-badge .vb-ico svg{width:17px;height:17px}
+.vs-video-badge .vb-k{
+  font-size:.6rem;font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-mute);line-height:1;
+}
+.vs-video-badge .vb-v{
+  font-size:.86rem;font-weight:700;color:var(--ink);
+  letter-spacing:-0.015em;line-height:1.2;margin-top:3px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   STEP BAND (dark, overlaps hero)
+   ───────────────────────────────────────────────────────── */
+.vs-band-wrap{position:relative;z-index:3;background:var(--bg)}
+.vs-band{
+  background:var(--navy);
+  border-radius:var(--radius-l);
+  padding:34px 30px;
+  display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr 34px 1fr;
+  align-items:center;gap:0;
+  box-shadow:0 24px 60px rgba(11,20,38,0.18);
+  margin-top:-58px;
+}
+.vs-band-step{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:center;padding:0 14px}
+.vs-band-ico{
+  width:56px;height:56px;border-radius:99px;background:#fff;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.vs-band-ico svg{width:26px;height:26px}
+.vs-band-step h4{font-size:.96rem;font-weight:700;color:#fff;letter-spacing:-0.015em;margin-bottom:5px}
+.vs-band-step p{font-size:.82rem;color:rgba(255,255,255,0.66);line-height:1.45}
+.vs-band-arrow{display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4)}
+.vs-band-arrow svg{width:22px;height:14px}
+
+/* ─────────────────────────────────────────────────────────
+   WHY BECOME A VERIFIED SELLER
+   ───────────────────────────────────────────────────────── */
+.section{padding:96px 0;position:relative}
+.section-head{margin-bottom:56px;max-width:760px}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.section-head.center .eyebrow{justify-content:center}
+.section-head h2{margin-bottom:18px;text-wrap:balance}
+
+.vs-why{
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.vs-why-cell{
+  display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:flex-start;
+  padding:0 26px;border-right:1px solid var(--line);
+}
+.vs-why-cell:last-child{border-right:none}
+.vs-why-cell:first-child{padding-left:0}
+.vs-why-cell:last-child{padding-right:0}
+.vs-why-ico{
+  width:52px;height:52px;border-radius:99px;
+  background:var(--blue-soft);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.vs-why-ico svg{width:24px;height:24px}
+.vs-why-cell h3{font-size:1rem;font-weight:700;letter-spacing:-0.015em;margin-bottom:6px}
+.vs-why-cell p{font-size:.88rem;color:var(--ink-3);line-height:1.55}
+
+/* ─────────────────────────────────────────────────────────
+   CLOSING MAP CROSS-PROMO BAR
+   ───────────────────────────────────────────────────────── */
+.vs-cm{padding:0 0 96px}
+.vs-cm-bar{
+  background:#fff;border:1px solid var(--line);
+  border-radius:var(--radius-l);
+  padding:26px 32px;
+  display:grid;grid-template-columns:auto 1fr auto;
+  gap:34px;align-items:center;
+  box-shadow:var(--shadow);
+}
+.vs-cm-logo{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.vs-cm-logo svg{width:26px;height:26px;color:var(--green)}
+.vs-cm-logo .t{font-size:1.22rem;font-weight:700;color:var(--ink);letter-spacing:-0.03em}
+.vs-cm-copy h4{font-size:1rem;font-weight:700;letter-spacing:-0.015em;margin-bottom:4px}
+.vs-cm-copy p{font-size:.88rem;color:var(--ink-3)}
+
+/* ─────────────────────────────────────────────────────────
+   FOOTER  (from etdhomepage-v2.html)
+   ───────────────────────────────────────────────────────── */
+footer{
+  background:var(--bg-soft);color:var(--ink-2);
+  padding:80px 0 32px;border-top:1px solid var(--line);
+}
+.foot-grid{
+  display:grid;grid-template-columns:1.6fr repeat(5,1fr);gap:28px;
+  padding-bottom:48px;border-bottom:1px solid var(--line);
+}
+.foot-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.foot-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--bg-warm);border:1px solid var(--line);
+  border-radius:6px;padding:4px 9px;
+  font-size:.7rem;color:var(--ink-3);font-weight:500;
+}
+.foot-badge .bdot{width:5px;height:5px;border-radius:99px;background:var(--green);flex-shrink:0}
+.foot-brand p{font-size:.86rem;line-height:1.65;color:var(--ink-3);margin-top:12px;max-width:260px}
+footer .logo-mark{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+footer .logo-mark svg{width:26px;height:26px;fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+footer .logo-text{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-0.02em}
+.foot-col h5{
+  font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:14px;
+}
+.foot-col a{
+  display:block;font-size:.88rem;padding:5px 0;color:var(--ink-2);
+  transition:color .18s;text-decoration:none;
+}
+.foot-col a:hover{color:var(--blue)}
+.foot-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:22px;font-size:.78rem;color:var(--ink-3);
+  flex-wrap:wrap;gap:12px;
+}
+.foot-legal{display:flex;gap:20px;flex-wrap:wrap}
+.foot-legal a{color:var(--ink-3);transition:color .18s;text-decoration:none}
+.foot-legal a:hover{color:var(--blue)}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.07s}
+.reveal.d2{transition-delay:.14s}
+.reveal.d3{transition-delay:.21s}
+.reveal.d4{transition-delay:.28s}
+
+/* ─────────────────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1080px){
+  .vs-band{grid-template-columns:1fr 1fr;gap:26px 0;padding:30px 22px}
+  .vs-band-arrow{display:none}
+}
+@media (max-width: 980px){
+  .vs-hero{padding:120px 0 0}
+  .vs-hero-inner{grid-template-columns:1fr;gap:44px;padding-bottom:60px}
+  .vs-video{max-width:none}
+  .vs-why{grid-template-columns:1fr 1fr;gap:34px 0}
+  .vs-why-cell{border-right:none;padding:0 20px}
+  .vs-why-cell:first-child,.vs-why-cell:nth-child(3){padding-left:0}
+  .vs-cm-bar{grid-template-columns:1fr;gap:18px;text-align:left}
+  .foot-grid{grid-template-columns:1fr 1fr 1fr;gap:24px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+}
+@media (max-width: 640px){
+  :root{--pad:20px}
+  .h1{font-size:2.4rem}
+  .vs-band{grid-template-columns:1fr;margin-top:-40px}
+  .vs-why{grid-template-columns:1fr}
+  .vs-why-cell{padding:0}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="top" id="topnav">
+  <div class="nav-inner">
+    <a href="etdhomepage-v2.html" class="logo" aria-label="eTitleDirect home">
+      <span class="logo-mark"><span class="e">e</span>TitleDirect</span>
+    </a>
+    <div class="nav-links">
+
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="etitledirect_services.html">Services</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="etitledirect_services.html#commercial">Commercial</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#residential">Residential</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#specialty">Specialty Searches</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="etitledirect_services.html#settlement">Settlement</a>
+          <a class="nav-dd-item" href="etitledirect_services.html#erecording">Electronic Recordings</a>
+        </div>
+      </div>
+
+      <!-- NEW: Programs -->
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="programs.html">Programs</a>
+        <div class="nav-dropdown wide">
+          <a class="nav-dd-item" href="title-protection-plus.html">
+            Title Protection Plus
+            <span class="dd-sub">Extended coverage after closing</span>
+          </a>
+          <a class="nav-dd-item" href="verified-seller.html">
+            Verified Seller&trade;
+            <span class="dd-sub">Prepare your home before it lists</span>
+          </a>
+        </div>
+      </div>
+
+      <a class="nav-link" href="for-professionals.html">Professionals</a>
+
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="resources.html">Resources</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="resources.html#title-process">The Title Process</a>
+          <a class="nav-dd-item" href="resources.html#faq">FAQs</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="locations-contact.html">Get a Quote</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a class="nav-link has-caret" href="#">Company</a>
+        <div class="nav-dropdown">
+          <a class="nav-dd-item" href="our-team.html">About</a>
+          <div class="nav-dd-divider"></div>
+          <a class="nav-dd-item" href="locations-contact.html">Locations &amp; Contact</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="nav-right">
+      <a href="#" class="nav-link-quiet">Sign in</a>
+      <a class="btn btn-primary btn-sm" href="order-title.html">
+        Order Title
+        <svg class="arrow" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="vs-hero">
+  <div class="vs-hero-inner">
+
+    <div class="vs-hero-copy">
+      <div class="eyebrow reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v6c0 4.8-3.4 8.9-8 10.5-4.6-1.6-8-5.7-8-10.5v-6L12 2z"/><path d="M9 12l2 2 4-4"/></svg>
+        Exclusive Program
+      </div>
+
+      <h1 class="h1 reveal d1">Verified Seller<span class="tm">&trade;</span> Program</h1>
+
+      <p class="vs-subhead reveal d1">Be Prepared. Earn Confidence. Get Results.</p>
+
+      <p class="lead reveal d2">The Verified Seller program helps homeowners prepare their property for sale by completing key milestones that lead to a smoother closing and a stronger listing.</p>
+
+      <div class="checks reveal d2">
+        <span class="ck">
+          <span class="ring"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 7" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          More Buyer Trust
+        </span>
+        <span class="ck">
+          <span class="ring"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 7" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Stronger Listings
+        </span>
+        <span class="ck">
+          <span class="ring"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 7" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Fewer Surprises
+        </span>
+      </div>
+
+      <div class="vs-hero-ctas reveal d3">
+        <a class="btn btn-primary btn-lg" href="#start">Start Your Verification</a>
+        <a class="btn btn-secondary btn-lg" href="#how-it-works">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5V8.5z" fill="currentColor" stroke="none"/></svg>
+          See How It Works
+        </a>
+      </div>
+
+      <p class="vs-attrib reveal d3">Powered by <a class="cm" href="https://closingmap.com">Closing Map</a>. Delivered by <a href="etdhomepage-v2.html">eTitle Direct</a>.</p>
+    </div>
+
+    <!-- Hero video: Tilo delivering the Verified Seller badge -->
+    <div class="vs-video reveal d2">
+      <video
+        src="tilo-flyingVS.mp4"
+        poster="tilo-flyingVS-poster.jpg"
+        autoplay muted loop playsinline preload="metadata"
+        aria-label="Tilo flying up to a home to present the Verified Seller badge"></video>
+
+      <div class="vs-video-badge">
+        <span class="vb-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.4l8 3.4v5.9c0 4.7-3.4 8.7-8 10.2-4.6-1.5-8-5.5-8-10.2V5.8l8-3.4z"/><path d="M8.8 12l2.2 2.2 4.2-4.2"/></svg>
+        </span>
+        <span>
+          <span class="vb-k">Closing Map</span>
+          <span class="vb-v">Verified Seller&trade;</span>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════ 4-STEP BAND ═══════════════ -->
+<div class="vs-band-wrap" id="how-it-works">
+  <div class="wrap">
+    <div class="vs-band reveal">
+
+      <div class="vs-band-step">
+        <span class="vs-band-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2B6CF6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5a7.5 7.5 0 0115 0"/></svg>
+        </span>
+        <div>
+          <h4>1. Create Your Profile</h4>
+          <p>Get started on Closing Map in just a few minutes.</p>
+        </div>
+      </div>
+
+      <div class="vs-band-arrow"><svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h21M17 2l5 5-5 5"/></svg></div>
+
+      <div class="vs-band-step">
+        <span class="vs-band-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2B6CF6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="1.8"/><path d="M9 4V2.8h6V4"/><path d="M9 10.5l1.6 1.6L14 8.7"/><path d="M9 16h6"/></svg>
+        </span>
+        <div>
+          <h4>2. Complete Milestones</h4>
+          <p>Upload documents, answer questions, and stay on track.</p>
+        </div>
+      </div>
+
+      <div class="vs-band-arrow"><svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h21M17 2l5 5-5 5"/></svg></div>
+
+      <div class="vs-band-step">
+        <span class="vs-band-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2B6CF6" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.4l8 3.4v5.9c0 4.7-3.4 8.7-8 10.2-4.6-1.5-8-5.5-8-10.2V5.8l8-3.4z" fill="#2B6CF6" stroke="#2B6CF6"/><path d="M8.6 12.1l2.3 2.3 4.5-4.5" stroke="#fff" stroke-width="2.2"/></svg>
+        </span>
+        <div>
+          <h4>3. Verified by eTitle Direct</h4>
+          <p>Our title experts verify key information and title readiness.</p>
+        </div>
+      </div>
+
+      <div class="vs-band-arrow"><svg viewBox="0 0 24 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 7h21M17 2l5 5-5 5"/></svg></div>
+
+      <div class="vs-band-step">
+        <span class="vs-band-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#14B24C" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.4 11L12 3.8l8.6 7.2"/><path d="M5.6 9.7V20.2h12.8V9.7"/><path d="M9.4 20.2v-5.4h5.2v5.4"/></svg>
+        </span>
+        <div>
+          <h4>4. Earn Verified Listing</h4>
+          <p>Your property earns the Verified Listing badge and stands out.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ WHY BECOME A VERIFIED SELLER ═══════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <h2 class="h2">Why Become a Verified Seller?</h2>
+    </div>
+
+    <div class="vs-why">
+
+      <div class="vs-why-cell reveal">
+        <span class="vs-why-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.4l8 3.4v5.9c0 4.7-3.4 8.7-8 10.2-4.6-1.5-8-5.5-8-10.2V5.8l8-3.4z"/><path d="M8.8 12l2.2 2.2 4.2-4.2"/></svg>
+        </span>
+        <div>
+          <h3>Build Buyer Confidence</h3>
+          <p>Show buyers your home is prepared and trustworthy.</p>
+        </div>
+      </div>
+
+      <div class="vs-why-cell reveal d1">
+        <span class="vs-why-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M6.5 20.5v-6M11 20.5v-10M15.5 20.5v-7M20 20.5V6.5"/></svg>
+        </span>
+        <div>
+          <h3>Stronger, More Competitive Listings</h3>
+          <p>Verified listings attract more interest and better offers.</p>
+        </div>
+      </div>
+
+      <div class="vs-why-cell reveal d2">
+        <span class="vs-why-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6.8V12l3.6 2.1"/></svg>
+        </span>
+        <div>
+          <h3>Faster, Smoother Closings</h3>
+          <p>Reduce delays and surprises with proper preparation.</p>
+        </div>
+      </div>
+
+      <div class="vs-why-cell reveal d3">
+        <span class="vs-why-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 2.8h8l4 4V21a.4.4 0 01-.4.4H6.5a.4.4 0 01-.4-.4V3.2a.4.4 0 01.4-.4z"/><path d="M14.2 2.8V7h4.3"/><path d="M9.2 16.4l1.6 1.6 3.4-3.4"/></svg>
+        </span>
+        <div>
+          <h3>Organized from Day One</h3>
+          <p>Keep all important documents in one secure place.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ CLOSING MAP BAR ═══════════════ -->
+<section class="vs-cm" id="start">
+  <div class="wrap">
+    <div class="vs-cm-bar reveal">
+
+      <div class="vs-cm-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z" fill="currentColor" stroke="none"/><circle cx="12" cy="10.2" r="2.6" fill="#fff" stroke="none"/></svg>
+        <span class="t">Closing Map</span>
+      </div>
+
+      <div class="vs-cm-copy">
+        <h4>Your roadmap to a successful closing.</h4>
+        <p>Track tasks, upload documents, and connect with trusted professionals.</p>
+      </div>
+
+      <a class="btn btn-secondary" href="https://closingmap.com">
+        Learn More About Closing Map
+        <svg class="arrow" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+          </div>
+          <span class="logo-text">eTitleDirect</span>
+        </div>
+        <p>Full-service title insurance and settlement for residential and commercial real estate.</p>
+        <div class="foot-badges">
+          <span class="foot-badge"><span class="bdot"></span>ALTA Certified</span>
+          <span class="foot-badge"><span class="bdot"></span>SOC 2 Compliant</span>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="etitledirect_services.html#commercial">Commercial</a>
+        <a href="etitledirect_services.html#residential">Residential</a>
+        <a href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+        <a href="etitledirect_services.html#specialty">Specialty Searches</a>
+        <a href="etitledirect_services.html#settlement">Settlement</a>
+      </div>
+      <div class="foot-col">
+        <h5>Programs</h5>
+        <a href="title-protection-plus.html">Title Protection Plus</a>
+        <a href="verified-seller.html">Verified Seller&trade;</a>
+      </div>
+      <div class="foot-col">
+        <h5>Professionals</h5>
+        <a href="for-professionals.html#agents">For Agents</a>
+        <a href="for-professionals.html#lenders">For Lenders</a>
+        <a href="for-professionals.html#attorneys">For Attorneys</a>
+      </div>
+      <div class="foot-col">
+        <h5>Ecosystem</h5>
+        <a href="etitledirect_ecosystem.html">Overview</a>
+        <a href="etitledirect_ecosystem.html#closingmap">Closing Map</a>
+        <a href="etitledirect_ecosystem.html#closeprop">CloseProp</a>
+        <a href="etitledirect_ecosystem.html#tytllab">TytlLab</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="our-team.html">About</a>
+        <a href="locations-contact.html">Locations &amp; Contact</a>
+        <a href="resources.html">The Title Process</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 eTitleDirect. All rights reserved.</span>
+      <div class="foot-legal">
+        <a href="#">Accessibility</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Nav scroll state */
+const navEl = document.getElementById('topnav');
+const onScroll = () => navEl.classList.toggle('scrolled', window.scrollY > 20);
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* Reveal on scroll */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* Pause the hero video when it scrolls out of view */
+const vid = document.querySelector('.vs-video video');
+if (vid) {
+  const vidObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { e.isIntersecting ? vid.play().catch(()=>{}) : vid.pause(); });
+  }, { threshold: 0.2 });
+  vidObs.observe(vid);
+}
+
+/* Respect reduced-motion */
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && vid) {
+  vid.removeAttribute('autoplay');
+  vid.pause();
+}
+</script>
+</body>
+</html>
