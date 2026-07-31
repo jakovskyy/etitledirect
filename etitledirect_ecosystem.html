@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ecosystem - eTitleDirect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #0B1D3C;
+      --navy-mid:    #1A3260;
+      --blue:        #2B6CF6;
+      --blue-mid:    #1A56D4;
+      --blue-light:  #EEF4FF;
+      --blue-100:    #DBEAFE;
+      --green:       #14B24C;
+      --green-mid:   #0E9640;
+      --green-light: #ECFDF5;
+      --purple:      #7C3AED;
+      --purple-mid:  #6D28D9;
+      --purple-light:#F5F3FF;
+      --purple-100:  #EDE9FE;
+      --gray-50:     #F8FAFC;
+      --gray-100:    #F1F5F9;
+      --gray-200:    #E2E8F0;
+      --gray-300:    #CBD5E1;
+      --gray-400:    #94A3B8;
+      --gray-500:    #64748B;
+      --gray-600:    #475569;
+      --gray-800:    #1E293B;
+      --white:       #FFFFFF;
+      --font:        'Inter', -apple-system, system-ui, sans-serif;
+      --radius:      10px;
+      --radius-lg:   20px;
+      --max-w:       1160px;
+      --t:           0.18s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--gray-800);
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--gray-200);
+      height: 64px;
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 24px; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-mark { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+    .logo-mark svg { width: 26px; height: 26px; fill: none; stroke: var(--blue); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      font-size: 13.5px; font-weight: 500; color: var(--gray-600);
+      text-decoration: none; padding: 6px 11px; border-radius: 6px;
+      transition: color var(--t), background var(--t);
+    }
+    .nav-links a:hover { color: var(--navy); background: var(--gray-100); }
+    .nav-links a.active { color: var(--navy); font-weight: 600; }
+    .nav-cta { display: flex; align-items: center; gap: 8px; }
+    .btn-nav-ghost {
+      font-size: 13.5px; font-weight: 500; color: var(--gray-600);
+      text-decoration: none; padding: 7px 14px; border-radius: 7px;
+      transition: color var(--t), background var(--t);
+    }
+    .btn-nav-ghost:hover { color: var(--navy); background: var(--gray-100); }
+    .btn-nav {
+      font-size: 13.5px; font-weight: 600; color: white;
+      background: var(--blue); text-decoration: none;
+      padding: 8px 18px; border-radius: 7px;
+      display: flex; align-items: center; gap: 6px;
+      transition: background var(--t), transform var(--t);
+    }
+    .btn-nav:hover { background: var(--blue-mid); transform: translateY(-1px); }
+    .btn-nav svg { width: 14px; height: 14px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--white);
+      background-image: radial-gradient(circle at 1px 1px, var(--gray-200) 1px, transparent 0);
+      background-size: 28px 28px;
+      padding: 88px 24px 96px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Floating orbs behind hero */
+    .hero::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 520px; height: 520px;
+      background: radial-gradient(ellipse at center, rgba(43,108,246,0.09) 0%, transparent 68%);
+      filter: blur(32px);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -60px; left: 10%;
+      width: 380px; height: 380px;
+      background: radial-gradient(ellipse at center, rgba(20,178,76,0.07) 0%, transparent 68%);
+      filter: blur(32px);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 20px;
+    }
+    .eyebrow-ring {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid var(--blue);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--blue);
+    }
+    .hero h1 {
+      font-size: clamp(38px, 4.8vw, 58px);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      margin-bottom: 22px;
+    }
+    .hero h1 em { font-style: normal; color: var(--blue); }
+    .hero-sub {
+      font-size: 17px; color: var(--gray-500);
+      line-height: 1.7; max-width: 480px;
+      margin-bottom: 36px;
+    }
+    .product-pills {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .product-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 600;
+      padding: 7px 14px; border-radius: 100px;
+      border: 1.5px solid;
+    }
+    .product-pill.blue  { color: var(--blue);   background: var(--blue-light);   border-color: var(--blue-100); }
+    .product-pill.green { color: var(--green);  background: var(--green-light);  border-color: #BBF7D0; }
+    .product-pill.purple{ color: var(--purple); background: var(--purple-light); border-color: var(--purple-100); }
+    .product-pill svg   { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+    /* Hero right: ecosystem node diagram */
+    .hero-diagram {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 380px;
+    }
+    .eco-node-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    /* Central hub */
+    .hub-node {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 88px; height: 88px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 4px;
+      box-shadow: 0 0 0 12px rgba(11,29,60,0.06), 0 0 0 24px rgba(11,29,60,0.03);
+      z-index: 3;
+    }
+    .hub-node svg { width: 20px; height: 20px; fill: none; stroke: white; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .hub-label { font-size: 8.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
+    /* Orbit lines */
+    .orbit-svg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1;
+    }
+    /* Product nodes */
+    .product-node {
+      position: absolute;
+      z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .product-node-card {
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex; flex-direction: column; gap: 6px;
+      min-width: 130px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+      border: 1px solid;
+    }
+    .product-node-card.blue   { background: var(--blue-light);   border-color: var(--blue-100); }
+    .product-node-card.green  { background: var(--green-light);  border-color: #BBF7D0; }
+    .product-node-card.purple { background: var(--purple-light); border-color: var(--purple-100); }
+    .product-node-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .product-node-icon.blue   { background: var(--blue); }
+    .product-node-icon.green  { background: var(--green); }
+    .product-node-icon.purple { background: var(--purple); }
+    .product-node-icon svg { width: 15px; height: 15px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .product-node-name { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .product-node-role { font-size: 10.5px; color: var(--gray-500); font-weight: 500; }
+    /* Node positions */
+    .node-closingmap { top: 6%; left: 12%; }
+    .node-closeprop  { top: 6%; right: 8%; }
+    .node-tytllab    { bottom: 8%; left: 50%; transform: translateX(-50%); }
+
+    /* ── JOURNEY BAR ── */
+    .journey {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 40px 24px;
+      overflow: hidden;
+    }
+    .journey-inner {
+      max-width: var(--max-w); margin: 0 auto;
+    }
+    .journey-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gray-400); text-align: center; margin-bottom: 24px;
+    }
+    .journey-flow {
+      display: flex; align-items: center; justify-content: center; gap: 0;
+      flex-wrap: nowrap;
+    }
+    .journey-step {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      flex-shrink: 0;
+    }
+    .journey-step-bubble {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      border: 2px solid;
+    }
+    .journey-step-bubble.neutral { background: white; border-color: var(--gray-300); color: var(--gray-500); }
+    .journey-step-bubble.blue    { background: var(--blue-light);   border-color: var(--blue);   color: var(--blue); }
+    .journey-step-bubble.green   { background: var(--green-light);  border-color: var(--green);  color: var(--green); }
+    .journey-step-bubble.purple  { background: var(--purple-light); border-color: var(--purple); color: var(--purple); }
+    .journey-step-bubble.navy    { background: var(--navy); border-color: var(--navy); color: white; }
+    .journey-step-bubble svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .journey-step-name { font-size: 10.5px; font-weight: 600; color: var(--gray-600); text-align: center; max-width: 68px; line-height: 1.3; }
+    .journey-step-tag  { font-size: 9px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; border-radius: 100px; }
+    .journey-step-tag.blue   { background: var(--blue-light);   color: var(--blue); }
+    .journey-step-tag.green  { background: var(--green-light);  color: var(--green); }
+    .journey-step-tag.purple { background: var(--purple-light); color: var(--purple); }
+    .journey-connector {
+      flex: 1; height: 2px; background: var(--gray-200);
+      position: relative; min-width: 20px; max-width: 60px;
+      margin-bottom: 28px;
+    }
+    .journey-connector::after {
+      content: '';
+      position: absolute; right: -4px; top: -3px;
+      border: 4px solid transparent;
+      border-left-color: var(--gray-300);
+    }
+
+    /* ── PRODUCT SECTIONS ── */
+    .product-section {
+      padding: 96px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-section.on-white { background: var(--white); }
+    .product-section.on-gray  { background: var(--gray-50); }
+    .product-section.on-navy  { background: var(--navy); }
+
+    /* Gradient orb per section */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb.blue   { background: radial-gradient(ellipse, rgba(43,108,246,0.10) 0%, transparent 70%); }
+    .orb.green  { background: radial-gradient(ellipse, rgba(20,178,76,0.09) 0%, transparent 70%); }
+    .orb.purple { background: radial-gradient(ellipse, rgba(124,58,237,0.10) 0%, transparent 70%); }
+
+    .product-section-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      position: relative; z-index: 1;
+    }
+    .product-section-inner.reverse { direction: rtl; }
+    .product-section-inner.reverse > * { direction: ltr; }
+
+    .product-tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 100px;
+      margin-bottom: 16px;
+      border: 1.5px solid;
+    }
+    .product-tag.blue   { color: var(--blue);   background: var(--blue-light);   border-color: var(--blue-100); }
+    .product-tag.green  { color: var(--green);  background: var(--green-light);  border-color: #BBF7D0; }
+    .product-tag.purple { color: var(--purple); background: var(--purple-light); border-color: var(--purple-100); }
+    .product-tag.on-navy-blue   { color: #93C5FD; background: rgba(43,108,246,0.15); border-color: rgba(43,108,246,0.3); }
+    .product-tag svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+    .product-headline {
+      font-size: clamp(28px, 3.4vw, 40px);
+      font-weight: 800; color: var(--navy);
+      letter-spacing: -0.028em; line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .on-navy .product-headline { color: white; }
+    .product-headline em { font-style: normal; }
+    .product-headline em.blue   { color: var(--blue); }
+    .product-headline em.green  { color: var(--green); }
+    .product-headline em.purple { color: #A78BFA; }
+    .on-navy .product-headline em { color: #A78BFA; }
+
+    .product-body {
+      font-size: 16.5px; color: var(--gray-600);
+      line-height: 1.72; margin-bottom: 28px;
+      max-width: 480px;
+    }
+    .on-navy .product-body { color: rgba(255,255,255,0.55); }
+
+    .product-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .product-feature {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; font-weight: 500; color: var(--gray-700, #374151);
+    }
+    .product-feature-check {
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .product-feature-check.blue   { background: var(--blue-light); }
+    .product-feature-check.green  { background: var(--green-light); }
+    .product-feature-check.purple { background: var(--purple-light); }
+    .product-feature-check svg { width: 11px; height: 11px; fill: none; stroke-width: 2.5; stroke-linecap: round; }
+    .product-feature-check.blue   svg { stroke: var(--blue); }
+    .product-feature-check.green  svg { stroke: var(--green); }
+    .product-feature-check.purple svg { stroke: var(--purple); }
+    .on-navy .product-feature { color: rgba(255,255,255,0.7); }
+
+    .product-cta {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 14px; font-weight: 600;
+      padding: 10px 22px; border-radius: 8px;
+      text-decoration: none;
+      transition: background var(--t), transform var(--t);
+    }
+    .product-cta.blue   { background: var(--blue);   color: white; }
+    .product-cta.blue:hover { background: var(--blue-mid); transform: translateY(-1px); }
+    .product-cta.green  { background: var(--green);  color: white; }
+    .product-cta.green:hover { background: var(--green-mid); transform: translateY(-1px); }
+    .product-cta.purple { background: var(--purple); color: white; }
+    .product-cta.purple:hover { background: var(--purple-mid); transform: translateY(-1px); }
+    .product-cta svg { width: 13px; height: 13px; fill: none; stroke: white; stroke-width: 2.5; stroke-linecap: round; }
+    .dev-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11.5px; font-weight: 600; color: var(--gray-500);
+      margin-left: 16px;
+    }
+    .dev-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gray-300); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ── PRODUCT UI MOCKUP CARDS ── */
+    .mockup-wrap {
+      position: relative;
+    }
+
+    /* ClosingMap mockup: consumer transaction tracker */
+    .cm-mockup {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(43,108,246,0.12), 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .cm-header {
+      background: var(--blue);
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cm-header-left { display: flex; flex-direction: column; gap: 2px; }
+    .cm-header-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
+    .cm-address { font-size: 13.5px; font-weight: 700; color: white; }
+    .cm-status-badge { font-size: 10px; font-weight: 700; color: var(--green); background: rgba(20,178,76,0.15); padding: 3px 9px; border-radius: 100px; display: flex; align-items: center; gap: 5px; }
+    .cm-status-badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+    .cm-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
+    .cm-progress-row { display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: var(--gray-800); margin-bottom: 6px; }
+    .cm-progress-row span { color: var(--gray-400); font-weight: 400; }
+    .cm-bar { height: 6px; background: var(--gray-100); border-radius: 3px; }
+    .cm-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--blue), #60A5FA); }
+    .cm-milestones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .cm-milestone { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; color: var(--gray-400); font-weight: 500; }
+    .cm-milestone.done { color: var(--gray-700); }
+    .cm-milestone.active { color: var(--blue); }
+    .cm-m-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--gray-300); background: white; display: flex; align-items: center; justify-content: center; }
+    .cm-milestone.done .cm-m-dot { background: var(--green); border-color: var(--green); }
+    .cm-milestone.active .cm-m-dot { background: var(--blue); border-color: var(--blue); }
+    .cm-m-dot svg { width: 9px; height: 9px; fill: none; stroke: white; stroke-width: 2.5; stroke-linecap: round; }
+    .cm-docs { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+    .cm-doc { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--gray-50); border-radius: 8px; }
+    .cm-doc-icon { width: 28px; height: 28px; border-radius: 7px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cm-doc-icon svg { width: 12px; height: 12px; fill: none; stroke: var(--blue); stroke-width: 2; stroke-linecap: round; }
+    .cm-doc-name { font-size: 11.5px; font-weight: 600; color: var(--gray-800); }
+    .cm-doc-sub { font-size: 10px; color: var(--gray-400); }
+    .cm-doc-status { margin-left: auto; font-size: 9.5px; font-weight: 700; padding: 2px 7px; border-radius: 100px; }
+    .cm-doc-status.ready { background: var(--green-light); color: var(--green); }
+    .cm-doc-status.pending { background: var(--gray-100); color: var(--gray-500); }
+
+    /* CloseProp mockup: RE pro deal board */
+    .cp-mockup {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(20,178,76,0.10), 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .cp-header {
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cp-header-title { font-size: 12.5px; font-weight: 700; color: var(--navy); }
+    .cp-header-meta  { font-size: 10.5px; color: var(--gray-400); }
+    .cp-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .cp-parties-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 2px; }
+    .cp-parties { display: flex; gap: 6px; flex-wrap: wrap; }
+    .cp-party { display: flex; align-items: center; gap: 6px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 100px; padding: 4px 10px 4px 4px; }
+    .cp-party-avatar { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8.5px; font-weight: 700; color: white; flex-shrink: 0; }
+    .cp-party-name { font-size: 10.5px; font-weight: 600; color: var(--gray-700); }
+    .cp-timeline { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+    .cp-tl-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px; border-radius: 8px; border: 1px solid; }
+    .cp-tl-item.done    { background: var(--green-light); border-color: #BBF7D0; }
+    .cp-tl-item.active  { background: #FFF7ED; border-color: #FED7AA; }
+    .cp-tl-item.pending { background: var(--gray-50); border-color: var(--gray-200); }
+    .cp-tl-icon { width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .cp-tl-item.done    .cp-tl-icon { background: var(--green); }
+    .cp-tl-item.active  .cp-tl-icon { background: #F97316; }
+    .cp-tl-item.pending .cp-tl-icon { background: var(--gray-200); }
+    .cp-tl-icon svg { width: 12px; height: 12px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; }
+    .cp-tl-item.pending .cp-tl-icon svg { stroke: var(--gray-400); }
+    .cp-tl-name { font-size: 11.5px; font-weight: 600; color: var(--navy); }
+    .cp-tl-sub  { font-size: 10px; color: var(--gray-500); }
+    .cp-tl-date { margin-left: auto; font-size: 10px; font-weight: 600; color: var(--gray-500); white-space: nowrap; }
+
+    /* TytlLab mockup: AI workflow engine */
+    .tl-mockup {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(124,58,237,0.18), 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .tl-header {
+      background: rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .tl-header-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(124,58,237,0.3); display: flex; align-items: center; justify-content: center; }
+    .tl-header-icon svg { width: 13px; height: 13px; fill: none; stroke: #C4B5FD; stroke-width: 2; stroke-linecap: round; }
+    .tl-header-title { font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.88); }
+    .tl-header-sub   { font-size: 10px; color: rgba(255,255,255,0.35); }
+    .tl-pulse { margin-left: auto; display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; color: #5EAD85; }
+    .tl-pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: #3D9E6A; animation: pulse 1.8s infinite; }
+    .tl-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+    .tl-workflow { display: flex; flex-direction: column; gap: 6px; }
+    .tl-step { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+    .tl-step-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9.5px; font-weight: 700; flex-shrink: 0; }
+    .tl-step-num.done   { background: rgba(20,178,76,0.25); color: #86EFAC; }
+    .tl-step-num.active { background: rgba(124,58,237,0.4); color: #C4B5FD; }
+    .tl-step-num.wait   { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.3); }
+    .tl-step-name  { font-size: 11.5px; font-weight: 600; color: rgba(255,255,255,0.78); }
+    .tl-step-sub   { font-size: 10px; color: rgba(255,255,255,0.35); }
+    .tl-step-badge { margin-left: auto; font-size: 9.5px; font-weight: 700; padding: 2px 8px; border-radius: 100px; white-space: nowrap; }
+    .tl-step-badge.done   { background: rgba(20,178,76,0.18); color: #86EFAC; }
+    .tl-step-badge.active { background: rgba(124,58,237,0.25); color: #C4B5FD; }
+    .tl-step-badge.wait   { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); }
+    .tl-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 4px; }
+    .tl-metric { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 10px 12px; }
+    .tl-metric-val { font-size: 18px; font-weight: 800; color: white; letter-spacing: -0.02em; }
+    .tl-metric-label { font-size: 9.5px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+    /* ── AGENT COMMAND CENTER ── */
+    .tl-cmd-header{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between}
+    .tl-cmd-title{font-size:10px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:.1em;text-transform:uppercase}
+    .tl-cmd-stat{font-size:9.5px;color:rgba(255,255,255,0.3)}
+    .tl-agents{padding:10px 12px;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+    .tl-agent{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:9px;padding:10px 11px;position:relative;overflow:hidden}
+    .tl-agent::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+    .tl-agent.a-cyan::before{background:#4B8FB5}
+    .tl-agent.a-purple::before{background:#8B72BE}
+    .tl-agent.a-green::before{background:#2E8A58}
+    .tl-agent.a-orange::before{background:#B87040}
+    .tl-agent.a-blue::before{background:#2B6CF6}
+    .tl-agent.a-teal::before{background:#2E8A85}
+    .tl-agent-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+    .tl-agent-dept{font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .a-cyan .tl-agent-dept{color:#7AAFCC}
+    .a-purple .tl-agent-dept{color:#A896D8}
+    .a-green .tl-agent-dept{color:#5EAD85}
+    .a-orange .tl-agent-dept{color:#C99470}
+    .a-blue .tl-agent-dept{color:#7AA3EC}
+    .a-teal .tl-agent-dept{color:#5EADA9}
+    .tl-lvl{font-size:8.5px;font-weight:800;padding:1px 5px;border-radius:3px;letter-spacing:.04em}
+    .lvl-l2{background:rgba(75,143,181,0.25);color:#9EC4D8}
+    .lvl-l3{background:rgba(184,112,64,0.25);color:#D4A882}
+    .lvl-l4{background:rgba(46,138,88,0.25);color:#85C4A4}
+    .tl-agent-name{font-size:11px;font-weight:700;color:rgba(255,255,255,0.85);margin-bottom:4px;line-height:1.2}
+    .tl-agent-status{display:flex;align-items:center;gap:5px}
+    .tl-a-dot{width:5px;height:5px;border-radius:99px;background:#3D9E6A;flex-shrink:0}
+    .tl-a-stat{font-size:9.5px;color:rgba(255,255,255,0.38)}
+    .tl-agent-actions{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+    .tl-act{font-size:9px;color:rgba(255,255,255,0.38);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:1px 6px;white-space:nowrap}
+    .tl-legend{display:flex;gap:10px;padding:8px 12px 10px;border-top:1px solid rgba(255,255,255,0.06);flex-wrap:wrap}
+    .tl-leg-item{display:flex;align-items:center;gap:4px;font-size:9px;color:rgba(255,255,255,0.3)}
+    .tl-leg-badge{font-size:8px;font-weight:700;padding:1px 4px;border-radius:3px}
+
+    /* ── TILO SCREENSHOT GALLERY ── */
+    .tilo-gallery{background:var(--navy);padding:0 24px 72px}
+    .tilo-gallery-inner{max-width:var(--max-w);margin:0 auto}
+    .tilo-gallery-eyebrow{display:flex;align-items:center;gap:8px;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,0.28);padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:20px}
+    .tilo-gallery-eyebrow::before{content:"*";font-size:14px;line-height:1;color:rgba(255,255,255,0.2)}
+    .tilo-shots-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+    .tilo-shot{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+    .tilo-shot img{width:100%;display:block}
+    .tilo-shot-wide{border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+    .tilo-shot-wide img{width:100%;display:block}
+
+    /* ── TILO SCREENSHOT (light pages) ── */
+    .tilo-shot-light{margin-top:14px;border-radius:10px;overflow:hidden;border:1px solid var(--gray-200);box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+    .tilo-shot-light img{width:100%;display:block}
+    .tilo-shot-caption{font-size:10px;color:rgba(255,255,255,0.25);margin-top:8px;letter-spacing:.04em}
+    .tilo-shot-caption-light{font-size:10px;color:var(--gray-400);margin-top:6px;letter-spacing:.04em}
+
+    /* ── CONVERGENCE SECTION ── */
+    .convergence {
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 88px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .convergence::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(43,108,246,0.05) 0%, rgba(124,58,237,0.04) 40%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .convergence-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .convergence .overline { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; display: block; }
+    .convergence h2 {
+      font-size: clamp(26px, 3.2vw, 38px);
+      font-weight: 800; color: var(--navy);
+      letter-spacing: -0.025em; line-height: 1.12;
+      margin-bottom: 18px;
+    }
+    .convergence p { font-size: 17px; color: var(--gray-500); line-height: 1.72; margin-bottom: 40px; }
+    .convergence-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      text-align: left;
+    }
+    .conv-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: border-color var(--t), box-shadow var(--t), transform var(--t);
+    }
+    .conv-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.07); }
+    .conv-card:nth-child(1):hover { border-color: var(--blue); box-shadow: 0 8px 30px rgba(43,108,246,0.10); }
+    .conv-card:nth-child(2):hover { border-color: var(--green); box-shadow: 0 8px 30px rgba(20,178,76,0.10); }
+    .conv-card:nth-child(3):hover { border-color: var(--purple); box-shadow: 0 8px 30px rgba(124,58,237,0.10); }
+    .conv-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .conv-card-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .conv-card-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .conv-card-for { font-size: 10.5px; font-weight: 600; color: var(--gray-400); letter-spacing: 0.04em; text-transform: uppercase; }
+    .conv-card p { font-size: 13px; color: var(--gray-500); line-height: 1.65; }
+
+    /* ── FINAL CTA ── */
+    .final-cta { background: var(--navy); padding: 88px 24px; }
+    .final-cta-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .final-cta .overline { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4ADE80; margin-bottom: 14px; display: block; }
+    .final-cta h2 {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 900; color: white;
+      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px;
+    }
+    .final-cta h2 em { font-style: normal; color: #4ADE80; }
+    .final-cta p { font-size: 16px; color: rgba(255,255,255,0.52); line-height: 1.7; }
+    .cta-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .btn-primary {
+      background: var(--blue); color: white;
+      font-size: 14px; font-weight: 600;
+      padding: 11px 24px; border-radius: 8px;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 7px;
+      transition: background var(--t), transform var(--t);
+      box-shadow: 0 4px 16px rgba(43,108,246,0.35);
+    }
+    .btn-primary:hover { background: var(--blue-mid); transform: translateY(-1px); }
+    .btn-primary svg { width: 14px; height: 14px; fill: none; stroke: white; stroke-width: 2.5; stroke-linecap: round; }
+    .btn-ghost {
+      background: transparent; color: rgba(255,255,255,0.7);
+      font-size: 14px; font-weight: 500;
+      padding: 11px 20px; border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color var(--t), color var(--t);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.45); color: white; }
+    .cta-note { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 14px; }
+    .cta-product-links { display: flex; flex-direction: column; gap: 10px; }
+    .cta-product-link {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: background var(--t), border-color var(--t);
+    }
+    .cta-product-link:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+    .cta-product-link-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .cta-product-link-name { font-size: 13.5px; font-weight: 700; color: white; }
+    .cta-product-link-sub { font-size: 11.5px; color: rgba(255,255,255,0.35); margin-top: 1px; }
+    .cta-product-link-arrow { margin-left: auto; width: 15px; height: 15px; fill: none; stroke: rgba(255,255,255,0.22); stroke-width: 2; stroke-linecap: round; }
+
+    /* ── FOOTER ── */
+    .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px;width:100%}
+    .logo{display:flex;align-items:center;gap:8px}
+    footer{background:var(--gray-50);color:var(--gray-600);padding:80px 0 32px;border-top:1px solid var(--gray-200)}
+    .foot-grid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px;padding-bottom:48px;border-bottom:1px solid var(--gray-200)}
+    .foot-brand p{font-size:.86rem;line-height:1.65;color:var(--gray-400);margin-top:12px;max-width:260px}
+    .foot-col h5{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-400);margin-bottom:14px}
+    .foot-col a{display:block;font-size:.88rem;padding:5px 0;color:var(--gray-600);transition:color .18s;text-decoration:none}
+    .foot-col a:hover{color:var(--blue)}
+    .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:.78rem;color:var(--gray-400);flex-wrap:wrap;gap:12px}
+    .foot-legal{display:flex;gap:20px;flex-wrap:wrap}
+    .foot-legal a{color:var(--gray-400);transition:color .18s;text-decoration:none}
+    .foot-legal a:hover{color:var(--blue)}
+    .foot-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .foot-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gray-100);border:1px solid var(--gray-200);border-radius:6px;padding:4px 9px;font-size:.7rem;color:var(--gray-400);font-weight:500}
+    .foot-badge .bdot{width:5px;height:5px;border-radius:99px;background:var(--green);flex-shrink:0}
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero-inner, .product-section-inner, .final-cta-inner { grid-template-columns: 1fr; gap: 48px; }
+      .product-section-inner.reverse { direction: ltr; }
+      .hero-diagram { height: 300px; }
+      .convergence-cards { grid-template-columns: 1fr; }
+      .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
+    }
+    @media (max-width: 600px) {
+      nav .nav-links { display: none; }
+      .product-section, .convergence, .final-cta { padding: 64px 20px; }
+      .hero { padding: 64px 20px 72px; }
+      .journey-flow { gap: 0; }
+      .journey-step-name { font-size: 9px; max-width: 52px; }
+      .foot-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="etdhomepage-v2.html" class="nav-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+      </div>
+      <span class="logo-text">eTitleDirect</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="our-team.html">About</a></li>
+      <li><a href="etitledirect_services.html">Services</a></li>
+      <li><a href="etitledirect_ecosystem.html" class="active">Ecosystem</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="locations-contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://software.etitledirect.com" class="btn-nav-ghost">Log In</a>
+      <a href="#" class="btn-nav">
+        Order Title
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="eyebrow-ring"><div class="eyebrow-dot"></div></div>
+        The Technology Ecosystem
+      </div>
+      <h1>One ecosystem.<br><em>Every transaction.</em></h1>
+      <p class="hero-sub">Three connected products built to serve every party in a real estate transaction, from the buyer's first search to the final recording. Each product does something distinct. Together, they close the loop.</p>
+      <div class="product-pills">
+        <div class="product-pill blue">
+          <svg viewBox="0 0 12 12"><path d="M6 1L1 4.5v6h10v-6L6 1z"/><path d="M4 10.5V7h4v3.5"/></svg>
+          ClosingMap
+        </div>
+        <div class="product-pill green">
+          <svg viewBox="0 0 12 12"><rect x="1" y="3" width="10" height="8" rx="1.5"/><path d="M4 3V2a2 2 0 014 0v1"/></svg>
+          CloseProp
+        </div>
+        <div class="product-pill purple">
+          <svg viewBox="0 0 12 12"><path d="M6 1L1 3.5 6 6l5-2.5L6 1z"/><path d="M1 8l5 2.5L11 8"/><path d="M1 5.5L6 8l5-2.5"/></svg>
+          TytlLab
+        </div>
+      </div>
+    </div>
+    <div class="hero-diagram">
+      <div class="eco-node-wrap">
+        <!-- SVG connector lines -->
+        <svg class="orbit-svg" viewBox="0 0 400 380" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Line from ClosingMap to hub -->
+          <line x1="130" y1="88" x2="196" y2="178" stroke="#DBEAFE" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <!-- Line from CloseProp to hub -->
+          <line x1="280" y1="88" x2="210" y2="178" stroke="#BBF7D0" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <!-- Line from TytlLab to hub -->
+          <line x1="200" y1="330" x2="200" y2="222" stroke="#EDE9FE" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <!-- Orbit circle -->
+          <circle cx="200" cy="195" r="110" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="6 5"/>
+        </svg>
+        <!-- Hub -->
+        <div class="hub-node">
+          <svg viewBox="0 0 24 24"><path d="M11 1L1 6v12l10 5 10-5V6L11 1z"/><path d="M11 11v4M9 13h4"/></svg>
+          <div class="hub-label">eTitleDirect</div>
+        </div>
+        <!-- ClosingMap node -->
+        <div class="product-node node-closingmap">
+          <div class="product-node-card blue">
+            <div class="product-node-icon blue">
+              <svg viewBox="0 0 16 16"><path d="M8 1L1 5.5v8h14v-8L8 1z"/><path d="M5 13.5V9h6v4.5"/></svg>
+            </div>
+            <div class="product-node-name">ClosingMap</div>
+            <div class="product-node-role">For Consumers</div>
+          </div>
+        </div>
+        <!-- CloseProp node -->
+        <div class="product-node node-closeprop">
+          <div class="product-node-card green">
+            <div class="product-node-icon green">
+              <svg viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="10" rx="1.5"/><path d="M5 4V3a3 3 0 016 0v1"/></svg>
+            </div>
+            <div class="product-node-name">CloseProp</div>
+            <div class="product-node-role">For Professionals</div>
+          </div>
+        </div>
+        <!-- TytlLab node -->
+        <div class="product-node node-tytllab">
+          <div class="product-node-card purple">
+            <div class="product-node-icon purple">
+              <svg viewBox="0 0 16 16"><path d="M8 1L1 4.5 8 8l7-3.5L8 1z"/><path d="M1 11l7 3.5L15 11"/><path d="M1 7.5L8 11l7-3.5"/></svg>
+            </div>
+            <div class="product-node-name">TytlLab</div>
+            <div class="product-node-role">Intelligence Layer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSACTION JOURNEY -->
+<div class="journey">
+  <div class="journey-inner">
+    <div class="journey-label">Where each product lives in the transaction</div>
+    <div class="journey-flow">
+      <div class="journey-step">
+        <div class="journey-step-bubble neutral">
+          <svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16c0-3.314 2.686-6 6-6s6 2.686 6 6"/></svg>
+        </div>
+        <div class="journey-step-name">Buyer / Seller</div>
+      </div>
+      <div class="journey-connector"></div>
+      <div class="journey-step">
+        <div class="journey-step-bubble blue">
+          <svg viewBox="0 0 18 18"><path d="M9 2L2 6.5v8h14v-8L9 2z"/></svg>
+        </div>
+        <div class="journey-step-name">ClosingMap</div>
+        <div class="journey-step-tag blue">Consumer</div>
+      </div>
+      <div class="journey-connector"></div>
+      <div class="journey-step">
+        <div class="journey-step-bubble neutral">
+          <svg viewBox="0 0 18 18"><rect x="2" y="5" width="14" height="11" rx="2"/><path d="M6 5V4a3 3 0 016 0v1"/></svg>
+        </div>
+        <div class="journey-step-name">RE Professional</div>
+      </div>
+      <div class="journey-connector"></div>
+      <div class="journey-step">
+        <div class="journey-step-bubble green">
+          <svg viewBox="0 0 18 18"><rect x="2" y="5" width="14" height="11" rx="2"/><path d="M6 11h6M9 8v6"/></svg>
+        </div>
+        <div class="journey-step-name">CloseProp</div>
+        <div class="journey-step-tag green">Professional</div>
+      </div>
+      <div class="journey-connector"></div>
+      <div class="journey-step">
+        <div class="journey-step-bubble neutral">
+          <svg viewBox="0 0 18 18"><path d="M9 2L2 6l7 4 7-4-7-4z"/><path d="M2 12l7 4 7-4"/></svg>
+        </div>
+        <div class="journey-step-name">Title Operations</div>
+      </div>
+      <div class="journey-connector"></div>
+      <div class="journey-step">
+        <div class="journey-step-bubble purple">
+          <svg viewBox="0 0 18 18"><path d="M9 2L2 5.5 9 9l7-3.5L9 2z"/><path d="M2 13l7 3.5L16 13"/><path d="M2 9l7 3.5L16 9"/></svg>
+        </div>
+        <div class="journey-step-name">TytlLab</div>
+        <div class="journey-step-tag purple">Intelligence</div>
+      </div>
+      <div class="journey-connector"></div>
+      <div class="journey-step">
+        <div class="journey-step-bubble navy">
+          <svg viewBox="0 0 18 18"><path d="M3 9l4.5 4.5L15 5"/></svg>
+        </div>
+        <div class="journey-step-name">Closed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CLOSINGMAP -->
+<section class="product-section on-white" id="closingmap">
+  <div class="orb blue" style="width:500px;height:500px;top:-100px;right:-80px;"></div>
+  <div class="product-section-inner">
+    <div>
+      <div class="product-tag blue">
+        <svg viewBox="0 0 12 12"><path d="M6 1L1 4.5v6h10v-6L6 1z"/><path d="M4 10.5V7h4v3.5"/></svg>
+        ClosingMap
+      </div>
+      <h2 class="product-headline">Where buyers and sellers<br>find their <em class="blue">way home.</em></h2>
+      <p class="product-body">The real estate transaction is the most complicated financial event in most people's lives, and most buyers have no idea what's happening between contract and closing. ClosingMap changes that. It gives consumers a clear, real-time view of their transaction, connects them with the professionals working their file, and keeps everyone informed at every stage.</p>
+      <div class="product-features">
+        <div class="product-feature">
+          <div class="product-feature-check blue"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Real-time transaction milestone tracking from contract to closing
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-check blue"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Document access and status updates in one organized place
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-check blue"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Direct connection to the agent, lender, and title team on the file
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-check blue"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Closing cost visibility and timeline at every step
+        </div>
+      </div>
+      <a href="#" class="product-cta blue">
+        Learn about ClosingMap
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+      </a>
+      <span class="dev-badge"><div class="dev-dot"></div>In Development</span>
+    </div>
+    <div class="mockup-wrap">
+      <div class="cm-mockup">
+        <div class="cm-header">
+          <div class="cm-header-left">
+            <div class="cm-header-label">Your Transaction</div>
+            <div class="cm-address">142 Maple Street, Montclair, NJ</div>
+          </div>
+          <div class="cm-status-badge">On Track</div>
+        </div>
+        <div class="cm-body">
+          <div>
+            <div class="cm-progress-row">Closing Progress <span>62% complete</span></div>
+            <div class="cm-bar"><div class="cm-bar-fill" style="width:62%"></div></div>
+          </div>
+          <div class="cm-milestones">
+            <div class="cm-milestone done"><div class="cm-m-dot"><svg viewBox="0 0 9 9"><path d="M1.5 4.5l2 2 3.5-4"/></svg></div>Contract</div>
+            <div class="cm-milestone done"><div class="cm-m-dot"><svg viewBox="0 0 9 9"><path d="M1.5 4.5l2 2 3.5-4"/></svg></div>Search</div>
+            <div class="cm-milestone active"><div class="cm-m-dot"><svg viewBox="0 0 9 9"><path d="M1.5 4.5l2 2 3.5-4"/></svg></div>Commit</div>
+            <div class="cm-milestone"><div class="cm-m-dot"></div>Close</div>
+          </div>
+          <div class="cm-docs">
+            <div class="cm-doc">
+              <div class="cm-doc-icon"><svg viewBox="0 0 14 14"><rect x="2" y="1" width="10" height="12" rx="1.5"/><path d="M4 5h6M4 7h6M4 9h4"/></svg></div>
+              <div><div class="cm-doc-name">Title Commitment</div><div class="cm-doc-sub">Uploaded May 24</div></div>
+              <div class="cm-doc-status ready">Ready</div>
+            </div>
+            <div class="cm-doc">
+              <div class="cm-doc-icon"><svg viewBox="0 0 14 14"><rect x="2" y="1" width="10" height="12" rx="1.5"/><path d="M4 5h6M4 7h6M4 9h4"/></svg></div>
+              <div><div class="cm-doc-name">Closing Disclosure</div><div class="cm-doc-sub">Est. May 30</div></div>
+              <div class="cm-doc-status pending">Pending</div>
+            </div>
+            <div class="cm-doc">
+              <div class="cm-doc-icon"><svg viewBox="0 0 14 14"><rect x="2" y="1" width="10" height="12" rx="1.5"/><path d="M4 5h6M4 7h6M4 9h4"/></svg></div>
+              <div><div class="cm-doc-name">Survey</div><div class="cm-doc-sub">Uploaded May 22</div></div>
+              <div class="cm-doc-status ready">Ready</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CLOSEPROP -->
+<section class="product-section on-gray" id="closeprop">
+  <div class="orb green" style="width:480px;height:480px;top:-80px;left:-60px;"></div>
+  <div class="product-section-inner reverse">
+    <div class="mockup-wrap">
+      <div class="cp-mockup">
+        <div class="cp-header">
+          <div>
+            <div class="cp-header-title">142 Maple St — Active Deal</div>
+            <div class="cp-header-meta">Closing: June 6, 2026</div>
+          </div>
+          <div style="display:flex;gap:5px;">
+            <div style="font-size:10px;font-weight:700;color:var(--green);background:var(--green-light);padding:3px 9px;border-radius:100px;">On Track</div>
+          </div>
+        </div>
+        <div class="cp-body">
+          <div class="cp-parties-label">Deal Parties</div>
+          <div class="cp-parties">
+            <div class="cp-party"><div class="cp-party-avatar" style="background:#2B6CF6;">AG</div><div class="cp-party-name">Buyer's Agent</div></div>
+            <div class="cp-party"><div class="cp-party-avatar" style="background:#14B24C;">LN</div><div class="cp-party-name">Lender</div></div>
+            <div class="cp-party"><div class="cp-party-avatar" style="background:#7C3AED;">AT</div><div class="cp-party-name">Attorney</div></div>
+            <div class="cp-party"><div class="cp-party-avatar" style="background:#0B1D3C;">TD</div><div class="cp-party-name">eTitleDirect</div></div>
+          </div>
+          <div class="cp-timeline">
+            <div class="cp-tl-item done">
+              <div class="cp-tl-icon"><svg viewBox="0 0 12 12"><path d="M2 6l2.5 2.5L10 3"/></svg></div>
+              <div><div class="cp-tl-name">Title Search Complete</div><div class="cp-tl-sub">No open liens found</div></div>
+              <div class="cp-tl-date">May 20</div>
+            </div>
+            <div class="cp-tl-item active">
+              <div class="cp-tl-icon"><svg viewBox="0 0 12 12"><rect x="1" y="2" width="10" height="8" rx="1.5"/><path d="M4 5h4M4 7h2"/></svg></div>
+              <div><div class="cp-tl-name">Commitment Issued</div><div class="cp-tl-sub">Awaiting lender review</div></div>
+              <div class="cp-tl-date">Due May 28</div>
+            </div>
+            <div class="cp-tl-item pending">
+              <div class="cp-tl-icon"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="5"/><path d="M6 3.5V6l1.5 1.5"/></svg></div>
+              <div><div class="cp-tl-name">Closing Scheduled</div><div class="cp-tl-sub">Pending all clears</div></div>
+              <div class="cp-tl-date">Jun 6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="product-tag green">
+        <svg viewBox="0 0 12 12"><rect x="1" y="3" width="10" height="8" rx="1.5"/><path d="M4 3V2a2 2 0 014 0v1"/></svg>
+        CloseProp
+      </div>
+      <h2 class="product-headline">The deal room for real<br>estate <em class="green">professionals.</em></h2>
+      <p class="product-body">Agents, lenders, and attorneys all working on the same transaction rarely have a shared view of it. CloseProp gives every professional on a deal one place to track progress, exchange documents, manage deadlines, and communicate, so the transaction stays moving and no one is left out of the loop.</p>
+      <div class="product-features">
+        <div class="product-feature">
+          <div class="product-feature-check green"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Shared deal dashboard for all parties on a transaction
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-check green"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Deadline tracking and automated milestone alerts
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-check green"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Document management with role-based access for every party
+        </div>
+        <div class="product-feature">
+          <div class="product-feature-check green"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          CRM layer connecting agents with their current and past clients
+        </div>
+      </div>
+      <a href="#" class="product-cta green">
+        Learn about CloseProp
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+      </a>
+      <span class="dev-badge"><div class="dev-dot"></div>In Development</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- TYTLLAB -->
+<section class="product-section on-navy" id="tytllab">
+  <div class="orb purple" style="width:600px;height:600px;top:-120px;right:-80px;background:radial-gradient(ellipse,rgba(124,58,237,0.18) 0%,transparent 70%);"></div>
+  <div class="product-section-inner">
+    <div>
+      <div class="product-tag on-navy-blue">
+        <svg viewBox="0 0 12 12"><path d="M6 1L1 3.5 6 6l5-2.5L6 1z"/><path d="M1 8l5 2.5L11 8"/><path d="M1 5.5L6 8l5-2.5"/></svg>
+        TytlLab
+      </div>
+      <h2 class="product-headline" style="color:white;">The intelligence layer<br>that <em>powers the close.</em></h2>
+      <p class="product-body">TytlLab is the AI-powered title operating system being built to run beneath every eTitleDirect transaction. It replicates repeatable operational workflows, reduces manual workload across every department, and increases the transaction intelligence available at every stage of the process, from order to final recording.</p>
+      <div class="product-features">
+        <div class="product-feature" style="color:rgba(255,255,255,0.75);">
+          <div class="product-feature-check purple" style="background:rgba(124,58,237,0.3);"><svg viewBox="0 0 11 11"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg><style>.product-feature-check.purple svg{stroke:#C4B5FD}</style></div>
+          Automated workflow orchestration from order form to post-close recording
+        </div>
+        <div class="product-feature" style="color:rgba(255,255,255,0.75);">
+          <div class="product-feature-check purple" style="background:rgba(124,58,237,0.3);"><svg viewBox="0 0 11 11" style="stroke:#C4B5FD"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Intelligent document analysis and exception identification
+        </div>
+        <div class="product-feature" style="color:rgba(255,255,255,0.75);">
+          <div class="product-feature-check purple" style="background:rgba(124,58,237,0.3);"><svg viewBox="0 0 11 11" style="stroke:#C4B5FD"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Scalable infrastructure that grows with transaction volume
+        </div>
+        <div class="product-feature" style="color:rgba(255,255,255,0.75);">
+          <div class="product-feature-check purple" style="background:rgba(124,58,237,0.3);"><svg viewBox="0 0 11 11" style="stroke:#C4B5FD"><path d="M1.5 5.5l2.5 2.5L9.5 2"/></svg></div>
+          Cross-department transaction intelligence and operational analytics
+        </div>
+      </div>
+      <a href="#" class="product-cta purple">
+        Learn about TytlLab
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5"/></svg>
+      </a>
+      <span class="dev-badge" style="color:rgba(255,255,255,0.3);"><div class="dev-dot"></div>In Development</span>
+    </div>
+    <div class="mockup-wrap">
+      <div class="tl-mockup">
+        <div class="tl-header">
+          <div class="tl-header-icon"><svg viewBox="0 0 14 14"><path d="M7 1L1 4 7 7l6-3-6-3z"/><path d="M1 10l6 3 6-3"/><path d="M1 7l6 3 6-3"/></svg></div>
+          <div>
+            <div class="tl-header-title">AI Agent Command Center</div>
+            <div class="tl-header-sub">TytlLab · 6 agents active · 1,241 files processed</div>
+          </div>
+          <div class="tl-pulse"><div class="tl-pulse-dot"></div>Live</div>
+        </div>
+        <div class="tl-cmd-header">
+          <span class="tl-cmd-title">Agent Registry</span>
+          <span class="tl-cmd-stat">8 autonomous agents · 5 autonomy levels</span>
+        </div>
+        <div class="tl-agents">
+
+          <div class="tl-agent a-cyan">
+            <div class="tl-agent-top">
+              <span class="tl-agent-dept">Operations</span>
+              <span class="tl-lvl lvl-l3">L3</span>
+            </div>
+            <div class="tl-agent-name">Order Intake Agent</div>
+            <div class="tl-agent-status">
+              <div class="tl-a-dot"></div>
+              <span class="tl-a-stat">142 files · 98.2% accuracy</span>
+            </div>
+            <div class="tl-agent-actions">
+              <span class="tl-act">Receive orders</span>
+              <span class="tl-act">Validate parties</span>
+              <span class="tl-act">Open file</span>
+            </div>
+          </div>
+
+          <div class="tl-agent a-purple">
+            <div class="tl-agent-top">
+              <span class="tl-agent-dept">Search</span>
+              <span class="tl-lvl lvl-l2">L2</span>
+            </div>
+            <div class="tl-agent-name">Search Coordination Agent</div>
+            <div class="tl-agent-status">
+              <div class="tl-a-dot"></div>
+              <span class="tl-a-stat">118 files · 96.7% accuracy</span>
+            </div>
+            <div class="tl-agent-actions">
+              <span class="tl-act">Order searches</span>
+              <span class="tl-act">Track deadlines</span>
+            </div>
+          </div>
+
+          <div class="tl-agent a-blue">
+            <div class="tl-agent-top">
+              <span class="tl-agent-dept">Title · Tilo</span>
+              <span class="tl-lvl lvl-l3">L3</span>
+            </div>
+            <div class="tl-agent-name">Abstract Reader</div>
+            <div class="tl-agent-status">
+              <div class="tl-a-dot"></div>
+              <span class="tl-a-stat">209 files · 97.8% accuracy</span>
+            </div>
+            <div class="tl-agent-actions">
+              <span class="tl-act">Read abstract</span>
+              <span class="tl-act">Flag issues</span>
+              <span class="tl-act">Score risk</span>
+            </div>
+          </div>
+
+          <div class="tl-agent a-orange">
+            <div class="tl-agent-top">
+              <span class="tl-agent-dept">Clearance</span>
+              <span class="tl-lvl lvl-l3">L3</span>
+            </div>
+            <div class="tl-agent-name">Title Clearance Agent</div>
+            <div class="tl-agent-status">
+              <div class="tl-a-dot"></div>
+              <span class="tl-a-stat">94 files · 95.1% accuracy</span>
+            </div>
+            <div class="tl-agent-actions">
+              <span class="tl-act">Draft curative</span>
+              <span class="tl-act">Track resolution</span>
+            </div>
+          </div>
+
+          <div class="tl-agent a-green">
+            <div class="tl-agent-top">
+              <span class="tl-agent-dept">Commitment</span>
+              <span class="tl-lvl lvl-l4">L4</span>
+            </div>
+            <div class="tl-agent-name">Commitment Drafting Agent</div>
+            <div class="tl-agent-status">
+              <div class="tl-a-dot"></div>
+              <span class="tl-a-stat">187 files · 99.1% accuracy</span>
+            </div>
+            <div class="tl-agent-actions">
+              <span class="tl-act">Draft commitment</span>
+              <span class="tl-act">Schedule B review</span>
+            </div>
+          </div>
+
+          <div class="tl-agent a-teal">
+            <div class="tl-agent-top">
+              <span class="tl-agent-dept">Closing</span>
+              <span class="tl-lvl lvl-l3">L3</span>
+            </div>
+            <div class="tl-agent-name">Closing Coordination Agent</div>
+            <div class="tl-agent-status">
+              <div class="tl-a-dot"></div>
+              <span class="tl-a-stat">163 files · 97.4% accuracy</span>
+            </div>
+            <div class="tl-agent-actions">
+              <span class="tl-act">Verify wire</span>
+              <span class="tl-act">Confirm payoff</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="tl-legend">
+          <div class="tl-leg-item"><span class="tl-leg-badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.4)">L1</span>AI Assist</div>
+          <div class="tl-leg-item"><span class="tl-leg-badge lvl-l2">L2</span>AI Recommend</div>
+          <div class="tl-leg-item"><span class="tl-leg-badge lvl-l3">L3</span>AI Execute + Approval</div>
+          <div class="tl-leg-item"><span class="tl-leg-badge lvl-l4">L4</span>Autonomous Low-Risk</div>
+          <div class="tl-leg-item"><span class="tl-leg-badge" style="background:rgba(239,68,68,0.2);color:#FCA5A5">L5</span>Autonomous Dept.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONVERGENCE -->
+<section class="convergence">
+  <div class="convergence-inner">
+    <span class="overline">The Full Picture</span>
+    <h2>Three products. One connected close.</h2>
+    <p>Every real estate transaction involves a buyer, a set of professionals, and a title company. Each product in the ecosystem is built specifically for one of those layers, and they are designed to work in concert, so that information flows cleanly and every party has exactly what they need to move forward.</p>
+    <div class="convergence-cards">
+      <div class="conv-card">
+        <div class="conv-card-top">
+          <div class="conv-card-dot" style="background:var(--blue);"></div>
+          <div>
+            <div class="conv-card-name">ClosingMap</div>
+            <div class="conv-card-for">For Consumers</div>
+          </div>
+        </div>
+        <p>Buyers and sellers get real-time visibility into the transaction they are part of, without having to call anyone to find out what is happening.</p>
+      </div>
+      <div class="conv-card">
+        <div class="conv-card-top">
+          <div class="conv-card-dot" style="background:var(--green);"></div>
+          <div>
+            <div class="conv-card-name">CloseProp</div>
+            <div class="conv-card-for">For Professionals</div>
+          </div>
+        </div>
+        <p>Agents, lenders, and attorneys work the deal from one shared platform, so deadlines get hit, documents get exchanged, and no one is operating on outdated information.</p>
+      </div>
+      <div class="conv-card">
+        <div class="conv-card-top">
+          <div class="conv-card-dot" style="background:var(--purple);"></div>
+          <div>
+            <div class="conv-card-name">TytlLab</div>
+            <div class="conv-card-for">Intelligence Layer</div>
+          </div>
+        </div>
+        <p>The title operation runs on intelligent, automated infrastructure from the moment an order is placed through the final recording, reducing manual work and increasing accuracy at every step.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <div>
+      <span class="overline">Get Started</span>
+      <h2>Ready to open<br>a <em>file?</em></h2>
+      <p>The technology is being built. The title company is open. Order a file today and work with the team building the future of real estate transactions.</p>
+      <div class="cta-group">
+        <a href="#" class="btn-primary">Order Title <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <a href="etitledirect_services.html" class="btn-ghost">View Services</a>
+      </div>
+      <div class="cta-note">ALTA Certified · SOC 2 Compliant</div>
+    </div>
+    <div>
+      <div class="cta-product-links">
+        <a href="#closingmap" class="cta-product-link">
+          <div class="cta-product-link-dot" style="background:var(--blue);"></div>
+          <div><div class="cta-product-link-name">ClosingMap</div><div class="cta-product-link-sub">Transaction visibility for buyers and sellers</div></div>
+          <svg class="cta-product-link-arrow" viewBox="0 0 18 18"><path d="M4 9h10M9 4l5 5-5 5"/></svg>
+        </a>
+        <a href="#closeprop" class="cta-product-link">
+          <div class="cta-product-link-dot" style="background:var(--green);"></div>
+          <div><div class="cta-product-link-name">CloseProp</div><div class="cta-product-link-sub">Deal management for real estate professionals</div></div>
+          <svg class="cta-product-link-arrow" viewBox="0 0 18 18"><path d="M4 9h10M9 4l5 5-5 5"/></svg>
+        </a>
+        <a href="#tytllab" class="cta-product-link">
+          <div class="cta-product-link-dot" style="background:var(--purple);"></div>
+          <div><div class="cta-product-link-name">TytlLab</div><div class="cta-product-link-sub">AI-powered title operating system</div></div>
+          <svg class="cta-product-link-arrow" viewBox="0 0 18 18"><path d="M4 9h10M9 4l5 5-5 5"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 22 20"><path d="M11 1.5L1.5 9H4.5v9h13V9H20.5L11 1.5z"/><path d="M8 18v-5h6v5"/></svg>
+          </div>
+          <span class="logo-text">eTitleDirect</span>
+        </div>
+        <p>Full-service title insurance and settlement for residential and commercial real estate.</p>
+        <div class="foot-badges">
+          <span class="foot-badge"><span class="bdot"></span>ALTA Certified</span>
+          <span class="foot-badge"><span class="bdot"></span>SOC 2 Compliant</span>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <a href="etitledirect_services.html#commercial">Commercial</a>
+        <a href="etitledirect_services.html#residential">Residential</a>
+        <a href="etitledirect_services.html#reo">REOs &amp; Distressed</a>
+        <a href="etitledirect_services.html#specialty">Specialty Searches</a>
+        <a href="etitledirect_services.html#settlement">Settlement</a>
+      </div>
+      <div class="foot-col">
+        <h5>Professionals</h5>
+        <a href="for-professionals.html#agents">For Agents</a>
+        <a href="for-professionals.html#lenders">For Lenders</a>
+        <a href="for-professionals.html#attorneys">For Attorneys</a>
+      </div>
+      <div class="foot-col">
+        <h5>Ecosystem</h5>
+        <a href="etitledirect_ecosystem.html">Overview</a>
+        <a href="#closingmap">ClosingMap</a>
+        <a href="#closeprop">CloseProp</a>
+        <a href="#tytllab">TytlLab</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="our-team.html">About</a>
+        <a href="locations-contact.html">Locations &amp; Contact</a>
+        <a href="resources.html">The Title Process</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 eTitleDirect. All rights reserved.</span>
+      <div class="foot-legal">
+        <a href="#">Accessibility</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
